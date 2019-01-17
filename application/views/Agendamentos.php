@@ -33,6 +33,41 @@
 					setlocale(LC_ALL, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
 					$data = strftime('%d/%m/%Y - %A', strtotime($ev['data_evento']));
 				?>
+
+				<?php
+					if ($ev['status_evento'] == 'Confirmados') {
+						echo "<i class='fas fa-check' title='CONFIRMADO'></i>";
+						$conf = "table-success border border-success";
+
+					}elseif ($ev['status_evento'] == 'Pendente') {
+						$conf = "table-warning border border-warning";
+					} else {
+						$conf = "table-danger border border-danger";
+					}
+				?>
+				<div class="row border border-primary rounded p-2 mb-2 <?= $conf; ?>">
+                <div class="col text-truncate">
+                    <span class="font-weight-light">Cliente: <br /></span>
+                    <span class="h5">
+                    	<?=  anchor("Agenda/DetalheEvento/{$ev['id_evento']}", $ev['nome_cli']);?>
+                    </span>
+                </div>
+                <div class="col">
+                    <span class="font-weight-light">Aniversariante: <br /></span>
+                    <span class="h5"><?=  anchor("Agenda/DetalheEvento/{$ev['id_evento']}", $ev['niver_cli']); ?></span>
+                </div>
+                <div class="col text-truncate">
+                    <span class="font-weight-light">Data do Evento: <br /></span>
+                    <span class="h5"><?=  anchor("Agenda/DetalheEvento/{$ev['id_evento']}", $data); ?> </</span>
+                </div>
+                <div class="col">
+                    <span class="font-weight-light">Personagem/Animação: <br /></span>
+                    <span class="h5">
+                        <?=  anchor("Agenda/DetalheEvento/{$ev['id_evento']}", $ev['psg_evento']); ?>
+                    </span>
+                </div>
+            </div>
+
 				<tr>
 					<td><?=  anchor("Agenda/DetalheEvento/{$ev['id_evento']}", $data); ?> </td>
 					<td><?=  anchor("Agenda/DetalheEvento/{$ev['id_evento']}", $ev['nome_cli']);?></td>
