@@ -110,7 +110,7 @@
 		 	</div>
 		 	<div class="form-group col-md-3">
 		 		<label for="status">Status:</label>
-		 		<select  class="form-control" id="selectpacotes" name="pct">
+		 		<select  class="form-control" id="selectpacotes" name="status">
 		 			<option value="<?= $evento['status_evento']; ?>" selected> <?= $evento['status_evento']; ?></option>
 					<option value="Confirmado">Confirmado</option>
 					<option value="Pendente">Pendente</option>

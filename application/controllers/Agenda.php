@@ -86,8 +86,6 @@ class Agenda extends CI_Controller {
 			'status_evento' => $this->input->post('status'),
 		);
 
-		//print_r($agenda); exit();
-		
 		$this->load->model('Agenda_model');
 		$this->Agenda_model->SaveAgenda($agenda);
 
@@ -115,7 +113,6 @@ class Agenda extends CI_Controller {
 	public function AlterarAgendamento () {
 		$id = $this->input->post('id');
 		$evento = array(
-			'' => $this->input->post('nome_cliente'), 
 			'nome_cli' => $this->input->post('nome_cliente'), 
 			'niver_cli' => $this->input->post('aniversariante'),
 			'idade_niver' => $this->input->post('idade'),
