@@ -108,6 +108,9 @@ class UserSystem extends CI_Controller {
 		$this->load->model('UserSystem_model');
 		$lista = $this->UserSystem_model->MostraUser();
 		$user =  array('usuario' => $lista);
+		$TotalUser = count($lista);
+		$user["total"] = $TotalUser;
+
 
 		$this->load->view('header', $dados);
 		$this->load->view('menu');

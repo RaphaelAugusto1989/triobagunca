@@ -202,7 +202,6 @@ class Agenda extends CI_Controller {
 		$Evento = array('evento' => $idEvento);
 		$Evento['msg'] = $msg;
 
-		//print_r($id); exit();
 		$this->load->view('header', $dados);
 		$this->load->view('menu');
 		$this->load->view('AgendamentoAltera', $Evento);

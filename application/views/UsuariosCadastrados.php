@@ -15,37 +15,43 @@
 				echo "<p class='alert alert-danger text-center'>" .$Success. "</p>";
 			} 
 		?>
-	<table class="table table-bordered table-sm table-hover">
-        <thead class="bg-primary">
-          <tr>
-          	  <td>ID</td>
-              <td>NOME</td>
-              <td>CPF</td>
-              <td>E-MAIL</td>
-          </tr>
-        </thead>
-        <tbody>
+		<span class="text-right"><?php echo "Você tem ".$total." usuários cadastrados!"; ?></span>
       	<?php foreach ($usuario as $user) : 
       		if ($this->session->userdata('IdUser') == '1') {
       	?>
-      			<tr>
-		          	<td><?=  anchor("UserSystem/DetalheUser/{$user['id_usuario']}", $user['id_usuario']); ?></td>
-		            <td><?= anchor("UserSystem/DetalheUser/{$user['id_usuario']}", $user['nome_usuario']." ".$user['sobrenome_usuario']); ?></td>
-		            <td><?= anchor("UserSystem/DetalheUser/{$user['id_usuario']}", $user['cpf_usuario']); ?></td>
-		            <td><?= anchor("UserSystem/DetalheUser/{$user['id_usuario']}", $user['email_usuario']); ?></td>
-		        </tr>
+		<div class="row border border-primary rounded p-2 mb-2 text-primary">
+			<div class="col text-truncate">
+				<span class="font-weight-light">Nome: <br /></span>
+				<span class="h5"><?= anchor("UserSystem/DetalheUser/{$user['id_usuario']}", $user['nome_usuario']." ".$user['sobrenome_usuario']); ?></span>
+			</div>
+			<div class="col">
+				<span class="font-weight-light">CPF: <br /></span>
+				<span class="h5"><?= anchor("UserSystem/DetalheUser/{$user['id_usuario']}", $user['cpf_usuario']); ?></span>
+			</div>
+			<div class="col text-truncate">
+				<span class="font-weight-light">E-mail: <br /></span>
+				<span class="h5"><?= anchor("UserSystem/DetalheUser/{$user['id_usuario']}", $user['email_usuario']); ?></span>
+			</div>
+		</div>
 		<?php
       		} elseif ($user['nome_usuario'] == 'Administrador do Sistema') {
       			echo "";
       		} else {
       	?>
-      		
-	          	<tr>
-		          	<td><?=  anchor("UserSystem/DetalheUser/{$user['id_usuario']}", $user['id_usuario']); ?></td>
-		            <td><?= anchor("UserSystem/DetalheUser/{$user['id_usuario']}", $user['nome_usuario']." ".$user['sobrenome_usuario']); ?></td>
-		            <td><?= anchor("UserSystem/DetalheUser/{$user['id_usuario']}", $user['cpf_usuario']); ?></td>
-		            <td><?= anchor("UserSystem/DetalheUser/{$user['id_usuario']}", $user['email_usuario']); ?></td>
-		        </tr>
+      	<div class="row border border-primary rounded p-2 mb-2 text-primary">
+			<div class="col text-truncate">
+				<span class="font-weight-light">Nome: <br /></span>
+				<span class="h5"><?= anchor("UserSystem/DetalheUser/{$user['id_usuario']}", $user['nome_usuario']." ".$user['sobrenome_usuario']); ?></span>
+			</div>
+			<div class="col">
+				<span class="font-weight-light">CPF: <br /></span>
+				<span class="h5"><?= anchor("UserSystem/DetalheUser/{$user['id_usuario']}", $user['cpf_usuario']); ?></span>
+			</div>
+			<div class="col text-truncate">
+				<span class="font-weight-light">E-mail: <br /></span>
+				<span class="h5"><?= anchor("UserSystem/DetalheUser/{$user['id_usuario']}", $user['email_usuario']); ?></span>
+			</div>
+		</div>	
         <?php 
         	}
          	endforeach ?>

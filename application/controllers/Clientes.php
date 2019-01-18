@@ -91,6 +91,8 @@ class Clientes extends CI_Controller {
 		$this->load->model('Clientes_model');
 		$lista = $this->Clientes_model->MostraClientes();
 		$cliente =  array('clientes' => $lista);
+		$total_cliente = count($lista);
+		$cliente['total'] = $total_cliente;
 		$this->load->view('header', $dados);
 		$this->load->view('menu');
 		$this->load->view('ClientesCadastrados', $cliente);

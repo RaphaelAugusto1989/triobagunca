@@ -15,6 +15,7 @@
 				echo "<p class='alert alert-danger text-center'>" .$Success. "</p>";
 			} 
 		?>
+        <span class="text-right"><?php echo "Você tem ".$total." clientes cadastrados!"; ?></span>
         <?php foreach ($clientes as $cli) : ?>
             <div class="row border border-primary rounded p-2 mb-2 text-primary">
                 <div class="col text-truncate">
