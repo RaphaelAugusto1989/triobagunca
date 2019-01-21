@@ -12,22 +12,21 @@
 				<div class="col-lg-2"><button class="btn btn-secondary btn-sm btn-block" type="submit"><i class="fas fa-search"></i> Buscar</button></div>
 			</div>
 		</form>
-		<table class="table table-bordered table-sm table-hover">
-	        <thead class="bg-primary">
-	          <tr>
-	              <td>PACOTE</td>
-	              <td>TEMPO</td>
-	              <td>VALOR</td>
-	          </tr>
-	        </thead>
-
-	        <tbody>
 	        <?php foreach ($pacotes as $pct) : ?>
-	         	 <tr>
-		            <td><?=  anchor("Pacotes/DetalhePacote/{$pct['id_pct']}", $pct['nome_pct']); ?></td>
-		            <td><?=  anchor("Pacotes/DetalhePacote/{$pct['id_pct']}", $pct['tempo_pct']); ?></td>
-		            <td><?=  anchor("Pacotes/DetalhePacote/{$pct['id_pct']}", $pct['valor_pct']); ?></td>
-          		</tr>
+			<div class="row border border-primary rounded p-2 mb-2 text-primary">
+                <div class="col text-truncate">
+                    <span class="font-weight-light">Pacote: <br /></span>
+                    <span class="h5"><?= anchor("Pacotes/DetalhePacote/{$pct['id_pct']}", $pct['nome_pct']); ?></span>
+                </div>
+                <div class="col">
+                    <span class="font-weight-light">Tempo: <br /></span>
+                    <span class="h5"><?= anchor("Pacotes/DetalhePacote/{$pct['id_pct']}", $pct['tempo_pct']); ?></span>
+                </div>
+                <div class="col text-truncate">
+                    <span class="font-weight-light">Valor: <br /></span>
+                    <span class="h5">R$ <?= anchor("Pacotes/DetalhePacote/{$pct['id_pct']}", $pct['valor_pct']); ?></span>
+                </div>
+            </div>
           	<?php endforeach ?>
 	        </tbody>
       	</table>

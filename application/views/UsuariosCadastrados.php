@@ -15,6 +15,13 @@
 				echo "<p class='alert alert-danger text-center'>" .$Success. "</p>";
 			} 
 		?>
+		<?php
+			if ($this->session->userdata('IdUser') == '1') {
+				$total = $total;
+			} else {
+				$total = $total - 1;
+			}
+		?>
 		<span class="text-right"><?php echo "Você tem ".$total." usuários cadastrados!"; ?></span>
       	<?php foreach ($usuario as $user) : 
       		if ($this->session->userdata('IdUser') == '1') {
@@ -38,6 +45,7 @@
       			echo "";
       		} else {
       	?>
+		
       	<div class="row border border-primary rounded p-2 mb-2 text-primary">
 			<div class="col text-truncate">
 				<span class="font-weight-light">Nome: <br /></span>
