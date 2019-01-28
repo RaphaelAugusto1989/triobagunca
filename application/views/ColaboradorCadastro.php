@@ -50,7 +50,11 @@
 			</div>
 			<div class="form-group col-md-3">
 				<label for="inputAddress">Estado:</label>
-	  			<input type="text" name="estado" class="form-control" id="inputestado" placeholder="Bairro">
+	  			<input type="text" name="estado" class="form-control" id="inputestado" placeholder="Estado">
+			</div>
+			<div class="form-group col-md-6">
+				<label for="inputAddress">Complemento:</label>
+	  			<input type="text" name="estado" class="form-control" id="inputestado" placeholder="Complemento">
 			</div>
 		</div>
 		<span class="form-row border border-dark border-top-0 border-left-0 border-right-0 border-bottom-1 mb-3 ml-1 mt-3 mr-1 pb-2 font-weight-bold">CONTATOS: </span>
@@ -69,6 +73,22 @@
   			<input type="email" name="email" placeholder="E-mail" class="form-control" id="inputEmail4">
 		</div>
 		<span class="form-row border border-dark border-top-0 border-left-0 border-right-0 border-bottom-1 mb-3 ml-1 mt-3 mr-1 pb-2 font-weight-bold">DADOS DO SISTEMA: </span>
+		<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="inputuser">Usuário:</label>
+          			<input type="input" name="user" class="form-control" id="inputuser" required>
+        		</div>
+        		<div class="form-group col-md-6">
+        			<label for="senha">Senha:</label>
+          			<div class="input-group">
+	          			<input type="password" name="password" id="password" class="form-control" placeholder= "Digite uma Senha"> 
+	          			<div class="input-group-append">
+	   	       				<a href="#" class="bg-white btn btn-link border border-left-0" id="showPassword" title="Mostrar Senha" style="text-decoration: none;"><i class="fas fa-eye"></i></a>
+	   	       			</div>
+   	       			</div>
+          			<a href="javascript:Password(this);"> <i class="fas fa-key"></i> Gerar Senha </a>
+        		</div>
+        	</div>
         <button type="submit" class="btn btn-primary">Salvar <i class="fas fa-save ml-2"></i></button>
 	</form>
 
