@@ -11,9 +11,16 @@
 				echo "<p class='alert alert-danger text-center'>" .$msg. "</p>";
 			}
 		?>
-		<div class="form-group">
-  			<label for="inputname">Nome:</label>
-  			<input type="text" name="nome" id="inputname" class="form-control" placeholder="Nome Completo">
+		<span class="form-row border border-dark border-top-0 border-left-0 border-right-0 border-bottom-1 mb-3 ml-1 mt-3 mr-1 pb-2 font-weight-bold">DADOS: </span>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+	  			<label for="inputname">Nome:</label>
+	  			<input type="text" name="nome" id="inputname" class="form-control" placeholder="Nome">
+	  		</div>
+  			<div class="form-group col-md-6">
+    			<label for="inputsobrename">Sobrenome:</label>
+	  			<input type="text" name="sobrenome" id="inputsobrename" class="form-control" placeholder="Sobrenome">
+    		</div>
 		</div>
 		<div class="form-row">
 			<div class="form-group col-md-6">
@@ -25,10 +32,28 @@
       			<input type="date" name="nascimento" class="form-control" id="inputdate">
     		</div>
     	</div>
-		<div class="form-group">
-			<label for="inputAddress">Endereço:</label>
-  			<input type="text" name="endereco" class="form-control" id="inputAddress" placeholder="Endereço Completo">
+    	<span class="form-row border border-dark border-top-0 border-left-0 border-right-0 border-bottom-1 mb-3 ml-1 mt-3 mr-1 pb-2 font-weight-bold">ENDEREÇO: </span>
+    	<div class="form-row">
+	    	<div class="form-group col-md-3">
+				<label for="inputAddress">CEP:</label>
+	  			<input type="text" name="cep" class="form-control" id="inputcep" placeholder="99.999-999">
+			</div>
+			<div class="form-group col-md-9">
+				<label for="inputAddress">Endereço:</label>
+	  			<input type="text" name="endereco" class="form-control" id="inputAddress" placeholder="Endereço">
+			</div>
 		</div>
+		<div class="form-row">
+	    	<div class="form-group col-md-3">
+				<label for="inputAddress">Bairro:</label>
+	  			<input type="text" name="bairro" class="form-control" id="inputbairro" placeholder="Bairro">
+			</div>
+			<div class="form-group col-md-3">
+				<label for="inputAddress">Estado:</label>
+	  			<input type="text" name="estado" class="form-control" id="inputestado" placeholder="Bairro">
+			</div>
+		</div>
+		<span class="form-row border border-dark border-top-0 border-left-0 border-right-0 border-bottom-1 mb-3 ml-1 mt-3 mr-1 pb-2 font-weight-bold">CONTATOS: </span>
 		<div class="form-row">
 			<div class="form-group col-md-6">
 				<label for="first_name">Contatos:</label>
@@ -43,10 +68,7 @@
 			<label for="inputEmail4">E-mail:</label>
   			<input type="email" name="email" placeholder="E-mail" class="form-control" id="inputEmail4">
 		</div>
-		<div class="form-group">
-			<label for="inputobs">Obs:</label>
-			<textarea class="form-control" name="obs" id="inputobs" rows="6"></textarea>
-      	</div>
+		<span class="form-row border border-dark border-top-0 border-left-0 border-right-0 border-bottom-1 mb-3 ml-1 mt-3 mr-1 pb-2 font-weight-bold">DADOS DO SISTEMA: </span>
         <button type="submit" class="btn btn-primary">Salvar <i class="fas fa-save ml-2"></i></button>
 	</form>
 
