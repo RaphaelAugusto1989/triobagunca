@@ -6,6 +6,7 @@
 		<script src="<?php echo base_url('assets/js/bsadmin.js');?>"></script>
 		<script src="<?php echo base_url('assets/js/jquery.mask.min.js')?>"></script>
 		<script src="<?php echo base_url('assets/js/mask.js')?>"></script>
+		<script src="<?php echo base_url('assets/js/busca_cep.js')?>"></script>
 		<script src="<?php echo base_url('assets/js/jquery-ui.js');?>"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){

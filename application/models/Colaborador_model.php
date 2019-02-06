@@ -36,4 +36,13 @@ class Colaborador_model extends CI_Model {
 		return TRUE;
 	}
 
+	#LOGA O COLABORADOR NO SISTEMA
+	public function OpenUser($login, $pass) {
+		$this->db->where('email_colab', $login);
+		$this->db->or_where('login_colab', $login);
+		$this->db->where('senha_colab', $pass);
+		$user = $this->db->get('colaborador')->result();
+		return $user;
+	}
+
 }

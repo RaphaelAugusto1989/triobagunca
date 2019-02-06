@@ -9,7 +9,7 @@ class LoginSystem extends CI_Controller {
 		$this->load->library('form_validation');
 	}
 
-   	public function Login()	{
+  public function Login()	{
 		$msgErro = null;
 		if ($this->session->flashdata('msgErro') !="") {
 			$msgErro = $this->session->flashdata('msgErro');

@@ -25,7 +25,7 @@
 							echo "<p class='alert alert-danger text-center'>".$ErroLogin. "</p>";
 						}
 					?>
-					<form action="<?php echo base_url('LoginSystem/AutenticaLogin');?>" method="post">
+					<form action="<?php echo base_url('Colaborador/AutenticaLogin');?>" method="post">
 						<div class="input-group mb-2">
 					        <div class="input-group-prepend">
 					          <div class="input-group-text"><i class="fas fa-user"></i></div>

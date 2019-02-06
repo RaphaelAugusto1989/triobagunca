@@ -11,41 +11,41 @@ class UserSystem_model extends CI_Model {
 
 	#LOGA O USUÁRIO NO SISTEMA
 	public function OpenUser($login, $pass) {
-		$this->db->where('email_usuario', $login);
-		$this->db->or_where('login_usuario', $login);
-		$this->db->where('senha_usuario', $pass);
-		$user = $this->db->get('usuario')->result();
+		$this->db->where('email_colab', $login);
+		$this->db->or_where('login_colab', $login);
+		$this->db->where('senha_colab', $pass);
+		$user = $this->db->get('colaborador')->result();
 		return $user;
 	}
 
 	#CADASTRA O USUÁRIO NO BANCO DE DADOS
-	public function SaveUser ($user) {
-		$this->db->insert("usuario", $user);
-	}
+	#public function SaveUser ($user) {
+	#	$this->db->insert("usuario", $user);
+	#}
 
 	#MOSTRA OS USUÁRIOS CADASTRADOS
-	public function MostraUser () {
-		return $this->db->get('usuario')->result_array();
-	}
+	#public function MostraUser () {
+	#	return $this->db->get('usuario')->result_array();
+	#}
 
 	#ALTERA O USUÁRIO NO BANCO DE DADOS
-	public function AlteraUser ($id, $user) {
-		$this->db->where('id_usuario', $id);
-		$this->db->update('usuario', $user);
-		return TRUE;
-	}
+	#public function AlteraUser ($id, $user) {
+	#	$this->db->where('id_usuario', $id);
+	#	$this->db->update('usuario', $user);
+	#	return TRUE;
+	#}
 
 	#ALTERA O USUÁRIO NO BANCO DE DADOS
-	public function RetornaIdUser ($id) {
-		return $this->db->get_where("usuario", array ("id_usuario" => $id)) -> row_array();
-	}
+	#public function RetornaIdUser ($id) {
+	#	return $this->db->get_where("usuario", array ("id_usuario" => $id)) -> row_array();
+	#}
 
 	#EXCLUÍ O USUÁRIO NO BANCO DE DADOS
-	public function DeletaUser ($id) {
-		$this->db->where('id_usuario', $id);
-		$this->db->delete('usuario');
-		return TRUE;
-	}
+	#public function DeletaUser ($id) {
+	#	$this->db->where('id_usuario', $id);
+	#	$this->db->delete('usuario');
+	#	return TRUE;
+	#}
 
 	#CADASTRA PERMISSÃO PARA O USUÁRIO
     public function InsertPermissionUser ($permission){
