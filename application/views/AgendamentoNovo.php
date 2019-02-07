@@ -37,6 +37,7 @@
 					<option value="<?=  $pct['id_pct']; ?>"><?=  $pct['nome_pct']; ?></option>
 				<?php endforeach ?>
 		 	</select>
+		 	<input type="hidden" name="status" value="Pendente">
 		 </div>
 		 	<button type="submit" class="btn btn-primary">Salvar <i class="fas fa-save ml-2"></i></button>
 		 </div>
