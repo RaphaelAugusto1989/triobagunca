@@ -12,7 +12,7 @@
 			}
 		?>
 		<div class="form-group">
-			<label for="inputcliente">Cliente:</label>
+			<label for="inputcliente">Nome Completo:</label>
 			<input type="text" name="nome_cliente" id="autocomplete" class="form-control" placeholder="Nome do Cliente">
 		 </div>
 		 <div class="form-group">

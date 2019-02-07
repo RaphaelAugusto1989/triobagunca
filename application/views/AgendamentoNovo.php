@@ -21,12 +21,12 @@
 			 		<input type="date" name="data_evento" class="form-control" id="data">
 			 	</div>
 			 	<div class="form-group col-md-2">
-			 		<label for="horario">Horário do Evento:</label>
+			 		<label for="horario">Horário:</label>
 			 		<input type="text" name="hora_evento" class="form-control hora" id="horario"  placeholder="00:00">
 			 	</div>
 				<div class="form-group col-md-7">
 					<label for="inputemail">E-mail:</label>
-					<input type="email" name="email" id="inputemail" class="form-control" placeholder="E-mail">
+					<input type="email" name="email_cliente" id="inputemail" class="form-control" placeholder="E-mail">
 			 </div>
 		 </div>
 		 <div class="form-group">
@@ -38,6 +38,22 @@
 				<?php endforeach ?>
 		 	</select>
 		 </div>
+
+		 <div class="form-group">
+		 		<!--Especificação do Pacote:-->
+		 		<input type="hidden" name="especificacao" id="especificacao" class="form-control"  value="<?= $dadospacote['especificacao_pct'];?>">
+		 </div>
+		 <div class="form-row">
+		 	<div class="form-group col-md-6">
+		 		<!--Tempo:-->
+		 		<input type="hidden" name="tempo_evento" id="tempo" class="form-control hora"  placeholder="00:00" value="<?= $dadospacote['tempo_pct'];?>" disebled>
+		 	</div>
+		 	<div class="form-group col-md-6">
+		 		<!--Valor do Pacote:-->
+		 		<input type="hidden" name="valor_pct" id="valor" class="form-control moeda"  value="<?= $dadospacote['valor_pct'];?>" disebled>
+		 	</div>
+		 </div>
+		 	<input type="hidden" name="status" value="Pendente">
 		 	<button type="submit" class="btn btn-primary">Salvar <i class="fas fa-save ml-2"></i></button>
 		 </div>
 		</form>

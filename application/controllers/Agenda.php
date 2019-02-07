@@ -17,16 +17,16 @@ class Agenda extends CI_Controller {
 		}
 		
 		#AUTOCOMPLETE
-		if(isset($_GET['term'])) {
-			$this->load->model('Clientes_model');
-			$lista = $this->Clientes_model->ClienteAutoComplete($_GET['term']);
-			if (!empty($lista)) {
-				foreach ($lista as $nome) {
-					$arr_lista[] = $nome->nome_cli;
-				}
-				echo  json_encode($arr_lista);exit;
-			}
-		}
+		#if(isset($_GET['term'])) {
+		#	$this->load->model('Clientes_model');
+		#	$lista = $this->Clientes_model->ClienteAutoComplete($_GET['term']);
+		#	if (!empty($lista)) {
+		#		foreach ($lista as $nome) {
+		#			$arr_lista[] = $nome->nome_cli;
+		#		}
+		#		echo  json_encode($arr_lista);exit;
+		#	}
+		#}
 
 		#MOSTRA PACOTE
 		$this->load->model('Pacotes_model');
@@ -65,24 +65,13 @@ class Agenda extends CI_Controller {
 	public function NovoAgendamento()	{
 		$agenda = array(
 			'nome_cli' => $this->input->post('nome_cliente'), 
-			'niver_cli' => $this->input->post('aniversariante'),
-			'idade_niver' => $this->input->post('idade'),
 			'data_evento' => $this->input->post('data_evento'),
 			'hora_evento' => $this->input->post('hora_evento'),
-			'end_evento' => $this->input->post('endereco'),
-			'nome_emergencia' => $this->input->post('nome_emergencia'),
-			'numero_emergencia' => $this->input->post('numero_emergencia'),
-			'qtd_crianca_evento' => $this->input->post('qtd_criancas'),
-			'idade_media_evento' => $this->input->post('idade_media'),
+			'email_cli' => $this->input->post('email_cliente'),
 			'id_pct' => $this->input->post('pct'),
 			'especificacao_pct' => $this->input->post('especificacao'),
-			'psg_evento' => $this->input->post('personagem'),
-			'hora_chegada' => $this->input->post('hora_chegada'),
 			'tempo_evento' => $this->input->post('tempo_evento'),
 			'valor_pct' => $this->input->post('valor_pct'),
-			'valor_total' => $this->input->post('valor_total'),
-			'sinal_valor' => $this->input->post('sinal_valor'),
-			'falta_pagar_valor' => $this->input->post('falta_pagar'),
 			'status_evento' => $this->input->post('status'),
 		);
 
