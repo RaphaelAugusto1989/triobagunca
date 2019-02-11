@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 06-Fev-2019 às 18:41
+-- Generation Time: 07-Fev-2019 às 20:11
 -- Versão do servidor: 10.1.37-MariaDB
--- versão do PHP: 7.3.1
+-- versão do PHP: 7.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -144,8 +144,16 @@ CREATE TABLE `evento` (
   `niver_cli` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `idade_niver` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `data_evento` date NOT NULL,
+  `email_cli` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `hora_evento` time NOT NULL,
-  `end_evento` text COLLATE utf8_unicode_ci NOT NULL,
+  `nome_mae` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `nome_pai` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `cep_evento` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
+  `rua_evento` text COLLATE utf8_unicode_ci NOT NULL,
+  `cidade_evento` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `bairro_evento` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `estado_evento` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+  `Complemento` text COLLATE utf8_unicode_ci NOT NULL,
   `nome_emergencia` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `numero_emergencia` varchar(14) COLLATE utf8_unicode_ci NOT NULL,
   `qtd_crianca_evento` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
@@ -155,6 +163,7 @@ CREATE TABLE `evento` (
   `psg_evento` text COLLATE utf8_unicode_ci NOT NULL,
   `hora_chegada` time NOT NULL,
   `tempo_evento` time NOT NULL,
+  `hora_adicional` time NOT NULL,
   `valor_pct` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
   `valor_total` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
   `sinal_valor` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
@@ -166,10 +175,12 @@ CREATE TABLE `evento` (
 -- Extraindo dados da tabela `evento`
 --
 
-INSERT INTO `evento` (`id_evento`, `nome_cli`, `niver_cli`, `idade_niver`, `data_evento`, `hora_evento`, `end_evento`, `nome_emergencia`, `numero_emergencia`, `qtd_crianca_evento`, `idade_media_evento`, `id_pct`, `especificacao_pct`, `psg_evento`, `hora_chegada`, `tempo_evento`, `valor_pct`, `valor_total`, `sinal_valor`, `falta_pagar_valor`, `status_evento`) VALUES
-(16, 'Carla da Silva Sá', 'Pedro Almeida Pereira Sá', '4', '2019-08-17', '17:00:00', 'Ra 36 Norte', 'Luciene', '(61) 30241-097', '200', '1 a 12', '2', 'Ficar 1 hora e meia no evento.', '    Todos', '18:00:00', '01:30:00', '150,00', '1.000,00', '1.000,00', '0,00', 'Confirmado'),
-(12, 'Raphael Augusto Almeida Pereira', 'Pedro Alme', '4', '2019-07-18', '18:00:00', 'Rua 36 Norte Lote 3350', 'Carla', '(61) 99215-776', '20', '1 a 8 anos', '1', 'Pacote de 2 horas de animação ou personagem vivo.', ' Homem Aranha', '19:00:00', '02:00:00', '250,00', '250,00', '150,00', '100,00', 'Confirmado'),
-(17, 'Francisco de Sales Pereira', 'Rafaella Cecilia de Sousa Sales Pereira', '09', '2019-02-24', '18:00:00', 'Rua 36 Norte Lote 3350 Bloco D  (Salão de Festas)', '', '', '15', '4 a 12 Anos de ', '1', 'Pacote de 2 horas de animação ou personagem vivo.', 'Princesa Sophia  e animação', '19:00:00', '02:00:00', '250,00', '250,00', '250,00', '0,00', 'Cancelado');
+INSERT INTO `evento` (`id_evento`, `nome_cli`, `niver_cli`, `idade_niver`, `data_evento`, `email_cli`, `hora_evento`, `nome_mae`, `nome_pai`, `cep_evento`, `rua_evento`, `cidade_evento`, `bairro_evento`, `estado_evento`, `Complemento`, `nome_emergencia`, `numero_emergencia`, `qtd_crianca_evento`, `idade_media_evento`, `id_pct`, `especificacao_pct`, `psg_evento`, `hora_chegada`, `tempo_evento`, `hora_adicional`, `valor_pct`, `valor_total`, `sinal_valor`, `falta_pagar_valor`, `status_evento`) VALUES
+(16, 'Carla da Silva Sá', 'Pedro Almeida Pereira Sá', '4', '2019-08-17', '', '17:00:00', '', '', '', '', '', '', '', '', 'Luciene', '(61) 30241-097', '200', '1 a 12', '2', 'Ficar 1 hora e meia no evento.', '    Todos', '18:00:00', '01:30:00', '00:01:50', '', '1.000,00', '1.000,00', '0,00', 'Confirmado'),
+(12, 'Raphael Augusto Almeida Pereira', 'Pedro Alme', '4', '2019-07-18', '', '18:00:00', '', '', '', '', '', '', '', '', 'Carla', '(61) 99215-776', '20', '1 a 8 anos', '1', 'Pacote de 2 horas de animação ou personagem vivo.', ' Homem Aranha', '19:00:00', '02:00:00', '00:02:50', '', '250,00', '150,00', '100,00', 'Confirmado'),
+(17, 'Francisco de Sales Pereira', 'Rafaella Cecilia de Sousa Sales Pereira', '09', '2019-02-24', '', '18:00:00', '', '', '', '', '', '', '', '', '', '', '15', '4 a 12 Anos de ', '1', 'Pacote de 2 horas de animação ou personagem vivo.', 'Princesa Sophia  e animação', '19:00:00', '02:00:00', '00:02:50', '', '250,00', '250,00', '0,00', 'Cancelado'),
+(20, 'Luciene Alves de Almeida', '', '', '2018-07-18', 'luciene@gmail.com', '16:00:00', '', '', '', '', '', '', '', '', '', '', '', '', '1', '', '', '00:00:00', '00:00:00', '00:00:00', '', '', '', '', 'Pendente'),
+(21, 'Valmir lopes', '', '', '2019-02-15', 'valmir@gmail.com', '16:00:00', '', '', '', '', '', '', '', '', '', '', '', '', '2', 'Ficar 1 hora e meia no evento.', '', '00:00:00', '01:30:00', '00:00:00', '150,00', '', '', '', 'Pendente');
 
 -- --------------------------------------------------------
 
@@ -1005,7 +1016,7 @@ ALTER TABLE `colaborador`
 -- AUTO_INCREMENT for table `evento`
 --
 ALTER TABLE `evento`
-  MODIFY `id_evento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_evento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `galeria`
