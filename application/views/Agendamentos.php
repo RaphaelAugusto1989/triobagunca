@@ -35,40 +35,44 @@
 			</form>
 				<?php foreach ($evento as $ev): 
 					setlocale(LC_ALL, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
-					$data = strftime('%d/%m/%Y - %A', strtotime($ev['data_evento']));
+
+					//CONVERTE PARA O DIA DA SEMANA
+					$data = strftime('%d/%m/%Y - %A', strtotime($ev['data_evento'])); 
 
 					if ($ev['status_evento'] == 'Confirmado') {
 						$conf = "table-success border border-success";
 
-					}elseif ($ev['status_evento'] == 'Pendente') {
+					} elseif ($ev['status_evento'] == 'Pendente') {
 						$conf = "table-warning border border-warning";
 					} else {
 						$conf = "table-danger border border-danger";
 					}
+
+					$mes = date('m', strtotime($ev['data_evento'])); //PEGA O MÊS A DATA NO SERVIDOR
+
+					if (date('m') == $mes) {
 				?>
+				<a href="Agenda/DetalheEvento/<?= $ev['id_evento'] ?>">
 				<div class="row border border-primary rounded p-2 mb-2 <?= $conf; ?>">
                 <div class="col">
                     <span class="font-weight-light">Cliente: <br /></span>
                     <span class="h5">
-                    	<?=  anchor("Agenda/DetalheEvento/{$ev['id_evento']}", $ev['nome_cli']);?>
+                    	<?= $ev['nome_cli'];?>
                     </span>
-                </div>
-                <div class="col">
-                    <span class="font-weight-light">Aniversariante: <br /></span>
-                    <span class="h5"><?=  anchor("Agenda/DetalheEvento/{$ev['id_evento']}", $ev['niver_cli']); ?></span>
                 </div>
                 <div class="col">
                     <span class="font-weight-light">Data do Evento: <br /></span>
-                    <span class="h5"><?=  anchor("Agenda/DetalheEvento/{$ev['id_evento']}", $data); ?> </</span>
+                    <span class="h5"><?= $data; ?> </</span>
                 </div>
                 <div class="col">
-                    <span class="font-weight-light">Personagem/Animação: <br /></span>
-                    <span class="h5">
-                        <?=  anchor("Agenda/DetalheEvento/{$ev['id_evento']}", $ev['psg_evento']); ?>
-                    </span>
+                    <span class="font-weight-light">Hora do Evento: <br /></span>
+                    <span class="h5"><?= $ev['hora_evento']; ?></span>
                 </div>
             </div>
-			<?php endforeach ?>
+			<?php 
+					} //FINAL DO IF DATE
+				endforeach 
+			?>
 			</tbody>
 		</table>
 	</div>

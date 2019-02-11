@@ -115,7 +115,7 @@
 		 </div>
 		 <div class="form-group">
 		 		<label for="especificacao">Especificação do Pacote:</label>
-		 		<textarea type="text" name="especificacao" id="especificacao" class="form-control"  disebled style="height:96px;"><?=  $evento['especificacao_pct']; ?> <?= $dadospacote['especificacao_pct'];?></textarea>
+		 		<textarea type="text" name="especificacao" id="especificacao" class="form-control"  readonly style="height:96px;"><?=  $evento['especificacao_pct']; ?> <?= $dadospacote['especificacao_pct'];?></textarea>
 		 </div>
 		 <div class="form-row">
 		 	<div class="form-group col-md-4">
@@ -124,7 +124,7 @@
 		 	</div>
 		 	<div class="form-group col-md-4">
 		 		<label for="tempo">Tempo:</label>
-		 		<input type="text" name="tempo_evento" id="tempo" class="form-control hora"  placeholder="00:00" value="<?=  $evento['tempo_evento']; ?><?= $dadospacote['tempo_evento'];?>" disebled>
+		 		<input type="text" name="tempo_evento" id="tempo" class="form-control hora"  placeholder="00:00" value="<?=  $evento['tempo_evento']; ?><?= $dadospacote['tempo_evento'];?>" readonly>
 		 	</div>
 		 	<div class="form-group col-md-4">
 		 		<label for="adicional">Hora Adicional:</label>
@@ -134,7 +134,7 @@
 		 <div class="form-row">
 		 	<div class="form-group col-md-3">
 		 		<label for="valor_pct">Valor do Pacote:</label>
-		 		<input type="text" name="valor_pct" class="form-control moeda" id="valor_pct" value="<?= $evento['valor_pct']; ?>">
+		 		<input type="text" name="valor_pct" class="form-control moeda" id="valor_pct" value="<?= $evento['valor_pct']; ?>" readonly>
 		 	</div>
 		 	<div class="form-group col-md-3">
 		 		<label for="valor_total">Valor Total:</label>

@@ -11,6 +11,7 @@ class Agenda_model extends CI_Model {
 
 	#MOSTRA OS EVENTOS CADASTRADOS
 	public function MostraAgenda () {
+		$this->db->order_by('hora_evento', 'ASC');
 		return $this->db->get('evento')->result_array();
 	}
 
