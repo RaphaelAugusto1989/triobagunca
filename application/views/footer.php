@@ -100,6 +100,29 @@
 			  	}
 			  	generate(chars);
 			}
+
+			//ADICIONA MAIS UM INPUT
+			$(function () {
+			    var scntDiv = $('#dynamicDiv');
+			    $(document).on('click', '#addInput', function () {
+			        $('<p>'+
+			        	'<div class="form-group col-md-11">'+
+		        			'<input type="text" id="inputeste" class="form-control" value=""> '+
+		        		'</div>'+
+		    			'<div class="form-group col-md-1">'+
+		        			'<a class="btn btn-danger" href="javascript:void(0)" id="remInput">'+
+								'<span class="glyphicon glyphicon-minus" aria-hidden="true"></span> '+
+								'<i class="fas fa-times"></i>'+
+		        			'</a>'+
+		        		'</div>'+
+					'</p>').appendTo(scntDiv);
+			        return false;
+			    });
+			    $(document).on('click', '#remInput', function () {
+		            $(this).parents('p').remove();
+			        return false;
+			    });
+			});
 			
 		</script>
 </body>

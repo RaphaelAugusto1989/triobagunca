@@ -182,7 +182,6 @@ class Agenda extends CI_Controller {
 			}
 			//echo'<pre>';print_r($dados);exit;
 		}
-		
 
 		$id = $this->uri->segment(3);
 

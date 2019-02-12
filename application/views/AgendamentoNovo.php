@@ -37,6 +37,7 @@
 					<option value="<?=  $pct['id_pct']; ?>"><?=  $pct['nome_pct']; ?></option>
 				<?php endforeach ?>
 		 	</select>
+		 	<input type="hidden" name="status" value="Pendente">
 		 </div>
 
 		 <div class="form-group">

@@ -128,13 +128,13 @@
 		 	</div>
 		 	<div class="form-group col-md-4">
 		 		<label for="adicional">Hora Adicional:</label>
-		 		<input type="text" name="hora_adicional" id="adicional" class="form-control hora"  value="<?=  $evento['hora_adicional']; ?>">
+		 		<input type="text" name="hora_adicional" id="adicional" class="form-control hora"  value="<?=  $evento['hora_adicional'];?> ">
 		 	</div>
 		 </div>
 		 <div class="form-row">
 		 	<div class="form-group col-md-3">
 		 		<label for="valor_pct">Valor do Pacote:</label>
-		 		<input type="text" name="valor_pct" class="form-control moeda" id="valor_pct" value="<?= $evento['valor_pct']; ?>" readonly>
+		 		.<input type="text" name="valor_pct" id="valor" class="form-control moeda"  value="<?= $evento['valor_pct']; ?><?= $dadospacote['valor_pct'];?>" readonly>
 		 	</div>
 		 	<div class="form-group col-md-3">
 		 		<label for="valor_total">Valor Total:</label>
@@ -160,9 +160,27 @@
 				</select>
 		 	</div>
 		 </div>
+		 <span class="form-row border border-dark border-top-0 border-left-0 border-right-0 border-bottom-1 mb-3 ml-1 mt-3 mr-1 pb-2 font-weight-bold">Adicionar Colaborador: </span>
+		 <div class="form-row">
+		 	<div class="form-group col-md-12">
+		 		<a href="" id="addInput" class="btn btn-primary"><i class="fas fa-plus"> </i> Colaborador</a>
+		 	</div>
+		 </div>
+	 	<div id="dynamicDiv" class="form-row">
+	 		<p>
+	 		<div class="form-group col-md-11">
+			        <input type="text" id="inputeste" class="form-control" value="">
+	    	</div>
+		    <div class="form-group col-md-1">
+			    	<a class="btn btn-danger" href="javascript:void(0)" id="remInput">
+			        	<i class="fas fa-times"></i>
+					</a>
+			</div>
+			</p>
+		</div>
+		 <div class="form-row">
 		 	<button type="submit" class="btn btn-primary">Salvar <i class="fas fa-save ml-2"></i></button>
 		 	<a href="<?= base_url('Agenda/ExcluirEvento?id='.$evento['id_evento']);?>" class="btn btn-danger ml-2">Excluir <i class="fas fa-trash-alt ml-2"></i></a>
 		 </div>
-		</form>
 	</form>
 </div>

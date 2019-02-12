@@ -52,8 +52,8 @@
 
 					if (date('m') == $mes) {
 				?>
-				<a href="Agenda/DetalheEvento/<?= $ev['id_evento'] ?>">
-				<div class="row border border-primary rounded p-2 mb-2 <?= $conf; ?>">
+				<a href="Agenda/DetalheEvento/<?= $ev['id_evento'] ?>" class="d-inline">
+				<div class="row border border-primary rounded p-2 mb-2 <?= $conf; ?> text-decoration-none">
                 <div class="col">
                     <span class="font-weight-light">Cliente: <br /></span>
                     <span class="h5">
