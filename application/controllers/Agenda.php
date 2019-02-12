@@ -106,15 +106,22 @@ class Agenda extends CI_Controller {
 			'niver_cli' => $this->input->post('aniversariante'),
 			'idade_niver' => $this->input->post('idade'),
 			'data_evento' => $this->input->post('data_evento'),
+			'email_cli' => $this->input->post('email_cliente'),
 			'hora_evento' => $this->input->post('hora_evento'),
-			'end_evento' => $this->input->post('endereco'),
+			'nome_mae' => $this->input->post('nomemae'),
+			'nome_pai' => $this->input->post('nomepai'),
+			'cep_evento' => $this->input->post('cep'),
+			'rua_evento' => $this->input->post('rua'),
+			'numero_evento' => $this->input->post('numero'),
+			'cidade_evento' => $this->input->post('cidade'),
+			'bairro_evento' => $this->input->post('bairro'),
+			'estado_evento' => $this->input->post('estado'),
+			'complemento_evento' => $this->input->post('complemento'),
 			'nome_emergencia' => $this->input->post('nome_emergencia'),
 			'numero_emergencia' => $this->input->post('numero_emergencia'),
 			'qtd_crianca_evento' => $this->input->post('qtd_criancas'),
-			'idade_media_evento' => $this->input->post('idade_media'),
 			'id_pct' => $this->input->post('pct'),
 			'especificacao_pct' => $this->input->post('especificacao'),
-			'psg_evento' => $this->input->post('personagem'),
 			'hora_chegada' => $this->input->post('hora_chegada'),
 			'tempo_evento' => $this->input->post('tempo_evento'),
 			'valor_pct' => $this->input->post('valor_pct'),
@@ -122,6 +129,12 @@ class Agenda extends CI_Controller {
 			'sinal_valor' => $this->input->post('sinal_valor'),
 			'falta_pagar_valor' => $this->input->post('falta_pagar'),
 			'status_evento' => $this->input->post('status'),
+		);
+
+		$EventoColaborador = array (
+			'fk_id_evento' = $this->input->post('id'),
+			'fk_id_colaborador' = $this->input->post('id_colab'),
+			'nome_colaborador' => $this->input->post('nome_colab'),
 		);
 
 		$this->load->model('Agenda_model');

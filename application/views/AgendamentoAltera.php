@@ -1,7 +1,7 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
-	<div class="container p-4">
+<div class="container p-4">
 	<form action="<?php echo base_url('Agenda/AlterarAgendamento');?>" method="POST">
 		<p class="text-center">ALTERAR EVENTO</p>
 		<?php
@@ -14,17 +14,18 @@
 		<span class="form-row border border-dark border-top-0 border-left-0 border-right-0 border-bottom-1 mb-3 ml-1 mt-3 mr-1 pb-2 font-weight-bold">DADOS DO CLIENTE: </span>
 		<div class="form-group">
 			<label for="inputcliente">Nome Completo:</label>
-			<input type="text" name="nome_cliente" id="autocomplete" class="form-control" placeholder="Nome do Cliente" value="<?= $evento['nome_cli']; ?>">
+			<input type="hidden" name="id" class="form-control" value="<?= $evento['id_evento']; ?>">
+			<input type="text" name="nome_cliente" class="form-control" placeholder="Nome do Cliente" value="<?= $evento['nome_cli']; ?>">
 		 </div>
 		 <div class="form-row">
-			 	<div class="form-group col-md-4">
-			 		<label for="data">Data do Evento:</label>
-			 		<input type="date" name="data_evento" class="form-control" id="data" value="<?= $evento['data_evento']; ?>">
-			 	</div>
-				<div class="form-group col-md-8">
-					<label for="inputemail">E-mail:</label>
-					<input type="email" name="email_cliente" id="inputemail" class="form-control" placeholder="E-mail" value="<?= $evento['email_cli']; ?>">
-			 </div>
+		 	<div class="form-group col-md-4">
+		 		<label for="data">Data do Evento:</label>
+		 		<input type="date" name="data_evento" class="form-control" id="data" value="<?= $evento['data_evento']; ?>">
+		 	</div>
+			<div class="form-group col-md-8">
+				<label for="inputemail">E-mail:</label>
+				<input type="email" name="email_cliente" id="inputemail" class="form-control" placeholder="E-mail" value="<?= $evento['email_cli']; ?>">
+		 	</div>
 		 </div>
 		 <div class="form-group">
 	 		<label for="inputniver">Aniversáriante:</label>
@@ -53,13 +54,17 @@
 
 		 <span class="form-row border border-dark border-top-0 border-left-0 border-right-0 border-bottom-1 mb-3 ml-1 mt-3 mr-1 pb-2 font-weight-bold">ENDEREÇO DA FESTA: </span>
 		 <div class="form-row">
-	    	<div class="form-group col-md-3">
+	    	<div class="form-group col-md-2">
 				<label for="cep">CEP:</label>
 	  			<input type="text" name="cep" class="cep form-control" id="cep" placeholder="99.999-999" onblur="pesquisacep(this.value);">
 			</div>
 			<div class="form-group col-md-5">
 				<label for="inputAddress">Rua:</label>
 	  			<input type="text" name="rua" class="form-control" id="rua" placeholder="Rua" value="">
+			</div>
+			<div class="form-group col-md-1">
+				<label for="inputAddress">Nº:</label>
+	  			<input type="text" name="numero" class="form-control" id="rua" placeholder="Nº" value="">
 			</div>
 			<div class="form-group col-md-4">
 				<label for="cidade">Cidade:</label>
@@ -166,17 +171,19 @@
 		 		<a href="" id="addInput" class="btn btn-primary"><i class="fas fa-plus"> </i> Colaborador</a>
 		 	</div>
 		 </div>
-	 	<div id="dynamicDiv" class="form-row">
-	 		<p>
-	 		<div class="form-group col-md-11">
-			        <input type="text" id="inputeste" class="form-control" value="">
-	    	</div>
-		    <div class="form-group col-md-1">
+	 	<div id="dynamicDiv">
+	 		<div id="remov" class="form-row">
+	 			<div class="form-group col-md-11">
+			        <input type="text" id="inputeste" class="form-control" name="nome_colab" value="">
+			        <input type="hidden" name="id_colab" value="">
+	    		</div>
+		    	<div class="form-group col-md-1">
 			    	<a class="btn btn-danger" href="javascript:void(0)" id="remInput">
-			        	<i class="fas fa-times"></i>
+			    		<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+			        	<i class="fas fa-times"  title="Remover"></i>
 					</a>
+				</div>
 			</div>
-			</p>
 		</div>
 		 <div class="form-row">
 		 	<button type="submit" class="btn btn-primary">Salvar <i class="fas fa-save ml-2"></i></button>
