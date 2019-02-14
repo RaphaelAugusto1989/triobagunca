@@ -2,7 +2,6 @@
 	defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <div class="container p-4">
-	<form action="<?php echo base_url('Colaborador/AlterarColaborador');?>" method="POST">
 		<p class="text-center">ALTERAR COLABORADOR</p>
 		<?php echo $msg;?>
 <form action="<?php echo base_url('Colaborador/AlterarMeusDados');?>" method="POST" enctype="multipart/form-data">

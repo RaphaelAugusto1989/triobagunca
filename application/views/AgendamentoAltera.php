@@ -174,8 +174,9 @@
 	 	<div id="dynamicDiv">
 	 		<div id="remov" class="form-row">
 	 			<div class="form-group col-md-11">
-			        <input type="text" id="inputeste" class="form-control" name="nome_colab" value="">
-			        <input type="hidden" name="id_colab" value="">
+	 				<!-- QUE SÃO ESSES AQUI!  -->
+			        <input type="text" id="autocompletecolab" class="form-control autocompletecolab" name="nome_colab" value="">
+			        <input type="text" name="idcolab" id="idcolab" value="">
 	    		</div>
 		    	<div class="form-group col-md-1">
 			    	<a class="btn btn-danger" href="javascript:void(0)" id="remInput">

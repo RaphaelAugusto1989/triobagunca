@@ -57,6 +57,63 @@ class Colaborador extends CI_Controller {
 		}
 	}
 
+	public function AlterarColaborador() {
+		$id = $this->input->post('id');
+		$pass = $this->input->post('password');
+
+		if (empty($pass)) {
+			$colaborador = array(
+				'nome_colab' => $this->input->post('nome'),
+				'sobrenome_colab' => $this->input->post('sobrenome'),  
+				'funcao_colab' => $this->input->post('funcao'),
+				'cpf_colab' => $this->input->post('cpf'),
+				'nasc_colab' => $this->input->post('nascimento'),
+				'sexo_colab' => $this->input->post('sexo'),
+				'cep_colab' => $this->input->post('cep'),
+				'rua_colab' => $this->input->post('rua'),
+				'cidade_colab' => $this->input->post('cidade'),
+				'bairro_colab' => $this->input->post('bairro'),
+				'estado_colab' => $this->input->post('estado'),
+				'complemento_colab' => $this->input->post('complemento'),
+				'fixo_colab' => $this->input->post('fixo'),
+				'cel_colab' => $this->input->post('cel'),
+				'email_colab' => $this->input->post('email'),
+				'login_colab' => $this->input->post('login'),
+			);
+		} else {
+			$colaborador = array(
+				'nome_colab' => $this->input->post('nome'),
+				'sobrenome_colab' => $this->input->post('sobrenome'),  
+				'funcao_colab' => $this->input->post('funcao'),
+				'cpf_colab' => $this->input->post('cpf'),
+				'nasc_colab' => $this->input->post('nascimento'),
+				'sexo_colab' => $this->input->post('sexo'),
+				'cep_colab' => $this->input->post('cep'),
+				'rua_colab' => $this->input->post('rua'),
+				'cidade_colab' => $this->input->post('cidade'),
+				'bairro_colab' => $this->input->post('bairro'),
+				'estado_colab' => $this->input->post('estado'),
+				'complemento_colab' => $this->input->post('complemento'),
+				'fixo_colab' => $this->input->post('fixo'),
+				'cel_colab' => $this->input->post('cel'),
+				'email_colab' => $this->input->post('email'),
+				'login_colab' => $this->input->post('login'),
+				'senha_colab' => md5($this->input->post('password')),
+			);
+		}
+		
+		$this->load->model('Colaborador_model');
+		$this->Colaborador_model->SaveColaborador($colaborador);
+
+		if (!empty($colaborador)) {
+			$this->session->set_flashdata('Success', 'Colaborador Cadastrado com Sucesso');
+			redirect(base_url('ColaboradorCadastro'));
+		} else {
+			$this->session->set_flashdata('Error', 'Ocorreu algum problema, verifique os dados e tente novamente!');
+			redirect(base_url('ColaboradorCadastro'));
+		}
+	}
+
 	public function ColaboradoresCadastrados()	{
 		$dados['titulo'] = 'Colaboradores Cadastros';
 		$this->load->model('Colaborador_model');

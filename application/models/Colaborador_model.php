@@ -45,4 +45,11 @@ class Colaborador_model extends CI_Model {
 		return $user;
 	}
 
+	#MOSTRA COLABORADOR NO AUTOCOMPLETE
+    public function AutoCompleteColaborador ($nome) {
+        $this->db->from('colaborador');
+        $this->db->like('nome_colab', $nome, 'both');
+        return $this->db->get()->result();
+    }
+
 }

@@ -56,17 +56,17 @@
 				<div class="row border border-primary rounded p-2 mb-2 <?= $conf; ?> text-decoration-none">
                 <div class="col">
                     <span class="font-weight-light">Cliente: <br /></span>
-                    <span class="h5">
+                    <span class="h5 text-capitalize">
                     	<?= $ev['nome_cli'];?>
                     </span>
                 </div>
                 <div class="col">
                     <span class="font-weight-light">Data do Evento: <br /></span>
-                    <span class="h5"><?= $data; ?> </</span>
+                    <span class="h5 text-capitalize"><?= $data; ?> </</span>
                 </div>
                 <div class="col">
                     <span class="font-weight-light">Hora do Evento: <br /></span>
-                    <span class="h5"><?= $ev['hora_evento']; ?></span>
+                    <span class="h5 hora"><?= $ev['hora_evento']; ?></span>
                 </div>
             </div>
 			<?php 

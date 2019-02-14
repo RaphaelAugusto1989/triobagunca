@@ -131,9 +131,49 @@ class Agenda extends CI_Controller {
 			'status_evento' => $this->input->post('status'),
 		);
 
+
+		#AUTOCOMPLETE
+        if(isset($_GET['term'])) {
+            $this->load->model('Colaborador_model');
+            $lista = $this->Colaborador_model->AutoCompleteColaborador($_GET['term']);
+            $arr_lista = array();
+            if (!empty($lista)) {
+                foreach ($lista as $nome) {
+                    $resultado = array("label" => $nome->nome_colab,
+                    "value" => $nome->nome_colab,
+                    "id"=>$nome->id_colab);
+                    array_push($arr_lista, $resultado);
+                }
+                echo  json_encode($arr_lista); exit;
+            }
+		}
+		
+		#MOSTRA COLABORADOR
+		$this->load->model('Colaborador_model');
+		$lista = $this->Colaborador_model->MostraColaborador();
+		$dados =  array('user' => $lista, 'dadosuser'=>null);
+		
+		if(isset($_POST['nome_colab'])) {
+			$nome_colab = $_POST['nome_colab'];
+			$id_colab = $this->Colaborador_model->MostraColaborador($nome_colab);
+			$dados = array('dados_user' => $id_colab);
+			if(!empty($dados)){
+				
+				echo json_encode(array("codErro"=>0, 
+									   "id_colab"=>$dados["dados_colab"]["id_colab"]
+									   )
+							    ); exit;
+			}else{
+				echo json_encode(array("codErro"=>1, "msg"=>"Dados do Colaborador não encontrado")); exit;
+			}
+			echo'<pre>';print_r($dados);exit;
+		}
+
+
+		//CADASTRA COLABORADOR NO EVENTO
 		$EventoColaborador = array (
-			'fk_id_evento' = $this->input->post('id'),
-			'fk_id_colaborador' = $this->input->post('id_colab'),
+			'fk_id_evento' => $this->input->post('id'),
+			'fk_id_colaborador' => $this->input->post('id_colab'),
 			'nome_colaborador' => $this->input->post('nome_colab'),
 		);
 

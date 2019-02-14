@@ -14,15 +14,7 @@
 			        source: "<?php echo base_url('Agenda/AgendamentoNovo')?>",
 			    });
 
-                $("#autocompleteuser").autocomplete({
-                    source: "<?php echo base_url('UserSystem/PermissionUserCadastro')?>",
-                    select: function( event, ui ) {
-
-                        console.log(ui.item.id);
-                        $("#iduser").val(ui.item.id);
-
-                    }
-                });
+                aComplete();
 			});
 
 			//EXIBIR AUTOMATICA DADOS DE PACOTES EM AGENDAMENTO
@@ -43,26 +35,6 @@
 				 		$("#tempo").val(data.tempo);
 				 		$("#valor").val(data.valor);
 				 		$("#especificacao").val(data.especificacao);
-				 	}
-				 });
-			});
-
-			//EXIBIR AUTOMATICA DADOS DO USUARIO
-			$(document).on ("change",'#iduser', function() {
-				var id_user = $("#autocompleteuser").val();
-				 $.ajax({
-				 	url: "<?php echo base_url('UserSystem/PermissionUserCadastro')?>",
-				 	type: 'POST',
-				 	dataType:'json',
-				 	data: {id: id_user},
-				 	beforeSend: function() {
-				 		$("#dados_id").html("Carregando...");
-				 	}
-				 }).done(function(data){
-				 	if(data.codErro==1){
-				 		alert(data.msgErro);
-				 	}else{
-				 		$("#iduser").val(data.id);
 				 	}
 				 });
 			});
@@ -101,13 +73,14 @@
 			  	generate(chars);
 			}
 
-			//ADICIONA MAIS UM INPUT
+			//ADICIONA MAIS UM INPUT TEXT
 			$(function () {
 			    var scntDiv = $('#dynamicDiv');
 			    $(document).on('click', '#addInput', function () {
 			        $('<div id="remov" class="form-row">'+
 			        	'<div class="form-group col-md-11">'+
-		        			'<input type="text" id="inputeste" class="form-control" value=""> '+
+		        			'<input type="text" id="autocompletecolab" class="form-control autocompletecolab" name="nome_colab" value=""> '+
+		        			'<input type="text" name="idcolab" id="idcolab" value="">'+
 		        		'</div>'+
 		    			'<div class="form-group col-md-1">'+
 		        			'<a class="btn btn-danger" href="javascript:void(0)" id="remInput">'+
@@ -116,6 +89,7 @@
 		        			'</a>'+
 		        		'</div>'+
 					'</div>').appendTo(scntDiv);
+					aComplete();
 			        return false;
 			    });
 			    $(document).on('click', '#remInput', function () {
@@ -123,6 +97,22 @@
 			        return false;
 			    });
 			});
+
+			function aComplete(){
+				$(document).on("keyup", ".autocompletecolab", function(){
+					var elemento = $(this);
+					$(".autocompletecolab").autocomplete({
+	                    source: "<?php echo base_url('Agenda/AlterarAgendamento')?>",
+	                    select: function( event, ui ) {
+
+	                        console.log(ui.item.id);
+	                        $(elemento).next().val(ui.item.id);
+
+	                    }
+	                });
+				});
+				
+			}
 			
 		</script>
 </body>
