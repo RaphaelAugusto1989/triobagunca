@@ -15,8 +15,13 @@
 			    });
 
                 aComplete();
+
+                $("#autocomplete2").autocomplete({
+			        source: "<?php echo base_url('Colaborador/InsertPermissaoColaborador')?>",
+			    });
 			});
 
+			
 			//EXIBIR AUTOMATICA DADOS DE PACOTES EM AGENDAMENTO
 			$(document).on ("change",'#selectpacotes', function() {
 				var nome_pct = $("#selectpacotes").val();
@@ -79,8 +84,8 @@
 			    $(document).on('click', '#addInput', function () {
 			        $('<div id="remov" class="form-row">'+
 			        	'<div class="form-group col-md-11">'+
-		        			'<input type="text" id="autocompletecolab" class="form-control autocompletecolab" name="nome_colab" value=""> '+
-		        			'<input type="text" name="idcolab" id="idcolab" value="">'+
+		        			'<input type="text" id="autocompletecolab" class="form-control autocompletecolab" name="nome_colab[]" value="" placeholder="Nome do Colaborador"> '+
+		        			'<input type="hidden" name="idcolab[]" id="idcolab" value="">'+
 		        		'</div>'+
 		    			'<div class="form-group col-md-1">'+
 		        			'<a class="btn btn-danger" href="javascript:void(0)" id="remInput">'+
@@ -109,7 +114,7 @@
 	                        $(elemento).next().val(ui.item.id);
 
 	                    }
-	                });
+	            	});
 				});
 				
 			}

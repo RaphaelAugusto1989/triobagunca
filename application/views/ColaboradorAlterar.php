@@ -2,13 +2,14 @@
 	defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <div class="container p-4">
+  <a href="javascript:history.go(-1)"> <i class="fas fa-arrow-alt-circle-left"></i> <b>voltar</b> </a>
 		<p class="text-center">ALTERAR COLABORADOR</p>
 		<?php echo $msg;?>
 <form action="<?php echo base_url('Colaborador/AlterarMeusDados');?>" method="POST" enctype="multipart/form-data">
   <div class="form-group text-center">
       <?php
           if (!empty($clb['foto_colab'])) {
-              echo "<img class='meu_avatar rounded-circle border border-2 p-1' src='".base_url("assets/img/fotos_colabs/".$clb['foto_colab']."")."'>";
+              echo "<img class='meu_avatar rounded-circle border border-2 p-1' src='".base_url("assets/img/fotos_usuarios/".$clb['foto_colab']."")."'>";
           } elseif ($clb['sexo_colab'] == "MASCULINO") {
               echo "<img class='meu_avatar rounded-circle border border-2 p-1' src='".base_url("assets/img/avatar_man.png")."'>";
           } else {

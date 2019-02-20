@@ -288,4 +288,51 @@ class Colaborador extends CI_Controller {
 			redirect(base_url('MeusDados/'.$id));
 		}
 	}
+
+	public function PermissaoColaborador () {
+		$msg = null;
+		if ($this->session->flashdata('Success') !="") {
+			$msg = "<p class='alert alert-success text-center'>".$this->session->flashdata('Success')."</p>";
+		} else if ($this->session->flashdata('Error') !=""){
+			$msg = "<p class='alert alert-danger text-center'>".$this->session->flashdata('Error')."</p>";
+		}
+
+	    $dados['titulo'] = "Permissões de Usuário";
+	    $dados['dadospacote'] = array("id_user"=>$this->input->post('id_user'));
+
+        $this->load->view('header', $dados);
+	    $this->load->view('menu');
+	    $this->load->view('ColaboradorPermissaoSistema');
+	    $this->load->view('footer');
+    }
+
+    public function InsertPermissaoColaborador (){
+        $permission = array (
+        	'nome_colab' => $this->input->post('nome_colab'),
+            'id_colab' => $this->input->post('idcolab'),
+            'permission1' => $this->input->post('permission1'),
+            'permission2' => $this->input->post('permission2'),
+            'permission3' => $this->input->post('permission3'),
+            'permission4' => $this->input->post('permission4'),
+            'permission5' => $this->input->post('permission5'),
+            'permission6' => $this->input->post('permission6'),
+            'permission7' => $this->input->post('permission7'),
+            'permission8' => $this->input->post('permission8'),
+        );
+
+       
+
+        $this->load->model('Colaborador_model');
+        $this->Colaborador_model->SavePermissionSystem($permission);
+
+        if (!empty($user)) {
+			$msg = $this->session->set_flashdata('Success', 'Dado a permissão para o usuário com sucesso!');
+			redirect(base_url('PermissaoColaborador'));
+			#redirect(base_url('Colaborador/PermissaoColaborador/'.$id));
+		} else {
+			$msg = $this->session->set_flashdata('Error', 'Ocorreu algum problema, verifique os dados e tente novamente!');
+			redirect(base_url('PermissaoColaborador'));
+			#redirect(base_url('DetalheUser/'.$id));
+		}
+    }
 }

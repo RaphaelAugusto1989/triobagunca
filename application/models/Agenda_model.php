@@ -38,4 +38,16 @@ class Agenda_model extends CI_Model {
 		return TRUE;
 	}
 
+	#INSERE DADOS DO COLABORADOR PRO EVENTO NO BANCO DE DADOS
+	public function SaveColabEvento ($EventoColaborador) {
+		$this->db->insert("colaborador_evento", $EventoColaborador);
+	}
+
+	#MOSTRA OS COLABORADORES CADASTRADO NO EVENTOS
+	public function MostraColabEvento ($id) {
+		
+		return $this->db->get_where("colaborador_evento", array ("fk_id_evento" => $id)) -> result();
+		//return $this->db->get('colaborador_evento')->result_array();
+	}
+
 }

@@ -2,6 +2,7 @@
 	defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <div class="container p-4">
+	<a href="javascript:history.go(-1)"> <i class="fas fa-arrow-alt-circle-left"></i> <b>voltar</b> </a>
 	<form action="<?php echo base_url('Pacotes/AlterarPacote');?>" method="POST">
 		<p class="text-center">ALTERAR DE PACOTE</p>
 		<?php echo $msg;?>

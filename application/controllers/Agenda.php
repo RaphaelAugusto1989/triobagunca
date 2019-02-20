@@ -88,10 +88,9 @@ class Agenda extends CI_Controller {
 	}
 
 	public function Agendamentos(){
-		$dados['titulo'] = 'Agendamentos';
 		$this->load->model('Agenda_model');
 		$lista = $this->Agenda_model->MostraAgenda();
-		$dados =  array('evento' => $lista);
+		$dados =  array('evento' => $lista, 'titulo' => 'Eventos Cadastrados');
 
 		$this->load->view('header', $dados);
 		$this->load->view('menu');
@@ -101,6 +100,8 @@ class Agenda extends CI_Controller {
 
 	public function AlterarAgendamento () {
 		$id = $this->input->post('id');
+
+		//CADASTRA AS ALTERAÇÕES DO EVENTO
 		$evento = array(
 			'nome_cli' => $this->input->post('nome_cliente'), 
 			'niver_cli' => $this->input->post('aniversariante'),
@@ -131,6 +132,8 @@ class Agenda extends CI_Controller {
 			'status_evento' => $this->input->post('status'),
 		);
 
+		$this->load->model('Agenda_model');
+		$this->Agenda_model->AlteraAgenda($id, $evento);
 
 		#AUTOCOMPLETE
         if(isset($_GET['term'])) {
@@ -138,47 +141,30 @@ class Agenda extends CI_Controller {
             $lista = $this->Colaborador_model->AutoCompleteColaborador($_GET['term']);
             $arr_lista = array();
             if (!empty($lista)) {
+            	#echo'RESULTADO: <pre>';print_r($lista);exit;
                 foreach ($lista as $nome) {
-                    $resultado = array("label" => $nome->nome_colab,
-                    "value" => $nome->nome_colab,
+                    $resultado = array("label" => $nome->nome_colab.' '.$nome->sobrenome_colab,
+                    "value" => $nome->nome_colab.' '.$nome->sobrenome_colab.' - '.$nome->funcao_colab,
                     "id"=>$nome->id_colab);
                     array_push($arr_lista, $resultado);
                 }
                 echo  json_encode($arr_lista); exit;
             }
 		}
-		
-		#MOSTRA COLABORADOR
-		$this->load->model('Colaborador_model');
-		$lista = $this->Colaborador_model->MostraColaborador();
-		$dados =  array('user' => $lista, 'dadosuser'=>null);
-		
-		if(isset($_POST['nome_colab'])) {
-			$nome_colab = $_POST['nome_colab'];
-			$id_colab = $this->Colaborador_model->MostraColaborador($nome_colab);
-			$dados = array('dados_user' => $id_colab);
-			if(!empty($dados)){
-				
-				echo json_encode(array("codErro"=>0, 
-									   "id_colab"=>$dados["dados_colab"]["id_colab"]
-									   )
-							    ); exit;
-			}else{
-				echo json_encode(array("codErro"=>1, "msg"=>"Dados do Colaborador não encontrado")); exit;
-			}
-			echo'<pre>';print_r($dados);exit;
-		}
-
 
 		//CADASTRA COLABORADOR NO EVENTO
-		$EventoColaborador = array (
-			'fk_id_evento' => $this->input->post('id'),
-			'fk_id_colaborador' => $this->input->post('id_colab'),
-			'nome_colaborador' => $this->input->post('nome_colab'),
-		);
+		$idsColaboradores = $this->input->post('idcolab');
 
-		$this->load->model('Agenda_model');
-		$this->Agenda_model->AlteraAgenda($id, $evento);
+		foreach($this->input->post('nome_colab') as $indice => $nomeColaborador){
+			$EventoColaborador = array (
+				'fk_id_evento' => $id,
+				'fk_id_colaborador' => $idsColaboradores[$indice],
+				'nome_colaborador' => $nomeColaborador,
+			);
+
+			$this->load->model('Agenda_model');
+			$this->Agenda_model->SaveColabEvento($EventoColaborador);
+		}
 
 		if (!empty($evento)) {
 			$msg = $this->session->set_flashdata('Success', 'Evento Alterado com Sucesso');
@@ -208,12 +194,12 @@ class Agenda extends CI_Controller {
 			$msg = "<p class='alert alert-danger text-center'>".$this->session->flashdata('Error')."</p>";
 		}
 
-		$dados['titulo'] = 'Evento';
+		//$dados['titulo'] = 'Evento';
 
 		#MOSTRA PACOTE
 		$this->load->model('Pacotes_model');
 		$lista = $this->Pacotes_model->MostraPacotes();
-		$dados =  array('pacote' => $lista, 'dadospacote'=>null);
+		$dados =  array('pacote' => $lista, 'dadospacote'=>null, 'titulo'=>'Evento');
 		
 		if(isset($_POST['pacote'])) {
 			$id = $_POST['pacote'];
@@ -240,7 +226,13 @@ class Agenda extends CI_Controller {
 
 		$this->load->model('Agenda_model');
 		$idEvento = $this->Agenda_model->RetornaIdAgenda($id);
-		$Evento = array('evento' => $idEvento);
+
+		//RETORNA COLABORADORES CADASTRADOS NO EVENTO
+		$colab = $this->Agenda_model->MostraColabEvento($id);
+		//echo'<pre>';print_r($colab);
+
+		$Evento = array('evento' => $idEvento, 'ColabEvento' => $colab);
+		//echo '<pre>';print_r($Evento);exit;
 		$Evento['msg'] = $msg;
 
 		$this->load->view('header', $dados);

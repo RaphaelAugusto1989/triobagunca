@@ -57,6 +57,7 @@
 	
 //echo dirname(_FILE_); exit();
 
+//VERIFICA QUAL BANCO DE DADOS CONECTAR
 if (dirname(__FILE__) == 'D:\xampp\htdocs\triobagunca') {
 	define ('ENVIRONMENT', 'development');
 }

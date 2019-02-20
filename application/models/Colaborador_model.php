@@ -45,6 +45,11 @@ class Colaborador_model extends CI_Model {
 		return $user;
 	}
 
+	#INSERE A PERMISSÃO DO COLABORADOR NO SISTEMA
+    public function SavePermissionSystem ($permission) {
+        $this->db->insert("permissao_colab", $permission);
+    }
+
 	#MOSTRA COLABORADOR NO AUTOCOMPLETE
     public function AutoCompleteColaborador ($nome) {
         $this->db->from('colaborador');

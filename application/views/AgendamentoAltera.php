@@ -2,6 +2,7 @@
 	defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <div class="container p-4">
+	<a href="javascript:history.go(-1)"> <i class="fas fa-arrow-alt-circle-left"></i> <b>voltar</b> </a>
 	<form action="<?php echo base_url('Agenda/AlterarAgendamento');?>" method="POST">
 		<p class="text-center">ALTERAR EVENTO</p>
 		<?php
@@ -64,7 +65,7 @@
 			</div>
 			<div class="form-group col-md-1">
 				<label for="inputAddress">Nº:</label>
-	  			<input type="text" name="numero" class="form-control" id="rua" placeholder="Nº" value="">
+	  			<input type="text" name="numero" class="form-control" id="numero" placeholder="Nº" value="">
 			</div>
 			<div class="form-group col-md-4">
 				<label for="cidade">Cidade:</label>
@@ -171,12 +172,35 @@
 		 		<a href="" id="addInput" class="btn btn-primary"><i class="fas fa-plus"> </i> Colaborador</a>
 		 	</div>
 		 </div>
-	 	<div id="dynamicDiv">
+
+		<?php
+			foreach($ColabEvento as $indice => $cvt) :
+				$idEvento = $ColabEvento[$indice]->fk_id_evento;
+		?>
+			<div id="dynamicDiv">
+		 		<div id="remov" class="form-row">
+		 			<div class="form-group col-md-11">
+				        <input type="text" id="autocompletecolab" class="form-control autocompletecolab" name="nome_colab[]" placeholder="Nome do Colaborador" value="<?= $ColabEvento[$indice]->nome_colaborador?>">
+				        <input type="hidden" name="idcolab[]" id="idcolab" value="<?= $ColabEvento[$indice]->fk_id_colaborador?>">
+		    		</div>
+			    	<div class="form-group col-md-1">
+				    	<a class="btn btn-danger" href="javascript:void(0)" id="remInput">
+				    		<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+				        	<i class="fas fa-times"  title="Remover"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		<?php
+			endforeach;
+
+			if (empty($idEvento)) {
+		?>
+		<div id="dynamicDiv">
 	 		<div id="remov" class="form-row">
 	 			<div class="form-group col-md-11">
-	 				<!-- QUE SÃO ESSES AQUI!  -->
-			        <input type="text" id="autocompletecolab" class="form-control autocompletecolab" name="nome_colab" value="">
-			        <input type="text" name="idcolab" id="idcolab" value="">
+			        <input type="text" id="autocompletecolab" class="form-control autocompletecolab" name="nome_colab[]" value="" placeholder="Nome do Colaborador">
+			        <input type="hidden" name="idcolab[]" id="idcolab" value="">
 	    		</div>
 		    	<div class="form-group col-md-1">
 			    	<a class="btn btn-danger" href="javascript:void(0)" id="remInput">
@@ -186,6 +210,9 @@
 				</div>
 			</div>
 		</div>
+		<?php
+			} //END IF
+		?>
 		 <div class="form-row">
 		 	<button type="submit" class="btn btn-primary">Salvar <i class="fas fa-save ml-2"></i></button>
 		 	<a href="<?= base_url('Agenda/ExcluirEvento?id='.$evento['id_evento']);?>" class="btn btn-danger ml-2">Excluir <i class="fas fa-trash-alt ml-2"></i></a>
