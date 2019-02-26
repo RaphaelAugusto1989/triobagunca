@@ -320,7 +320,22 @@ class Colaborador extends CI_Controller {
             'permission8' => $this->input->post('permission8'),
         );
 
-       
+        #AUTOCOMPLETE
+        if(isset($_GET['term'])) {
+            $this->load->model('Colaborador_model');
+            $lista = $this->Colaborador_model->AutoCompleteColaborador($_GET['term']);
+            $arr_lista = array();
+            if (!empty($lista)) {
+            	#echo'RESULTADO: <pre>';print_r($lista);exit;
+                foreach ($lista as $nome) {
+                    $resultado = array("label" => $nome->nome_colab.' '.$nome->sobrenome_colab,
+                    "value" => $nome->nome_colab.' '.$nome->sobrenome_colab,
+                    "id"=>$nome->id_colab);
+                    array_push($arr_lista, $resultado);
+                }
+                echo  json_encode($arr_lista); exit;
+            }
+		}
 
         $this->load->model('Colaborador_model');
         $this->Colaborador_model->SavePermissionSystem($permission);
@@ -335,4 +350,52 @@ class Colaborador extends CI_Controller {
 			#redirect(base_url('DetalheUser/'.$id));
 		}
     }
+
+    public function Indisponibilidade() {
+    	$msg = null;
+		if ($this->session->flashdata('Success') !="") {
+			$msg = $this->session->flashdata('Success');
+		} else {
+			$msg = $this->session->flashdata('Error');
+		}
+		
+		$dados['msg'] = $msg;
+    	$dados['titulo'] = "Indisponibilidades";
+
+    	$this->load->view('header', $dados);
+    	$this->load->view('menu');
+    	$this->load->view('ColaboradorIndisponibilidade', $dados);
+    	$this->load->view('footer');
+    }
+
+    public function InsertIndisponibilidade() {
+		$idColab = $this->input->post('idcolab');
+		$DataHoje = $this->input->post('datahoje');
+
+		foreach($this->input->post('idcolab') as $indice => $nomeColaborador){
+			$Indisponibilidades = array (
+	    		'id_colab' => $idColab,
+	    		'data_cadastrado' => $DataHoje,
+	    		'data_inicial' => $this->input->post('datainicial'),
+	    		'hora_inicial' => $this->input->post('horainicial'),
+	    		'data_final' => $this->input->post('datafinal'),
+	    		'hora_final' => $this->input->post('horafinal'),
+    		);
+
+			$this->load->model('Colaborador_model');
+			$this->Agenda_model->SaveIndisponibilidade($Indisponibilidades);
+		}
+
+		if (!empty($evento)) {
+			$msg = $this->session->set_flashdata('Success', 'Indisponiblidade Cadastradas com Sucesso');
+			redirect(base_url('ColaboradorIndisponibilidade/'.$id));
+			//redirect(base_url('Colaborador/ColaboradorIndisponibilidade/'.$id));
+		} else {
+			$msg = $this->session->set_flashdata('Error', 'Ocorreu algum problema, verifique os dados e tente novamente!');
+			redirect(base_url('ColaboradorIndisponibilidade/'.$id));
+		}
+
+ 
+    }
+
 }

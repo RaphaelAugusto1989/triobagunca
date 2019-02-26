@@ -57,4 +57,9 @@ class Colaborador_model extends CI_Model {
         return $this->db->get()->result();
     }
 
+    #INSERE A INDISPONIBILIDADE DO COLABORADOR NO BANCO DE DADOS
+	public function SaveIndisponibilidade ($Indisponibilidades) {
+		$this->db->insert("colaborador_indisponivel", $Indisponibilidades);
+	}
+
 }

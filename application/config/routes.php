@@ -68,8 +68,10 @@ $route['PacotesCadastrados'] = 'Pacotes/PacotesCadastrados';
 
 $route['ColaboradorCadastro'] = 'Colaborador/ColaboradorCadastro';
 $route['ColaboradoresCadastrados'] = 'Colaborador/ColaboradoresCadastrados';
-$route['ColaboradorPermissaoSistema'] = 'Colaborador/PermissaoColaborador';
+$route['ColaboradorIndisponibilidade'] = 'Colaborador/Indisponibilidade';
+$route['ColaboradorMeusEventos'] = 'Colaborador/MeusEventos';
 $route['MeusDados'] = 'Colaborador/MeusDados';
+$route['ColaboradorPermissaoSistema'] = 'Colaborador/PermissaoColaborador';
 
 $route['post'] = 'pagina';
 $route['post/(:num)'] = 'pagina/post/$1';

@@ -78,7 +78,44 @@
 			  	generate(chars);
 			}
 
-			//ADICIONA MAIS UM INPUT TEXT
+			//ADICIONA MAIS UM INPUT DATE NA INDISPONIBILIDADE
+			$(function () {
+			    var scntDiv = $('#dynamicDivDate');
+			    $(document).on('click', '#addInput', function () {
+			        $('<div id="removDate" class="form-row">'+
+			        	'<div class="form-group col-md-3">'+
+			 				'<label> Data Inicial: </label>'+
+					        '<input type="date"  class="form-control" name="dateinicio[]" value="">'+
+			    		'</div>'+
+			    		'<div class="form-group col-md-2">'+
+			    			'<label>Hora Inicial:</label>'+
+					        '<input type="text" class="form-control hora" name="horainicial[]" value="" placeholder="00:00">'+
+			    		'</div>'+
+			    		'<div class="form-group col-md-3">'+
+			    			'<label>Data Final:</label>'+
+					        '<input type="date" class="form-control" name="datefim[]" value="">'+
+			    		'</div>'+
+			    		'<div class="form-group col-md-2">'+
+			    			'<label>Hora Final:</label>'+
+					        '<input type="text" class="form-control hora" name="horafinal[]" value="" placeholder="00:00">'+
+			    		'</div>'+
+				    	'<div class="form-group col-md-2">'+
+				    		'<br/>'+
+					    	'<a class="btn btn-danger mt-md-2" href="javascript:void(0)" id="remInputdate">'+
+					    		'<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>'+
+					        	'<i class="fas fa-times"  title="Remover"></i>'+
+							'</a>'+
+						'</div>'+
+					'</div>').appendTo(scntDiv);
+			        return false;
+			    });
+			    $(document).on('click', '#remInputdate', function () {
+		            $(this).parents('#removDate').remove();
+			        return false;
+			    });
+			});
+
+			//ADICIONA MAIS UM COLABORADOR NO AGENDAMENTO
 			$(function () {
 			    var scntDiv = $('#dynamicDiv');
 			    $(document).on('click', '#addInput', function () {

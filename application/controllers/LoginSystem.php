@@ -26,10 +26,10 @@ class LoginSystem extends CI_Controller {
 		$user = $this->UserSystem_model->OpenUser($login, $pass);
 
 		if(!empty($user)){
-			$this->session->set_userdata('IdUser', $user[0]->id_usuario);
-            $this->session->set_userdata('nome', $user[0]->nome_usuario);
-            $this->session->set_userdata('sexouser', $user[0]->sexo_usuario);
-            $this->session->set_userdata('foto', $user[0]->foto_usuario);
+			  $this->session->set_userdata('IdUser', $user[0]->id_usuario);
+        $this->session->set_userdata('nome', $user[0]->nome_usuario);
+        $this->session->set_userdata('sexouser', $user[0]->sexo_usuario);
+        $this->session->set_userdata('foto', $user[0]->foto_usuario);
 
 //            $SessaoUser = array(
 //                'IdUser'   => $user['id_usuario'],

@@ -16,18 +16,6 @@ class Agenda extends CI_Controller {
 			$msg = $this->session->flashdata('Error');
 		}
 		
-		#AUTOCOMPLETE
-		#if(isset($_GET['term'])) {
-		#	$this->load->model('Clientes_model');
-		#	$lista = $this->Clientes_model->ClienteAutoComplete($_GET['term']);
-		#	if (!empty($lista)) {
-		#		foreach ($lista as $nome) {
-		#			$arr_lista[] = $nome->nome_cli;
-		#		}
-		#		echo  json_encode($arr_lista);exit;
-		#	}
-		#}
-
 		#MOSTRA PACOTE
 		$this->load->model('Pacotes_model');
 		$lista = $this->Pacotes_model->MostraPacotes();
@@ -194,8 +182,6 @@ class Agenda extends CI_Controller {
 			$msg = "<p class='alert alert-danger text-center'>".$this->session->flashdata('Error')."</p>";
 		}
 
-		//$dados['titulo'] = 'Evento';
-
 		#MOSTRA PACOTE
 		$this->load->model('Pacotes_model');
 		$lista = $this->Pacotes_model->MostraPacotes();
@@ -219,7 +205,6 @@ class Agenda extends CI_Controller {
 			}else{
 				echo json_encode(array("codErro"=>1, "msg"=>"Dados do pacote não encontrado")); exit;
 			}
-			//echo'<pre>';print_r($dados);exit;
 		}
 
 		$id = $this->uri->segment(3);
@@ -229,10 +214,8 @@ class Agenda extends CI_Controller {
 
 		//RETORNA COLABORADORES CADASTRADOS NO EVENTO
 		$colab = $this->Agenda_model->MostraColabEvento($id);
-		//echo'<pre>';print_r($colab);
 
 		$Evento = array('evento' => $idEvento, 'ColabEvento' => $colab);
-		//echo '<pre>';print_r($Evento);exit;
 		$Evento['msg'] = $msg;
 
 		$this->load->view('header', $dados);
