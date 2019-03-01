@@ -57,9 +57,24 @@ class Colaborador_model extends CI_Model {
         return $this->db->get()->result();
     }
 
-    #INSERE A INDISPONIBILIDADE DO COLABORADOR NO BANCO DE DADOS
-	public function SaveIndisponibilidade ($Indisponibilidades) {
-		$this->db->insert("colaborador_indisponivel", $Indisponibilidades);
+    #MOSTRA INDISPONIBILIDADE DO COLABORADOR
+   	public function MostraIndisponibilidade ($id) {
+   		$this->db->where('id_colab', $id);
+   		$this->db->order_by('data_inicial', 'ASC');
+		return $this->db->get('colaborador_indisponivel')->result_array();
 	}
+
+	#INSERE A INDISPONIBILIDADE DO COLABORADOR NO BANCO DE DADOS
+	public function SaveIndisponibilidade ($indisponibilidades) {
+		$this->db->insert("colaborador_indisponivel", $indisponibilidades);
+	}
+
+	#EXCLUÍ O COLABORADOR NO BANCO DE DADOS
+	public function DeletaIndisponibilidade ($id) {
+		$this->db->where('id_ind', $id);
+		$this->db->delete('colaborador_indisponivel');
+		return TRUE;
+	}
+
 
 }

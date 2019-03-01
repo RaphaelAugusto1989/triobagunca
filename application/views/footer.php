@@ -83,25 +83,17 @@
 			    var scntDiv = $('#dynamicDivDate');
 			    $(document).on('click', '#addInput', function () {
 			        $('<div id="removDate" class="form-row">'+
-			        	'<div class="form-group col-md-3">'+
-			 				'<label> Data Inicial: </label>'+
-					        '<input type="date"  class="form-control" name="dateinicio[]" value="">'+
+			        	'<div class="form-group col-md-2">'+
+					        '<input type="date"  class="form-control" name="datainicial[]" value="">'+
 			    		'</div>'+
 			    		'<div class="form-group col-md-2">'+
-			    			'<label>Hora Inicial:</label>'+
-					        '<input type="text" class="form-control hora" name="horainicial[]" value="" placeholder="00:00">'+
+					        '<input type="date" class="form-control" name="datafinal[]" value="">'+
 			    		'</div>'+
-			    		'<div class="form-group col-md-3">'+
-			    			'<label>Data Final:</label>'+
-					        '<input type="date" class="form-control" name="datefim[]" value="">'+
+			    		'<div class="form-group col-md-7">'+
+					        '<input type="text" class="form-control" name="motivo[]" value="" placeholder="Motivo da Indisponibilidade">'+
 			    		'</div>'+
-			    		'<div class="form-group col-md-2">'+
-			    			'<label>Hora Final:</label>'+
-					        '<input type="text" class="form-control hora" name="horafinal[]" value="" placeholder="00:00">'+
-			    		'</div>'+
-				    	'<div class="form-group col-md-2">'+
-				    		'<br/>'+
-					    	'<a class="btn btn-danger mt-md-2" href="javascript:void(0)" id="remInputdate">'+
+				    	'<div class="form-group col-md-1">'+
+					    	'<a class="btn btn-danger" href="javascript:void(0)" id="remInputdate">'+
 					    		'<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>'+
 					        	'<i class="fas fa-times"  title="Remover"></i>'+
 							'</a>'+

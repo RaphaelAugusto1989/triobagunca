@@ -358,9 +358,14 @@ class Colaborador extends CI_Controller {
 		} else {
 			$msg = $this->session->flashdata('Error');
 		}
-		
-		$dados['msg'] = $msg;
-    	$dados['titulo'] = "Indisponibilidades";
+
+		$id = $this->session->userdata('IdUser');
+
+		$this->load->model('Colaborador_model');
+		$ColabInd = $this->Colaborador_model->MostraIndisponibilidade($id);
+		$dados = array('titulo' => 'Indisponibilidades', 'msg' => $msg, 'ind' => $ColabInd);
+
+		//echo'<pre>'; print_r($ColabInd); exit;
 
     	$this->load->view('header', $dados);
     	$this->load->view('menu');
@@ -371,22 +376,29 @@ class Colaborador extends CI_Controller {
     public function InsertIndisponibilidade() {
 		$idColab = $this->input->post('idcolab');
 		$DataHoje = $this->input->post('datahoje');
+		$DataInicial = $this->input->post('datainicial');
+	    $DataFinal = $this->input->post('datafinal');
+	    $motivo = $this->input->post('motivo');
 
-		foreach($this->input->post('idcolab') as $indice => $nomeColaborador){
-			$Indisponibilidades = array (
+		//echo'<pre>';print_r($idColab);	
+
+		$this->load->model('Colaborador_model');
+			
+		foreach($DataInicial as $indice => $inicio){
+
+			$indisponibilidades = array (
 	    		'id_colab' => $idColab,
 	    		'data_cadastrado' => $DataHoje,
-	    		'data_inicial' => $this->input->post('datainicial'),
-	    		'hora_inicial' => $this->input->post('horainicial'),
-	    		'data_final' => $this->input->post('datafinal'),
-	    		'hora_final' => $this->input->post('horafinal'),
+	    		'data_inicial' => $DataInicial[$indice],
+	    		'data_final' => $DataFinal[$indice],
+	    		'motivo_ind' => $motivo[$indice],
     		);
 
-			$this->load->model('Colaborador_model');
-			$this->Agenda_model->SaveIndisponibilidade($Indisponibilidades);
-		}
+    		$this->Colaborador_model->SaveIndisponibilidade($indisponibilidades);
 
-		if (!empty($evento)) {
+		}
+		
+		if (!empty($indisponibilidades)) {
 			$msg = $this->session->set_flashdata('Success', 'Indisponiblidade Cadastradas com Sucesso');
 			redirect(base_url('ColaboradorIndisponibilidade/'.$id));
 			//redirect(base_url('Colaborador/ColaboradorIndisponibilidade/'.$id));
@@ -394,8 +406,22 @@ class Colaborador extends CI_Controller {
 			$msg = $this->session->set_flashdata('Error', 'Ocorreu algum problema, verifique os dados e tente novamente!');
 			redirect(base_url('ColaboradorIndisponibilidade/'.$id));
 		}
-
- 
     }
+
+    public function ExcluirIndisponibilidade() {
+		$id = $this->input->get('id');
+		#$id = $this->uri->segment(3);
+		$this->load->model('Colaborador_model');
+		$true = $this->Colaborador_model->DeletaIndisponibilidade($id);
+
+		if ($true == true) {
+			echo "<script> alert ('EXCLUÍDO COM SUCESSO!') </script>";
+			echo "<script> location.href=('ColaboradorIndisponibilidade')</script>";
+		}
+		else {
+			echo "<script> alert ('PROBLEMA AO EXCLUIR, TENTE NOVAMENTE!')</script>";
+			echo "<script> location.href=('ColaboradorIndisponibilidade')</script>";
+		}
+	}
 
 }

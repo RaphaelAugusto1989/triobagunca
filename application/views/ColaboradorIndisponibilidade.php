@@ -24,34 +24,60 @@
 	 	<input type="hidden" name="datahoje" id="datahoje" value="<?= $DataHoje; ?>">
 		<div id="dynamicDivDate">
 	 		<div id="removDate" class="form-row">
-	 			<div class="form-group col-md-3">
+	 			<div class="form-group col-md-2">
 	 				<label> Data Inicial: </label>
-			        <input type="date"  class="form-control" name="dateinicio[]" value="">
+			        <input type="date"  class="form-control" name="datainicial[]" value="">
 	    		</div>
 	    		<div class="form-group col-md-2">
-	    			<label>Hora Inicial:</label>
-			        <input type="text" class="form-control hora" name="horainicial[]" value="" placeholder="00:00">
-	    		</div>
-	    		<div class="form-group col-md-3">
 	    			<label>Data Final:</label>
-			        <input type="date" class="form-control" name="datefim[]" value="">
+			        <input type="date" class="form-control" name="datafinal[]" value="">
 	    		</div>
-	    		<div class="form-group col-md-2">
-	    			<label>Hora Final:</label>
-			        <input type="text" class="form-control hora" name="horafinal[]" value="" placeholder="00:00">
+	    		<div class="form-group col-md-7">
+	    			<label>Motivo:</label>
+			        <input type="text" class="form-control" name="motivo[]" value="" placeholder="Motivo da Indisponibilidade">
 	    		</div>
-		    	<div class="form-group col-md-2">
-		    		<br />
-			    	<a class="btn btn-danger mt-md-2" href="javascript:void(0)" id="remInputdate">
-			    		<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-			        	<i class="fas fa-times"  title="Remover"></i>
-					</a>
+		    	<div class="form-group col-md-1">
 				</div>
 			</div>
 		</div>
-
-		<div class="form-row float-right">
-		 	<button type="submit" class="btn btn-primary">Salvar <i class="fas fa-save ml-2"></i></button>
+		<div class="form-row text-rigth">
+			<div class="col-md-12">
+			 	<button type="submit" class="btn btn-primary">Salvar <i class="fas fa-save ml-2"></i></button>
+			</div>
 		</div>
 	</form>
+	<p class="text-center mt-md-5">MINHAS INDISPONIBILIDADES</p>
+
+	
+	<table class="table table-sm table-hover mt-md-3">
+		<thead>
+			<tr>
+				<td><b>Inserida em</b></td>
+				<td><b>Data Inicial</b></td>
+				<td><b>Data Inicial</b></td>
+				<td class="text-capitalize"><b>Motivo da Indisponibilidade</b></td>
+				<td><b>Excluir</b></td>
+			</tr>
+		</thead>
+	<?php 
+		foreach ($ind as $indice => $dadosIndi) {
+			setlocale(LC_ALL, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+
+			//CONVERTE PARA O DIA DA SEMANA
+			$DataInicial = strftime('%d/%m/%Y - %A', strtotime($dadosIndi['data_inicial'])); 
+			$DataFinal = strftime('%d/%m/%Y - %A', strtotime($dadosIndi['data_final'])); 
+	?>
+		<tbody>
+			<tr>
+				<td class="text-capitalize"><?= strftime('%d/%m/%Y', strtotime($dadosIndi['data_cadastrado']));?></td>
+				<td class="text-capitalize"><?= $DataInicial ?></td>
+				<td class="text-capitalize"><?= $DataFinal ?></td>
+				<td class="text-capitalize text-truncate"> <?= $dadosIndi['motivo_ind'] ?></td>
+				<td class="text-capitalize"><a href="<?= base_url('Colaborador/ExcluirIndisponibilidade?id='.$dadosIndi['id_ind']); ?>" class="btn btn-danger ml-2">Excluir <i class="fas fa-trash-alt ml-2"></i></a></td>
+			</tr>
+		</tbody>
+	<?php 
+		} 
+	?>	
+	</table>
 </div>
