@@ -57,21 +57,28 @@ $route['Login'] = 'LoginSystem/Login';
 $route['Home'] = 'LoginSystem/Home';
 $route['EsqueciSenha'] = 'LoginSystem/EsqueciSenha';
 
-$route['ClienteCadastro'] = 'Clientes/ClienteCadastro';
-$route['ClientesCadastrados'] = 'Clientes/ClientesCadastrados';
-
+//MENU EVENTOS
 $route['AgendamentoNovo'] = 'Agenda/AgendamentoNovo';
 $route['Agendamentos'] = 'Agenda/Agendamentos';
 
+//MENU PACOTES
 $route['PacoteCadastro'] = 'Pacotes/PacoteCadastro';
 $route['PacotesCadastrados'] = 'Pacotes/PacotesCadastrados';
 
+//MENU COLABORADOR
 $route['ColaboradorCadastro'] = 'Colaborador/ColaboradorCadastro';
 $route['ColaboradoresCadastrados'] = 'Colaborador/ColaboradoresCadastrados';
+$route['ColaboradoresIndisponiveis'] = 'Colaborador/ColaboradoresIndisponiveis';
+
+
+//MENU MINHA ÁREA
 $route['ColaboradorIndisponibilidade'] = 'Colaborador/Indisponibilidade';
 $route['ColaboradorMeusEventos'] = 'Colaborador/MeusEventos';
 $route['MeusDados'] = 'Colaborador/MeusDados';
+
+//MENU SISTEMA
 $route['ColaboradorPermissaoSistema'] = 'Colaborador/PermissaoColaborador';
+
 
 $route['post'] = 'pagina';
 $route['post/(:num)'] = 'pagina/post/$1';

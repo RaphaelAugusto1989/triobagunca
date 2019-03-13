@@ -57,7 +57,13 @@ class Colaborador_model extends CI_Model {
         return $this->db->get()->result();
     }
 
-    #MOSTRA INDISPONIBILIDADE DO COLABORADOR
+    #MOSTRA INDISPONIBILIDADE DO COLABORADOR 
+   	public function MostraTodasIndisponibilidades () {
+   		$this->db->order_by('data_inicial', 'ASC');
+		return $this->db->get('colaborador_indisponivel')->result_array();
+	}
+
+    #MOSTRA INDISPONIBILIDADE DO COLABORADOR POR ID
    	public function MostraIndisponibilidade ($id) {
    		$this->db->where('id_colab', $id);
    		$this->db->order_by('data_inicial', 'ASC');

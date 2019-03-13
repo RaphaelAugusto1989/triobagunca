@@ -18,9 +18,12 @@
 	<?php
 		$DataHoje = date('Y-m-d');
 		$idcolab = $this->session->userdata('IdUser');
+		$NomeColab = $this->session->userdata('nome');
 	?>
 	<form action="<?php echo base_url('Colaborador/InsertIndisponibilidade');?>" method="POST">
 		<input type="hidden" name="idcolab" id="idcolab" value="<?= $idcolab; ?>">
+		<input type="hidden" name="nomecolab" id="nomecolab" value="<?= $NomeColab; ?>">
+		<input type="hidden" name="datahoje" id="datahoje" value="<?= $DataHoje; ?>">
 	 	<input type="hidden" name="datahoje" id="datahoje" value="<?= $DataHoje; ?>">
 		<div id="dynamicDivDate">
 	 		<div id="removDate" class="form-row">
@@ -46,17 +49,20 @@
 			</div>
 		</div>
 	</form>
+	<?php
+		if (empty($ind)) {
+		} else {
+	?>
 	<p class="text-center mt-md-5">MINHAS INDISPONIBILIDADES</p>
 
-	
+	<div class="row">
 	<table class="table table-sm table-hover mt-md-3">
 		<thead>
-			<tr>
-				<td><b>Inserida em</b></td>
-				<td><b>Data Inicial</b></td>
-				<td><b>Data Inicial</b></td>
-				<td class="text-capitalize"><b>Motivo da Indisponibilidade</b></td>
-				<td><b>Excluir</b></td>
+			<tr class="row">
+				<td class="col-md-2"><b>Data Inicial</b></td>
+				<td class="col-md-2"><b>Data Final</b></td>
+				<td class="col-md-7"><b>Motivo da Indisponibilidade</b></td>
+				<td class="col-md-1 text-center"><b>Excluir</b></td>
 			</tr>
 		</thead>
 	<?php 
@@ -68,16 +74,17 @@
 			$DataFinal = strftime('%d/%m/%Y - %A', strtotime($dadosIndi['data_final'])); 
 	?>
 		<tbody>
-			<tr>
-				<td class="text-capitalize"><?= strftime('%d/%m/%Y', strtotime($dadosIndi['data_cadastrado']));?></td>
-				<td class="text-capitalize"><?= $DataInicial ?></td>
-				<td class="text-capitalize"><?= $DataFinal ?></td>
-				<td class="text-capitalize text-truncate"> <?= $dadosIndi['motivo_ind'] ?></td>
-				<td class="text-capitalize"><a href="<?= base_url('Colaborador/ExcluirIndisponibilidade?id='.$dadosIndi['id_ind']); ?>" class="btn btn-danger ml-2">Excluir <i class="fas fa-trash-alt ml-2"></i></a></td>
+			<tr class="row">
+				<td class="text-capitalize col-md-2"><?= $DataInicial ?></td>
+				<td class="text-capitalize col-md-2"><?= $DataFinal ?></td>
+				<td class="text-capitalize text-truncate col-md-7"> <?= $dadosIndi['motivo_ind'] ?></td>
+				<td class="text-capitalize col-md-1"><a href="<?= base_url('Colaborador/ExcluirIndisponibilidade?id='.$dadosIndi['id_ind']); ?>" class="btn btn-danger btn-sm ml-2">Excluir <i class="fas fa-trash-alt ml-2"></i></a></td>
 			</tr>
 		</tbody>
 	<?php 
 		} 
+	}
 	?>	
 	</table>
+	</div>
 </div>

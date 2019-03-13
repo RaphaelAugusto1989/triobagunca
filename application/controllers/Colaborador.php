@@ -129,8 +129,6 @@ class Colaborador extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-
-
 	public function ExcluirColaborador() {
 		$id = $this->input->get('id');
 		#$id = $this->uri->segment(3);
@@ -180,12 +178,6 @@ class Colaborador extends CI_Controller {
             $this->session->set_userdata('sexouser', $user[0]->sexo_colab);
             $this->session->set_userdata('foto', $user[0]->foto_colab);
 
-//            $SessaoUser = array(
-//                'IdUser'   => $user['id_usuario'],
-//                'nome'     => $user['nome_usuario'],
-//                'sexouser' => $user['sexo_usuario'],
-//                'foto'     => $user['foto_usuario']
-//            );
             redirect(base_url('Home'));
 		} else {
 			$this->session->set_flashdata('msgErro', 'Usuário ou Senha Inválidos!');
@@ -219,12 +211,10 @@ class Colaborador extends CI_Controller {
         $namefoto = $this->input->post('nome_foto');
         $pass = $this->input->post('password');
 
-
         $config['allowed_types'] = "jpg|jpeg|png";
         $config['max_size'] = 100;
         $config['max_width'] = 1024;
         $config['max_height'] = 768;
-        #$this->load->library('upload', $config);
 
         if (empty($namefoto)) {
             $caminhoCompleto = "assets/img/fotos_usuarios/".$_FILES["foto"]["name"];
@@ -375,6 +365,7 @@ class Colaborador extends CI_Controller {
 
     public function InsertIndisponibilidade() {
 		$idColab = $this->input->post('idcolab');
+		$NomeColab = $this->input->post('nomecolab');
 		$DataHoje = $this->input->post('datahoje');
 		$DataInicial = $this->input->post('datainicial');
 	    $DataFinal = $this->input->post('datafinal');
@@ -382,21 +373,28 @@ class Colaborador extends CI_Controller {
 
 		//echo'<pre>';print_r($idColab);	
 
-		$this->load->model('Colaborador_model');
-			
-		foreach($DataInicial as $indice => $inicio){
+		$SomaData = date('Y/m/d', strtotime($DataHoje. '+ 3 days'));
 
+		$this->load->model('Colaborador_model');
+		foreach($DataInicial as $indice => $inicio){
 			$indisponibilidades = array (
 	    		'id_colab' => $idColab,
+	    		'nome_colab' => $NomeColab,
 	    		'data_cadastrado' => $DataHoje,
 	    		'data_inicial' => $DataInicial[$indice],
 	    		'data_final' => $DataFinal[$indice],
 	    		'motivo_ind' => $motivo[$indice],
     		);
-
     		$this->Colaborador_model->SaveIndisponibilidade($indisponibilidades);
-
 		}
+
+		$SomaData = str_replace("/","", $SomaData);
+		$inicial  = str_replace("-","",  $DataInicial[0]); 
+
+		if ($inicial <= $SomaData) {
+				$msg = $this->session->set_flashdata('Error', 'AVISO: Você cadastrou sua indisponibilidade com 3 dias ou menos da data inicial, isso ocorrerá como falta!');
+				redirect(base_url('ColaboradorIndisponibilidade/'.$id));
+		} 
 		
 		if (!empty($indisponibilidades)) {
 			$msg = $this->session->set_flashdata('Success', 'Indisponiblidade Cadastradas com Sucesso');
@@ -416,12 +414,29 @@ class Colaborador extends CI_Controller {
 
 		if ($true == true) {
 			echo "<script> alert ('EXCLUÍDO COM SUCESSO!') </script>";
-			echo "<script> location.href=('ColaboradorIndisponibilidade')</script>";
+			echo "<script> location.href=('Indisponibilidade')</script>";
 		}
 		else {
 			echo "<script> alert ('PROBLEMA AO EXCLUIR, TENTE NOVAMENTE!')</script>";
-			echo "<script> location.href=('ColaboradorIndisponibilidade')</script>";
+			echo "<script> location.href=('Indisponibilidade')</script>";
 		}
+	}
+
+	public function ColaboradoresIndisponiveis()	{
+		$dados['titulo'] = 'Colaboradores Indisponiveis';
+		
+		$this->load->model('Colaborador_model');
+		$lista = $this->Colaborador_model->MostraTodasIndisponibilidades();
+		$ColabDados = $this->Colaborador_model->MostraColaborador();
+		$Colaborador =  array('colaborador' => $lista, 'dadoscolab' => $ColabDados);
+
+		//$TotalColab = count($lista);
+		//$Colaborador["total"] = $TotalColab;
+
+		$this->load->view('header', $dados);
+		$this->load->view('menu');
+		$this->load->view('ColaboradoresIndisponiveis', $Colaborador);
+		$this->load->view('footer');
 	}
 
 }
