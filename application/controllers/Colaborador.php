@@ -206,6 +206,20 @@ class Colaborador extends CI_Controller {
 		$this->load->view('footer');
 	}
 
+	public function MeusEventos(){
+		$id = $this->session->userdata('id');
+		$this->load->model('Colaborador_model');
+		$lista = $this->Colaborador_model->MostraAgenda($id);
+
+		print_r($id); exit;
+		$dados =  array('evento' => $lista, 'titulo' => 'Meus Eventos Disponiveis');
+
+		$this->load->view('header', $dados);
+		$this->load->view('menu');
+		$this->load->view('MeusEventos', $dados);
+		$this->load->view('footer');
+	}
+
 	public function AlterarMeusDados () {
         $id = $this->input->post('id');
         $namefoto = $this->input->post('nome_foto');

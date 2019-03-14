@@ -56,7 +56,7 @@
                 <a href="#submenu7" data-toggle="collapse"><i class="fas fa-user"></i> MINHA ÁREA</a>
                 <ul id="submenu7" class="list-unstyled collapse">
                     <li><a href="<?php echo base_url('ColaboradorIndisponibilidade');?>">Indisponibilidade</a></li>
-                    <li><a href="<?php echo base_url('EmDesenvolvimento');?>">Meus Eventos</a></li>
+                    <li><a href="<?php echo base_url('MeusEventos');?>">Meus Eventos</a></li>
                     <li><a class="dropdown-item" href="<?php echo base_url('MeusDados');?>">Meus Dados</a></li>
                 </ul>
             </li>

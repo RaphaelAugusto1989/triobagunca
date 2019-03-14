@@ -88,13 +88,14 @@ class Agenda extends CI_Controller {
 
 	public function AlterarAgendamento () {
 		$id = $this->input->post('id');
+		$DataEvento = $this->input->post('data_evento');
 
 		//CADASTRA AS ALTERAÇÕES DO EVENTO
 		$evento = array(
 			'nome_cli' => $this->input->post('nome_cliente'), 
 			'niver_cli' => $this->input->post('aniversariante'),
 			'idade_niver' => $this->input->post('idade'),
-			'data_evento' => $this->input->post('data_evento'),
+			'data_evento' => $DataEvento,
 			'email_cli' => $this->input->post('email_cliente'),
 			'hora_evento' => $this->input->post('hora_evento'),
 			'nome_mae' => $this->input->post('nomemae'),
@@ -122,6 +123,9 @@ class Agenda extends CI_Controller {
 
 		$this->load->model('Agenda_model');
 		$this->Agenda_model->AlteraAgenda($id, $evento);
+
+		$this->load->model('Colaborador_model');
+		$this->Colaborador_model->MostraIndisponibilidadeEvento($DataEvento);
 
 		#AUTOCOMPLETE
         if(isset($_GET['term'])) {
@@ -223,4 +227,5 @@ class Agenda extends CI_Controller {
 		$this->load->view('AgendamentoAltera', $Evento);
 		$this->load->view('footer');
 	}
+
 }

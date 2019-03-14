@@ -73,7 +73,7 @@ $route['ColaboradoresIndisponiveis'] = 'Colaborador/ColaboradoresIndisponiveis';
 
 //MENU MINHA ÁREA
 $route['ColaboradorIndisponibilidade'] = 'Colaborador/Indisponibilidade';
-$route['ColaboradorMeusEventos'] = 'Colaborador/MeusEventos';
+$route['MeusEventos'] = 'Colaborador/MeusEventos';
 $route['MeusDados'] = 'Colaborador/MeusDados';
 
 //MENU SISTEMA

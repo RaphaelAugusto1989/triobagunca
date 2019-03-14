@@ -49,5 +49,4 @@ class Agenda_model extends CI_Model {
 		return $this->db->get_where("colaborador_evento", array ("fk_id_evento" => $id)) -> result();
 		//return $this->db->get('colaborador_evento')->result_array();
 	}
-
 }

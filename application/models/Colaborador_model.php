@@ -70,6 +70,14 @@ class Colaborador_model extends CI_Model {
 		return $this->db->get('colaborador_indisponivel')->result_array();
 	}
 
+	#MOSTRA INDISPONIBILIDADE DO COLABORADOR POR ID
+   	public function MostraIndisponibilidadeEvento ($DataEvento) {
+   		$this->db->from('evento');
+   		//$this->db->where('id_colab', $DataEvento);
+   		$this->db->where_in('data_inicial', 'DataEvento');
+		return $this->db->get('colaborador_indisponivel')->result_array();
+	}
+
 	#INSERE A INDISPONIBILIDADE DO COLABORADOR NO BANCO DE DADOS
 	public function SaveIndisponibilidade ($indisponibilidades) {
 		$this->db->insert("colaborador_indisponivel", $indisponibilidades);
@@ -77,10 +85,15 @@ class Colaborador_model extends CI_Model {
 
 	#EXCLUÍ O COLABORADOR NO BANCO DE DADOS
 	public function DeletaIndisponibilidade ($id) {
-		$this->db->where('id_ind', $id);
+		$this->db->where('data_inicial', $id);
 		$this->db->delete('colaborador_indisponivel');
 		return TRUE;
 	}
 
-
+	#MOSTRA OS EVENTOS DO COLABORADOR
+	public function MostraAgenda ($id) {
+		#$this->db->from('colaborador_evento')
+		$this->db->where('fk_id_colaborador', $id);
+		return $this->db->get('colaborador_evento')->result_array();
+	}
 }
