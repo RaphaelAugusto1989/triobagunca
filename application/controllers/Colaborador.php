@@ -207,11 +207,22 @@ class Colaborador extends CI_Controller {
 	}
 
 	public function MeusEventos(){
-		$id = $this->session->userdata('id');
+		$idColab = $this->session->userdata('IdUser');
 		$this->load->model('Colaborador_model');
-		$lista = $this->Colaborador_model->MostraAgenda($id);
+		$ListaColab = $this->Colaborador_model->MostraAgendaColab($idColab);
+		
+		$lista = array();
 
-		print_r($id); exit;
+		#echo'<pre>'; print_r($ListaColab);
+		foreach ($ListaColab as $indice => $ic) {
+			#$idEvento = $ListaColab[$indice]->fk_id_evento;
+			$idEvento = $ic->fk_id_evento;
+			$this->load->model('Agenda_model');
+			$dadosEveto = $this->Agenda_model->MostraEventoColab($idEvento);
+			array_push($lista,$dadosEveto);	
+		}
+		
+
 		$dados =  array('evento' => $lista, 'titulo' => 'Meus Eventos Disponiveis');
 
 		$this->load->view('header', $dados);

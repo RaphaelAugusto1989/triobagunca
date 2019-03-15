@@ -90,10 +90,9 @@ class Colaborador_model extends CI_Model {
 		return TRUE;
 	}
 
-	#MOSTRA OS EVENTOS DO COLABORADOR
-	public function MostraAgenda ($id) {
-		#$this->db->from('colaborador_evento')
-		$this->db->where('fk_id_colaborador', $id);
-		return $this->db->get('colaborador_evento')->result_array();
+	#MOSTRA OS COLABORADORES NO EVENTO
+	public function MostraAgendaColab ($idColab) {
+		return $this->db->get_where("colaborador_evento", array ("fk_id_colaborador" => $idColab)) -> result();
 	}
+
 }

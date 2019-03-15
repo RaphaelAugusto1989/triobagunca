@@ -33,31 +33,32 @@
 					</div>
 				</div>
 			</form>
-				<?php foreach ($evento as $ev): 
+				<?php foreach ($evento as $indice => $ev): 
+
 					setlocale(LC_ALL, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
 
 					//CONVERTE PARA O DIA DA SEMANA
-					$data = strftime('%d/%m/%Y - %A', strtotime($ev['data_evento'])); 
+					$data = strftime('%d/%m/%Y - %A', strtotime($ev[0]['data_evento'])); 
 
-					if ($ev['status_evento'] == 'Confirmado') {
+					if ($ev[0]['status_evento'] == 'Confirmado') {
 						$conf = "table-success border border-success";
 
-					} elseif ($ev['status_evento'] == 'Pendente') {
+					} elseif ($ev[0]['status_evento'] == 'Pendente') {
 						$conf = "table-warning border border-warning";
 					} else {
 						$conf = "table-danger border border-danger";
 					}
 
-					$mes = date('m', strtotime($ev['data_evento'])); //PEGA O MÊS A DATA NO SERVIDOR
+					$mes = date('m', strtotime($ev[0]['data_evento'])); //PEGA O MÊS A DATA NO SERVIDOR
 
 					if (date('m') == $mes) {
 				?>
-				<a href="Agenda/DetalheEvento/<?= $ev['id_evento'] ?>" class="d-inline">
+				<a href="Agenda/DetalheEvento/<?= $ev[0]['id_evento'] ?>" class="d-inline">
 				<div class="row border border-primary rounded p-2 mb-2 <?= $conf; ?> text-decoration-none">
                 <div class="col">
                     <span class="font-weight-light">Cliente: <br /></span>
                     <span class="h5 text-capitalize">
-                    	<?= $ev['nome_cli'];?>
+                    	<?= $ev[0]['nome_cli'];?>
                     </span>
                 </div>
                 <div class="col">
@@ -66,7 +67,7 @@
                 </div>
                 <div class="col">
                     <span class="font-weight-light">Hora do Evento: <br /></span>
-                    <span class="h5 hora"><?= $ev['hora_evento']; ?></span>
+                    <span class="h5 hora"><?= $ev[0]['hora_evento']; ?></span>
                 </div>
             </div>
 			<?php 
