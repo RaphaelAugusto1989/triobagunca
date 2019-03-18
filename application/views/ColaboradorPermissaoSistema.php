@@ -14,7 +14,7 @@
             <div class="form-group">
                 <label for="inputcliente">Colaborador:</label>
 
-                <input type="text" id="autocompletecolab2" class="form-control autocompletecolab2" name="nome_colab" placeholder="Nome do Colaborador" value="">
+                <input type="text" id="autocompletecolab2" class="form-control autocompletecolab" name="nome_colab" placeholder="Nome do Colaborador" value="">
                 <input type="hidden" name="idcolab" id="idcolab2" value="">
             </div>
 			<div class="form-group">

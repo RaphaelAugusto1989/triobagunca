@@ -14,11 +14,10 @@
 			        source: "<?php echo base_url('Agenda/AgendamentoNovo')?>",
 			    });
 
-                aComplete();
-
                 $("#autocomplete2").autocomplete({
 			        source: "<?php echo base_url('Colaborador/InsertPermissaoColaborador')?>",
 			    });
+			    aComplete();
 			});
 
 			

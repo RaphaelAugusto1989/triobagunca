@@ -8,6 +8,16 @@ class Colaborador extends CI_Controller {
 		$this->load->library('form_validation');
 	}
 
+	public function Menus() {
+		$IdUser = $this->session->userdata('IdUser');
+
+		$this->load->model('Colaborador_model');
+		$lista = $this->Colaborador_model->Permissoes('$IdUser');
+		$permissao = array('permissao' => $lista);  
+
+		$this->load->view('menu', $permissao);
+	}
+
 	public function ColaboradorCadastro() {
 		$msg = null;
 		if ($this->session->flashdata('Success') !="") {
@@ -355,13 +365,13 @@ class Colaborador extends CI_Controller {
         $this->load->model('Colaborador_model');
         $this->Colaborador_model->SavePermissionSystem($permission);
 
-        if (!empty($user)) {
+        if (!empty($permission)) {
 			$msg = $this->session->set_flashdata('Success', 'Dado a permissão para o usuário com sucesso!');
-			redirect(base_url('PermissaoColaborador'));
+			redirect(base_url('ColaboradorPermissaoSistema'));
 			#redirect(base_url('Colaborador/PermissaoColaborador/'.$id));
 		} else {
 			$msg = $this->session->set_flashdata('Error', 'Ocorreu algum problema, verifique os dados e tente novamente!');
-			redirect(base_url('PermissaoColaborador'));
+			redirect(base_url('ColaboradorPermissaoSistema'));
 			#redirect(base_url('DetalheUser/'.$id));
 		}
     }
