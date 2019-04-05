@@ -15,7 +15,11 @@
                 </ul>
             </li>-->
             <?php 
-                if (empty($perssao['permission1'])) {
+                foreach ($permissao as $indice => $perm) {
+                
+                #echo '<pre>';
+                #print_r($permissao); exit();         
+                if (!empty($perm->permission1)) {
             ?>
             <li>
                 <a href="#submenu2" data-toggle="collapse"><i class="far fa-calendar-alt"></i> EVENTOS</a>
@@ -27,7 +31,7 @@
             </li>
             <?php 
                 } else { }
-                if (empty($perssao['permission2'])) {
+                if (!empty($perm->permission2)) {
             ?>
             <li>
                 <a href="#submenu3" data-toggle="collapse"><i class="fas fa-archive"></i> PACOTES</a>
@@ -38,7 +42,7 @@
             </li>
             <?php 
                 } else { }
-                if (empty($perssao['permission3'])) {
+                if (!empty($perm->permission3)) {
             ?>
             <li>
                 <a href="#submenu4" data-toggle="collapse"><i class="fas fa-users"></i> COLABORADORES</a>
@@ -51,7 +55,7 @@
             </li>
             <?php 
                 } else { }
-                if (empty($perssao['permission4'])) {
+                if (!empty($perm->permission4)) {
             ?>
             <!--<li>
                 <a href="#submenu5" data-toggle="collapse"><i class="fas fa-dollar-sign"></i> FINANCEIRO</a>
@@ -63,7 +67,7 @@
             </li>
             <?php 
                 } else { }
-                if (empty($perssao['permission5'])) {
+                if (!empty($perm->permission5)) {
             ?>
             <li>
                 <a href="#submenu6" data-toggle="collapse"><i class="fa fa-fw fa-link"></i> Site</a>
@@ -77,7 +81,7 @@
             </li>
             <?php 
                 } else { }
-                if (empty($perssao['permission6'])) {
+                if (!empty($perm->permission6)) {
             ?>
             <li>
                 <a href="#submenu7" data-toggle="collapse"><i class="fas fa-user"></i> RELATÓRIOS</a>
@@ -89,7 +93,7 @@
             </li>-->
             <?php 
                 } else { }
-                if (empty($perssao['permission7'])) {
+                if (!empty($perm->permission7)) {
             ?>
             <li>
                 <a href="#submenu7" data-toggle="collapse"><i class="fas fa-user"></i> MINHA ÁREA</a>
@@ -101,7 +105,7 @@
             </li>
             <?php 
                 } else { }
-                if (empty($perssao['permission8'])) {
+                if (!empty($perm->permission8)) {
             ?>
             <li>
                 <a href="#submenu8" data-toggle="collapse"><i class="fas fa-cog"></i> SISTEMA</a>
@@ -111,6 +115,7 @@
             </li>
             <?php 
                 } else { }
+            } //FIM FOREACH
             ?>
         </ul>
     </nav>

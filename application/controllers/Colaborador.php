@@ -8,15 +8,7 @@ class Colaborador extends CI_Controller {
 		$this->load->library('form_validation');
 	}
 
-	public function Menus() {
-		$IdUser = $this->session->userdata('IdUser');
-
-		$this->load->model('Colaborador_model');
-		$lista = $this->Colaborador_model->Permissoes('$IdUser');
-		$permissao = array('permissao' => $lista);  
-
-		$this->load->view('menu', $permissao);
-	}
+	
 
 	public function ColaboradorCadastro() {
 		$msg = null;
@@ -28,8 +20,10 @@ class Colaborador extends CI_Controller {
 		
 		$dados['msg'] = $msg;
 		$dados['titulo'] = 'Cadastro do Colaborador';
+		$ListaMenus = $this->menu->PermissaoMenus();
+
 		$this->load->view('header', $dados);
-		$this->load->view('menu');
+		$this->load->view('menu', $ListaMenus);
 		$this->load->view('ColaboradorCadastro', $dados);
 		$this->load->view('footer');
 	}
@@ -132,9 +126,10 @@ class Colaborador extends CI_Controller {
 
 		$TotalColab = count($lista);
 		$Colaborador["total"] = $TotalColab;
+		$ListaMenus = $this->menu->PermissaoMenus();
 
 		$this->load->view('header', $dados);
-		$this->load->view('menu');
+		$this->load->view('menu', $ListaMenus);
 		$this->load->view('ColaboradoresCadastrados', $Colaborador);
 		$this->load->view('footer');
 	}
@@ -170,8 +165,10 @@ class Colaborador extends CI_Controller {
 		$idcolab = $this->Colaborador_model->RetornaIdColaborador($id);
 		$clb = array('clb' => $idcolab);
 		$clb['msg'] = $msg;
+		$ListaMenus = $this->menu->PermissaoMenus();
+
 		$this->load->view('header', $dados);
-		$this->load->view('menu');
+		$this->load->view('menu', $ListaMenus);
 		$this->load->view('ColaboradorAlterar', $clb);
 		$this->load->view('footer');
 	}
@@ -210,8 +207,10 @@ class Colaborador extends CI_Controller {
 		$idcolab = $this->Colaborador_model->RetornaIdColaborador($id);
 		$clb = array('clb' => $idcolab);
 		$clb['msg'] = $msg;
+		$ListaMenus = $this->menu->PermissaoMenus();
+
 		$this->load->view('header', $dados);
-		$this->load->view('menu');
+		$this->load->view('menu', $ListaMenus);
 		$this->load->view('MeusDados', $clb);
 		$this->load->view('footer');
 	}
@@ -220,6 +219,7 @@ class Colaborador extends CI_Controller {
 		$idColab = $this->session->userdata('IdUser');
 		$this->load->model('Colaborador_model');
 		$ListaColab = $this->Colaborador_model->MostraAgendaColab($idColab);
+		$ListaMenus = $this->menu->PermissaoMenus();
 		
 		$lista = array();
 
@@ -231,12 +231,11 @@ class Colaborador extends CI_Controller {
 			$dadosEveto = $this->Agenda_model->MostraEventoColab($idEvento);
 			array_push($lista,$dadosEveto);	
 		}
-		
 
 		$dados =  array('evento' => $lista, 'titulo' => 'Meus Eventos Disponiveis');
 
 		$this->load->view('header', $dados);
-		$this->load->view('menu');
+		$this->load->view('menu', $ListaMenus);
 		$this->load->view('MeusEventos', $dados);
 		$this->load->view('footer');
 	}
@@ -324,9 +323,10 @@ class Colaborador extends CI_Controller {
 
 	    $dados['titulo'] = "Permissões de Usuário";
 	    $dados['dadospacote'] = array("id_user"=>$this->input->post('id_user'));
+	    $ListaMenus = $this->menu->PermissaoMenus();
 
         $this->load->view('header', $dados);
-	    $this->load->view('menu');
+	    $this->load->view('menu', $ListaMenus);
 	    $this->load->view('ColaboradorPermissaoSistema');
 	    $this->load->view('footer');
     }
@@ -390,10 +390,10 @@ class Colaborador extends CI_Controller {
 		$ColabInd = $this->Colaborador_model->MostraIndisponibilidade($id);
 		$dados = array('titulo' => 'Indisponibilidades', 'msg' => $msg, 'ind' => $ColabInd);
 
-		//echo'<pre>'; print_r($ColabInd); exit;
+		$ListaMenus = $this->menu->PermissaoMenus();
 
     	$this->load->view('header', $dados);
-    	$this->load->view('menu');
+    	$this->load->view('menu', $ListaMenus);
     	$this->load->view('ColaboradorIndisponibilidade', $dados);
     	$this->load->view('footer');
     }
@@ -411,6 +411,7 @@ class Colaborador extends CI_Controller {
 		$SomaData = date('Y/m/d', strtotime($DataHoje. '+ 3 days'));
 
 		$this->load->model('Colaborador_model');
+
 		foreach($DataInicial as $indice => $inicio){
 			$indisponibilidades = array (
 	    		'id_colab' => $idColab,
@@ -420,6 +421,7 @@ class Colaborador extends CI_Controller {
 	    		'data_final' => $DataFinal[$indice],
 	    		'motivo_ind' => $motivo[$indice],
     		);
+
     		$this->Colaborador_model->SaveIndisponibilidade($indisponibilidades);
 		}
 
@@ -464,12 +466,13 @@ class Colaborador extends CI_Controller {
 		$lista = $this->Colaborador_model->MostraTodasIndisponibilidades();
 		$ColabDados = $this->Colaborador_model->MostraColaborador();
 		$Colaborador =  array('colaborador' => $lista, 'dadoscolab' => $ColabDados);
+		$ListaMenus = $this->menu->PermissaoMenus();
 
 		//$TotalColab = count($lista);
 		//$Colaborador["total"] = $TotalColab;
 
 		$this->load->view('header', $dados);
-		$this->load->view('menu');
+		$this->load->view('menu', $ListaMenus);
 		$this->load->view('ColaboradoresIndisponiveis', $Colaborador);
 		$this->load->view('footer');
 	}

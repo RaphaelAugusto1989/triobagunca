@@ -14,4 +14,5 @@ class Header extends CI_Controller{
             redirect(base_url());
         }
     }
+
 }

@@ -83,15 +83,21 @@ class LoginSystem extends CI_Controller {
        }
     }
 
-   	public function Home()	{
-		$dados['titulo'] = 'Sistema Trio Bagunça';		
-		$this->load->view('header', $dados);
-		$this->load->view('menu');
+  public function Home()	{
+    $dados = array('titulo' => 'Sistema Trio Bagunça');  
+
+    //$this->load->library('Menu');
+    $ListaMenus = $this->menu->PermissaoMenus();
+   
+   	$this->load->view('header', $dados);
+    $this->load->view('menu', $ListaMenus);
 		$this->load->view('Home');
 		$this->load->view('footer');
 	}
 
-    public function Logout () {
+  
+
+  public function Logout () {
 		$this->session->sess_destroy('IdUser');
 		$this->session->sess_destroy('nome');
 		session_destroy();

@@ -51,10 +51,10 @@ class Colaborador_model extends CI_Model {
     }
 
     #MOSTRA PERMISSÕES DO COLABORADOR LOGADO
-    public function Permissoes ($IdUser) {
+    public function Permissoes ($id) {
         $this->db->from('permissao_colab');
-        $this->db->where('id_colab', $IdUser);
-        return $this->db->get()->result();
+        $this->db->where('id_colab', $id);
+		return $this->db->get()->result();
     }
 
 	#MOSTRA COLABORADOR NO AUTOCOMPLETE
@@ -92,7 +92,7 @@ class Colaborador_model extends CI_Model {
 
 	#EXCLUÍ O COLABORADOR NO BANCO DE DADOS
 	public function DeletaIndisponibilidade ($id) {
-		$this->db->where('data_inicial', $id);
+		$this->db->where('id_ind', $id);
 		$this->db->delete('colaborador_indisponivel');
 		return TRUE;
 	}

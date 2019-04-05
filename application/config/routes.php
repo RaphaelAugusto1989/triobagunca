@@ -84,7 +84,7 @@ $route['post'] = 'pagina';
 $route['post/(:num)'] = 'pagina/post/$1';
 $route['login'] = 'pagina/login';
 
-$route['login'] = 'pagina/login';
+$route['menu'] = 'LoginSystem/Menus';
 
 $route['EmDesenvolvimento'] = 'Site/EmDesenvolvimento';
 $route['Clientes/DetalheCliente/(:num)'] = 'Clientes/DetalheCliente';

@@ -18,8 +18,10 @@ class Pacotes extends CI_Controller {
 		
 		$dados['msg'] = $msg;
 		$dados['titulo'] = 'Cadastro de Pacotes';
+		$ListaMenus = $this->menu->PermissaoMenus();
+
 		$this->load->view('header', $dados);
-		$this->load->view('menu');
+		$this->load->view('menu', $ListaMenus);
 		$this->load->view('PacoteCadastro', $dados);
 		$this->load->view('footer');
 	}
@@ -36,6 +38,7 @@ class Pacotes extends CI_Controller {
 		$this->load->model('Pacotes_model');
 		$this->Pacotes_model->SavePacote($pacote);
 
+
 		if (!empty($pacote)) {
 			$this->session->set_flashdata('Success', 'Pacote Cadastrado com Sucesso');
 			redirect(base_url('PacoteCadastro'));
@@ -50,8 +53,10 @@ class Pacotes extends CI_Controller {
 		$this->load->model('Pacotes_model');
 		$lista = $this->Pacotes_model->MostraPacotes();
 		$pacotes =  array('pacotes' => $lista);
+		$ListaMenus = $this->menu->PermissaoMenus();
+
 		$this->load->view('header', $dados);
-		$this->load->view('menu');
+		$this->load->view('menu', $ListaMenus);
 		$this->load->view('PacotesCadastrados', $pacotes);
 		$this->load->view('footer');
 	}

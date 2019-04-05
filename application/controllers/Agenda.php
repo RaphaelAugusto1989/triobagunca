@@ -43,9 +43,10 @@ class Agenda extends CI_Controller {
 		
 		$dados['msg'] = $msg;
 		$dados['titulo'] = 'Agendamento de Envento';
+	    $ListaMenus = $this->menu->PermissaoMenus();
 
 		$this->load->view('header', $dados);
-		$this->load->view('menu');
+		$this->load->view('menu', $ListaMenus);
 		$this->load->view('AgendamentoNovo', $dados);
 		$this->load->view('footer');
 	}
@@ -79,9 +80,10 @@ class Agenda extends CI_Controller {
 		$this->load->model('Agenda_model');
 		$lista = $this->Agenda_model->MostraAgenda();
 		$dados =  array('evento' => $lista, 'titulo' => 'Eventos Cadastrados');
+		$ListaMenus = $this->menu->PermissaoMenus();
 
 		$this->load->view('header', $dados);
-		$this->load->view('menu');
+		$this->load->view('menu',$ListaMenus);
 		$this->load->view('Agendamentos', $dados);
 		$this->load->view('footer');
 	}
@@ -222,8 +224,10 @@ class Agenda extends CI_Controller {
 		$Evento = array('evento' => $idEvento, 'ColabEvento' => $colab);
 		$Evento['msg'] = $msg;
 
+		$ListaMenus = $this->menu->PermissaoMenus();
+
 		$this->load->view('header', $dados);
-		$this->load->view('menu');
+		$this->load->view('menu', $ListaMenus);
 		$this->load->view('AgendamentoAltera', $Evento);
 		$this->load->view('footer');
 	}
