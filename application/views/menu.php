@@ -93,7 +93,6 @@
             </li>-->
             <?php 
                 } else { }
-                if (!empty($perm->permission7)) {
             ?>
             <li>
                 <a href="#submenu7" data-toggle="collapse"><i class="fas fa-user"></i> MINHA ÁREA</a>
@@ -104,7 +103,6 @@
                 </ul>
             </li>
             <?php 
-                } else { }
                 if (!empty($perm->permission8)) {
             ?>
             <li>

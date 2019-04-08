@@ -62,7 +62,7 @@
                 </div>
                 <div class="col">
                     <span class="font-weight-light">Data do Evento: <br /></span>
-                    <span class="h5 text-capitalize"><?= $data; ?> </</span>
+                    <span class="h5 text-capitalize"><?= mb_convert_encoding($data, 'UTF-8', 'ISO-8859-1'); ?> </</span>
                 </div>
                 <div class="col">
                     <span class="font-weight-light">Hora do Evento: <br /></span>

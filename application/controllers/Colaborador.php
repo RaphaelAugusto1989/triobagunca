@@ -105,16 +105,17 @@ class Colaborador extends CI_Controller {
 				'senha_colab' => md5($this->input->post('password')),
 			);
 		}
-		
+
+	
 		$this->load->model('Colaborador_model');
-		$this->Colaborador_model->SaveColaborador($colaborador);
+		$this->Colaborador_model->AlteraColaborador($id, $colaborador);
 
 		if (!empty($colaborador)) {
-			$this->session->set_flashdata('Success', 'Colaborador Cadastrado com Sucesso');
-			redirect(base_url('ColaboradorCadastro'));
+			$this->session->set_flashdata('Success', 'Colaborador Alterado com Sucesso');
+			redirect(base_url('Colaborador/DetalheColaborador/'.$id));
 		} else {
 			$this->session->set_flashdata('Error', 'Ocorreu algum problema, verifique os dados e tente novamente!');
-			redirect(base_url('ColaboradorCadastro'));
+			redirect(base_url('Colaborador/DetalheColaborador/'.$id));
 		}
 	}
 
@@ -406,8 +407,6 @@ class Colaborador extends CI_Controller {
 	    $DataFinal = $this->input->post('datafinal');
 	    $motivo = $this->input->post('motivo');
 
-		//echo'<pre>';print_r($idColab);	
-
 		$SomaData = date('Y/m/d', strtotime($DataHoje. '+ 3 days'));
 
 		$this->load->model('Colaborador_model');
@@ -421,7 +420,7 @@ class Colaborador extends CI_Controller {
 	    		'data_final' => $DataFinal[$indice],
 	    		'motivo_ind' => $motivo[$indice],
     		);
-
+			//echo'<pre>';print_r($indisponibilidades);	
     		$this->Colaborador_model->SaveIndisponibilidade($indisponibilidades);
 		}
 

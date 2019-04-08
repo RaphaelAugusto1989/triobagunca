@@ -26,64 +26,67 @@
 
       	<?php foreach ($colaborador as $colab) : 
       		if ($this->session->userdata('IdUser') == '1') { ?>
-			<div class="row border border-primary rounded p-2 mb-2 text-primary">
-                <div class="col text-truncate">
-                    <span class="font-weight-light">Nome: <br /></span>
-                    <span class="h5"><?= anchor("Colaborador/DetalheColaborador/{$colab['id_colab']}", $colab['nome_colab']); ?></span>
-                </div>
-                <div class="col">
-                    <span class="font-weight-light text-truncate">Função: <br /></span>
-                    <span class="h5"><?= anchor("Colaborador/DetalheColaborador/{$colab['id_colab']}", $colab['funcao_colab']); ?></span>
-                </div>
-                <div class="col text-truncate">
-                    <span class="font-weight-light">E-mail: <br /></span>
-                    <span class="h5"><?= anchor("Colaborador/DetalheColaborador/{$colab['id_colab']}", $colab['email_colab']); ?></span>
-                </div>
-								<div class="col text-truncate">
-                    <span class="font-weight-light">Telefone: <br /></span>
-                    <span class="h5">
-						<?php 
-							if (empty($colab['fixo_cli'])) {
-								echo anchor("Colaborador/DetalheColaborador/{$colab['id_colab']}", $colab['cel_colab']);
-							} else {
-								echo anchor("Colaborador/DetalheColaborador/{$colab['id_colab']}", $colab['fixo_colab']);
-							} 
-						?>
-						</span>
-                </div>
-            </div>
-
-            <?php
-	      		} elseif ($colab['id_colab'] == '1') {
-	      			echo "";
-	      		} else {
-      		?>
-      			<div class="row border border-primary rounded p-2 mb-2 text-primary">
+      		<a href="Colaborador/DetalheColaborador/<?= $colab['id_colab'] ?>" class="d-inline">
+				<div class="row border border-primary rounded p-2 mb-2 text-primary">
 	                <div class="col text-truncate">
 	                    <span class="font-weight-light">Nome: <br /></span>
-	                    <span class="h5"><?= anchor("Colaborador/DetalheColaborador/{$colab['id_colab']}", $colab['nome_colab']); ?></span>
+	                    <span class="h5"><?= $colab['nome_colab'] ?></span>
 	                </div>
 	                <div class="col">
 	                    <span class="font-weight-light text-truncate">Função: <br /></span>
-	                    <span class="h5"><?= anchor("Colaborador/DetalheColaborador/{$colab['id_colab']}", $colab['funcao_colab']); ?></span>
+	                    <span class="h5"><?=  $colab['funcao_colab'] ?></span>
 	                </div>
 	                <div class="col text-truncate">
 	                    <span class="font-weight-light">E-mail: <br /></span>
-	                    <span class="h5"><?= anchor("Colaborador/DetalheColaborador/{$colab['id_colab']}", $colab['email_colab']); ?></span>
+	                    <span class="h5"><?= $colab['email_colab'] ?></span>
 	                </div>
 									<div class="col text-truncate">
 	                    <span class="font-weight-light">Telefone: <br /></span>
 	                    <span class="h5">
 							<?php 
 								if (empty($colab['fixo_cli'])) {
-									echo anchor("Colaborador/DetalheColaborador/{$colab['id_colab']}", $colab['cel_colab']);
+									echo $colab['cel_colab'];
 								} else {
-									echo anchor("Colaborador/DetalheColaborador/{$colab['id_colab']}", $colab['fixo_colab']);
+									echo  $colab['fixo_colab'];
 								} 
 							?>
-						</span>
+							</span>
 	                </div>
 	            </div>
+        	</a>
+            <?php
+	      		} elseif ($colab['id_colab'] == '1') {
+	      			echo "";
+	      		} else {
+      		?>
+      			<a href="Colaborador/DetalheColaborador/<?= $colab['id_colab'] ?>" class="d-inline">
+	      			<div class="row border border-primary rounded p-2 mb-2 text-primary">
+		                <div class="col text-truncate">
+		                    <span class="font-weight-light">Nome: <br /></span>
+		                    <span class="h5"><?= $colab['nome_colab'] ?></span>
+		                </div>
+		                <div class="col">
+		                    <span class="font-weight-light text-truncate">Função: <br /></span>
+		                    <span class="h5"><?= $colab['funcao_colab'];?></span>
+		                </div>
+		                <div class="col text-truncate">
+		                    <span class="font-weight-light">E-mail: <br /></span>
+		                    <span class="h5"><?= $colab['email_colab'] ?></span>
+		                </div>
+										<div class="col text-truncate">
+		                    <span class="font-weight-light">Telefone: <br /></span>
+		                    <span class="h5">
+								<?php 
+									if (empty($colab['fixo_cli'])) {
+										echo $colab['cel_colab'];
+									} else {
+										echo $colab['fixo_colab'];
+									} 
+								?>
+							</span>
+		                </div>
+		            </div>
+	        	</a>
         <?php } endforeach?>
         </tbody>
   	</table>

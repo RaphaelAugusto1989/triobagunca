@@ -75,8 +75,8 @@
 	?>
 		<tbody>
 			<tr class="row">
-				<td class="text-capitalize col-md-2"><?= $DataInicial ?></td>
-				<td class="text-capitalize col-md-2"><?= $DataFinal ?></td>
+				<td class="text-capitalize col-md-2"><?= mb_convert_encoding($DataInicial, 'UTF-8', 'ISO-8859-1'); ?></td>
+				<td class="text-capitalize col-md-2"><?= mb_convert_encoding($DataFinal, 'UTF-8', 'ISO-8859-1'); ?></td>
 				<td class="text-capitalize text-truncate col-md-7"> <?= $dadosIndi['motivo_ind'] ?></td>
 				<td class="text-capitalize col-md-1"><a href="<?= base_url('Colaborador/ExcluirIndisponibilidade?id='.$dadosIndi['id_ind']); ?>" class="btn btn-danger btn-sm ml-2">Excluir <i class="fas fa-trash-alt ml-2"></i></a></td>
 			</tr>
