@@ -176,7 +176,7 @@ class Agenda extends CI_Controller {
 
 		if ($true == TRUE) {
 			echo "<script> alert('EVENTO EXCLUÍDO COM SUCESSO!') </script>";
-			echo "<script> location.href=('Agendamentos')</script>";
+			echo "<script> location.href=('../Agendamentos')</script>";
 		}
 	}
 

@@ -400,6 +400,7 @@ class Colaborador extends CI_Controller {
     }
 
     public function InsertIndisponibilidade() {
+    	#echo'DADOS POST: <pre>';print_r($_POST);
 		$idColab = $this->input->post('idcolab');
 		$NomeColab = $this->input->post('nomecolab');
 		$DataHoje = $this->input->post('datahoje');
@@ -410,6 +411,7 @@ class Colaborador extends CI_Controller {
 		$SomaData = date('Y/m/d', strtotime($DataHoje. '+ 3 days'));
 
 		$this->load->model('Colaborador_model');
+		#echo 'DATA INICIAL: <pre>';print_r($DataInicial);
 
 		foreach($DataInicial as $indice => $inicio){
 			$indisponibilidades = array (
@@ -420,7 +422,7 @@ class Colaborador extends CI_Controller {
 	    		'data_final' => $DataFinal[$indice],
 	    		'motivo_ind' => $motivo[$indice],
     		);
-			//echo'<pre>';print_r($indisponibilidades);	
+			#echo'INDISPONIBILIDADE: <pre>';print_r($indisponibilidades);	
     		$this->Colaborador_model->SaveIndisponibilidade($indisponibilidades);
 		}
 

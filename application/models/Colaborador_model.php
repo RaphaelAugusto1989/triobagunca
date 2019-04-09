@@ -10,6 +10,7 @@ class Colaborador_model extends CI_Model {
 
 	#MOSTRA OS COLABORADORES CADASTRADOS
 	public function MostraColaborador () {
+		$this->db->order_by('nome_colab', 'ASC');
 		return $this->db->get('colaborador')->result_array();
 	}
 

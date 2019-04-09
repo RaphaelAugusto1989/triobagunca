@@ -91,11 +91,11 @@ class Pacotes extends CI_Controller {
 
 		if ($true == true) {
 			echo "<script> alert ('PACOTE EXCLUÍDO COM SUCESSO!') </script>";
-			echo "<script> location.href=('PacotesCadastrados')</script>";
+			echo "<script> location.href=('../PacotesCadastrados')</script>";
 		}
 		else {
 			echo "<script> alert ('PROBLEMA AO EXCLUIR O CLIENTE, TENTE NOVAMENTE!')</script>";
-			echo "<script> location.href=('PacotesCadastrados')</script>";
+			echo "<script> location.href=('../PacotesCadastrados')</script>";
 		}
 	}
 
@@ -113,13 +113,14 @@ class Pacotes extends CI_Controller {
 
 
 		$this->load->model('Pacotes_model');
+		$ListaMenus = $this->menu->PermissaoMenus();
 		$idPacote = $this->Pacotes_model->RetornaIdPacote($id);
 		$pacote = array('pacote' => $idPacote);
 		$pacote['msg'] = $msg;
 
 		//print_r($id); exit();
 		$this->load->view('header', $dados);
-		$this->load->view('menu');
+		$this->load->view('menu', $ListaMenus);
 		$this->load->view('PacoteAltera', $pacote);
 		$this->load->view('footer');
 	}

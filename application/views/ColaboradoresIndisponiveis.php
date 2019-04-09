@@ -12,7 +12,7 @@
       	<?php foreach ($colaborador as $colab) : 
       		$SomaData = date('Y-m-d', strtotime($colab['data_cadastrado']. '+ 3 days'));
 
-      		$SomaData = str_replace("-","", $SomaData);
+      		echo $SomaData = str_replace("-","", $SomaData);
 			$DataInicial  = str_replace("-","",  $colab['data_inicial']); 
 
       		if ($SomaData <= $DataInicial) {
@@ -36,7 +36,7 @@
 		                    <span class="h5">
 		                    	<?php 
 		                    		if ($colab['data_inicial'] == $colab['data_final']) {
-		                    			echo $colab['data_inicial'];
+		                    			echo date("d/m/Y", strtotime($colab['data_inicial']));
 		                    		} else {
 		                    			echo 'De '.$colab['data_inicial'].' até '.$colab['data_final']; 
 		                    		}
@@ -46,7 +46,7 @@
 						<div class="col text-truncate">
 		                    <span class="font-weight-light">Data Cadastrada: <br /></span>
 		                    <span class="h5">
-		                    	<?= $colab['data_cadastrado']; ?>
+		                    	<?= date("d/m/Y", strtotime($colab['data_cadastrado'])); ?>
 							</span>
 		                </div>
 		            </div>
@@ -57,34 +57,32 @@
 	      		} else {
       		?>
       			<a href="Agenda/DetalheIndisponibilidade/<?= $colab['id_ind'] ?>" class="d-inline">
-	      			<div class="row border <?= $Falta?> rounded p-2 mb-2 text-primary">
-	      				<div class="col-md-12 text-danger"><b><?= $MsgFalta; ?></b></div>
+					<div class="row border <?= $Falta?> rounded p-2 mb-2 text-primary">
+						<div class="col-md-12 text-danger"><b><?= $MsgFalta; ?></b></div>
 		                <div class="col text-truncate">
 		                    <span class="font-weight-light">Nome: <br /></span>
-		                    <span class="h5"><?= anchor("Colaborador/DetalheColaborador/{$colab['id_colab']}", $colab['nome_colab']); ?></span>
-		                </div>
-		                <div class="col">
-		                    <span class="font-weight-light text-truncate">Função: <br /></span>
-		                    <span class="h5"><?= anchor("Colaborador/DetalheColaborador/{$colab['id_colab']}", $colab['funcao_colab']); ?></span>
+		                    <span class="h5"><?= $colab['nome_colab']; ?></span>
 		                </div>
 		                <div class="col text-truncate">
-		                    <span class="font-weight-light">E-mail: <br /></span>
-		                    <span class="h5"><?= anchor("Colaborador/DetalheColaborador/{$colab['id_colab']}", $colab['email_colab']); ?></span>
-		                </div>
-										<div class="col text-truncate">
-		                    <span class="font-weight-light">Telefone: <br /></span>
+		                    <span class="font-weight-light">Indisponibilidade: <br /></span>
 		                    <span class="h5">
-								<?php 
-									if (empty($colab['fixo_cli'])) {
-										echo anchor("Colaborador/DetalheColaborador/{$colab['id_colab']}", $colab['cel_colab']);
-									} else {
-										echo anchor("Colaborador/DetalheColaborador/{$colab['id_colab']}", $colab['fixo_colab']);
-									} 
-								?>
+		                    	<?php 
+		                    		if ($colab['data_inicial'] == $colab['data_final']) {
+		                    			echo date("d/m/Y", strtotime($colab['data_inicial']));
+		                    		} else {
+		                    			echo 'De '.$colab['data_inicial'].' até '.$colab['data_final']; 
+		                    		}
+		                   		?>
+		                   	</span>
+		                </div>
+						<div class="col text-truncate">
+		                    <span class="font-weight-light">Data Cadastrada: <br /></span>
+		                    <span class="h5">
+		                    	<?= date("d/m/Y", strtotime($colab['data_cadastrado'])); ?>
 							</span>
 		                </div>
 		            </div>
-	        	</a>
+        		</a>
         <?php } endforeach?>
         </tbody>
   	</table>

@@ -42,16 +42,9 @@
     <div class="form-row">
       <div class="form-group col-md-6"">
                 <label for="selecsexo">Sexo</label>
-                <?php
-                  if ($clb['sexo_colab'] == "MASCULINO") {
-                      $Selected = "selected";
-                  } elseif ($clb['sexo_colab'] == "FEMININO") {
-                      $Selected = "selected";
-                  }
-                ?>
                 <select  class="form-control" id="selectsexo" name="sexo">
-                    <option <?= $Selected ?> value="FEMININO">Feminino</option>
-                    <option <?= $Selected ?> value="MASCULINO">Masculino</option>
+                    <option <?php if ($clb['sexo_colab'] == "FEMININO") { echo "selected"; } ?> value="FEMININO">Feminino</option>
+                    <option <?php if ($clb['sexo_colab'] == "MASCULINO") { echo "selected"; } ?> value="MASCULINO">Masculino</option>
                 </select>
             </div>
       <div class="form-group col-md-6">
