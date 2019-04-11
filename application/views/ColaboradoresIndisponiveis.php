@@ -10,21 +10,21 @@
 		</div>
 	</form>
       	<?php foreach ($colaborador as $colab) : 
-      		$SomaData = date('Y-m-d', strtotime($colab['data_cadastrado']. '+ 3 days'));
+			
+			$SomaData = str_replace("-","", $colab['data_soma']);
+			$DataInicial = str_replace("-","",  $colab['data_inicial']); 
 
-      		echo $SomaData = str_replace("-","", $SomaData);
-			$DataInicial  = str_replace("-","",  $colab['data_inicial']); 
+			$TotalData = $SomaData - $DataInicial;
 
-      		if ($SomaData <= $DataInicial) {
+      		if ($TotalData <= 3 && $TotalData >= 0) {
       			$Falta = 'table-danger border border-danger';
-      			$MsgFalta = 'Colaborador escolheu a indisponibilidade com 3 dias ou menos da data escolhida! <br/>';
+      			$MsgFalta = 'Colaborador cadastrou indisponibilidade com 3 dias ou menos da data escolhida! <br/>';
       		} else {
       			$Falta = 'border-primary';
       			$MsgFalta = Null;
       		}
-
       		if ($this->session->userdata('IdUser') == '1') { ?>
-      			<a href="Agenda/DetalheIndisponibilidade/<?= $colab['id_ind'] ?>" class="d-inline">
+      			<a href="Colaborador/DetalheIndisponibilidade/<?= $colab['id_ind'] ?>" class="d-inline">
 					<div class="row border <?= $Falta?> rounded p-2 mb-2 text-primary">
 						<div class="col-md-12 text-danger"><b><?= $MsgFalta; ?></b></div>
 		                <div class="col text-truncate">
@@ -38,7 +38,7 @@
 		                    		if ($colab['data_inicial'] == $colab['data_final']) {
 		                    			echo date("d/m/Y", strtotime($colab['data_inicial']));
 		                    		} else {
-		                    			echo 'De '.$colab['data_inicial'].' até '.$colab['data_final']; 
+		                    			echo 'De '.date("d/m/Y", strtotime($colab['data_inicial'])).' até '.date("d/m/Y", strtotime($colab['data_final'])); 
 		                    		}
 		                   		?>
 		                   	</span>
@@ -56,7 +56,7 @@
 	      			echo "";
 	      		} else {
       		?>
-      			<a href="Agenda/DetalheIndisponibilidade/<?= $colab['id_ind'] ?>" class="d-inline">
+      			<a href="Colaborador/DetalheIndisponibilidade/<?= $colab['id_ind'] ?>" class="d-inline">
 					<div class="row border <?= $Falta?> rounded p-2 mb-2 text-primary">
 						<div class="col-md-12 text-danger"><b><?= $MsgFalta; ?></b></div>
 		                <div class="col text-truncate">
@@ -70,7 +70,7 @@
 		                    		if ($colab['data_inicial'] == $colab['data_final']) {
 		                    			echo date("d/m/Y", strtotime($colab['data_inicial']));
 		                    		} else {
-		                    			echo 'De '.$colab['data_inicial'].' até '.$colab['data_final']; 
+		                    			echo 'De '.date("d/m/Y", strtotime($colab['data_inicial'])).' até '.date("d/m/Y", strtotime($colab['data_final'])); 
 		                    		}
 		                   		?>
 		                   	</span>

@@ -420,6 +420,7 @@ class Colaborador extends CI_Controller {
 	    		'data_cadastrado' => $DataHoje,
 	    		'data_inicial' => $DataInicial[$indice],
 	    		'data_final' => $DataFinal[$indice],
+	    		'data_soma' => $SomaData,
 	    		'motivo_ind' => $motivo[$indice],
     		);
 			#echo'INDISPONIBILIDADE: <pre>';print_r($indisponibilidades);	
@@ -437,7 +438,6 @@ class Colaborador extends CI_Controller {
 		if (!empty($indisponibilidades)) {
 			$msg = $this->session->set_flashdata('Success', 'Indisponiblidade Cadastradas com Sucesso');
 			redirect(base_url('ColaboradorIndisponibilidade/'.$id));
-			//redirect(base_url('Colaborador/ColaboradorIndisponibilidade/'.$id));
 		} else {
 			$msg = $this->session->set_flashdata('Error', 'Ocorreu algum problema, verifique os dados e tente novamente!');
 			redirect(base_url('ColaboradorIndisponibilidade/'.$id));
@@ -475,6 +475,20 @@ class Colaborador extends CI_Controller {
 		$this->load->view('header', $dados);
 		$this->load->view('menu', $ListaMenus);
 		$this->load->view('ColaboradoresIndisponiveis', $Colaborador);
+		$this->load->view('footer');
+	}
+
+	public function DetalheIndisponibilidade() {
+		$IdInd = $this->uri->segment(3);
+		$this->load->model('Colaborador_model');
+		$Lista = $this->Colaborador_model->MostraDetalheIndisponibilidade($IdInd);
+		$ListaMenus = $this->menu->PermissaoMenus();
+
+		$dados = array('ind' => $Lista, 'titulo' => "Detalhe da Indisponibilidade");
+
+		$this->load->view('header', $dados);
+		$this->load->view('menu', $ListaMenus);
+		$this->load->view('DetalheIndisponibilidade', $dados);
 		$this->load->view('footer');
 	}
 

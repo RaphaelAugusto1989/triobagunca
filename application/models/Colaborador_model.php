@@ -86,6 +86,12 @@ class Colaborador_model extends CI_Model {
 		return $this->db->get('colaborador_indisponivel')->result_array();
 	}
 
+	#MOSTRA DETALHE DA INDISPONIBILIDADE DO COLABORADOR
+   	public function MostraDetalheIndisponibilidade ($IdInd) {
+   		$this->db->where('id_ind', $IdInd);
+		return $this->db->get('colaborador_indisponivel')->result_array();
+	}
+
 	#INSERE A INDISPONIBILIDADE DO COLABORADOR NO BANCO DE DADOS
 	public function SaveIndisponibilidade ($indisponibilidades) {
 		$this->db->insert("colaborador_indisponivel", $indisponibilidades);
