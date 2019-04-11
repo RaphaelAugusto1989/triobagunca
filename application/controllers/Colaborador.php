@@ -389,7 +389,8 @@ class Colaborador extends CI_Controller {
 
 		$this->load->model('Colaborador_model');
 		$ColabInd = $this->Colaborador_model->MostraIndisponibilidade($id);
-		$dados = array('titulo' => 'Indisponibilidades', 'msg' => $msg, 'ind' => $ColabInd);
+		$idcolab = $this->Colaborador_model->RetornaIdColaborador($id);
+		$dados = array('titulo' => 'Indisponibilidades', 'msg' => $msg, 'ind' => $ColabInd, 'clb' => $idcolab);
 
 		$ListaMenus = $this->menu->PermissaoMenus();
 
@@ -411,6 +412,7 @@ class Colaborador extends CI_Controller {
 		$SomaData = date('Y/m/d', strtotime($DataHoje. '+ 3 days'));
 
 		$this->load->model('Colaborador_model');
+
 		#echo 'DATA INICIAL: <pre>';print_r($DataInicial);
 
 		foreach($DataInicial as $indice => $inicio){
@@ -486,6 +488,7 @@ class Colaborador extends CI_Controller {
 
 		$dados = array('ind' => $Lista, 'titulo' => "Detalhe da Indisponibilidade");
 
+		#echo '<pre>'; print_r($dados); exit;
 		$this->load->view('header', $dados);
 		$this->load->view('menu', $ListaMenus);
 		$this->load->view('DetalheIndisponibilidade', $dados);

@@ -18,7 +18,7 @@
 	<?php
 		$DataHoje = date('Y-m-d');
 		$idcolab = $this->session->userdata('IdUser');
-		$NomeColab = $this->session->userdata('nome');
+		$NomeColab = $clb['nome_colab'].' '.$clb['sobrenome_colab']; #$this->session->userdata('nome');
 	?>
 	<form action="<?php echo base_url('Colaborador/InsertIndisponibilidade');?>" method="POST">
 		<input type="hidden" name="idcolab" id="idcolab" value="<?= $idcolab; ?>">
