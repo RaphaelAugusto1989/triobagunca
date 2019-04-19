@@ -18,6 +18,17 @@
   			$MsgFalta = Null;
   		}
     ?>	
+    <div class="form-group text-center">
+      <?php
+          #if (!empty($DadosColab[0]['foto_colab'])) {
+           #   echo "<img class='meu_avatar rounded-circle border border-2 p-1' src='".base_url("assets/img/fotos_usuarios/".$DadosColab[0]['foto_colab']."")."'>";
+          #} elseif ($DadosColab[0]['sexo_colab'] == "MASCULINO") {
+           #   echo "<img class='meu_avatar rounded-circle border border-2 p-1' src='".base_url("assets/img/avatar_man.png")."'>";
+          #} else {
+           #   echo "<img class='meu_avatar rounded-circle border border-2 p-1' src='".base_url("assets/img/avatar_woman.png")."'>";
+          #}
+      ?>
+  </div>
 	<div class="form-row">
 		<div class="form-group col-md-12">
 			<label for="inpudate">Colaborador:</label>

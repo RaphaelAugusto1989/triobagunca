@@ -53,4 +53,202 @@
 			</div>
 			<button type="submit" class="btn btn-primary">Salvar <i class="fas fa-save ml-2"></i></button>
 		</form>
+
+        <div class="table-responsive mt-5">
+        <table class="table table-sm table-hover">
+          <thead>
+            <tr>
+              <td scope="col"><b>Colaborador</b></td>
+              <td scope="col" class="text-center"><b>EVENTOS</b></td>
+              <td scope="col" class="text-center"><b>PACOTES</b></td>
+              <td scope="col" class="text-center"><b>COLABORADORES</b></td>
+              <td scope="col" class="text-center"><b>FINANCEIRO</b></td>
+              <td scope="col" class="text-center"><b>SITE</b></td>
+              <td scope="col" class="text-center"><b>RELATÓRIOS</b></td>
+              <td scope="col" class="text-center"><b>MINHA ÁREA
+</b></td>
+              <td scope="col" class="text-center"><b>SISTEMA</b></td>
+              <td scope="col" class="text-center"><b>ALTERAR</b></td>
+            </tr>
+          </thead>
+          <?php
+            foreach ($perm as $indice => $pc) {
+                if ($this->session->userdata('IdUser') == '1') { ?>
+                    <tbody>
+                        <tr>
+                          <td class="text-capitalize">
+                            <?= $pc['nome_colab']?>
+                          </td>
+                          <td class="text-center">
+                              <?php
+                                if ($pc['permission1'] == '1') {
+                                    echo "<i class='fas fa-check'></i>";
+                                } else {
+                                    echo "";
+                                }
+                              ?>
+                          </td>
+                          <td class="text-center">
+                              <?php
+                                if ($pc['permission2'] == '1') {
+                                    echo "<i class='fas fa-check'></i>";
+                                } else {
+                                    echo "";
+                                }
+                              ?>
+                          </td>
+                          <td class="text-center">
+                              <?php
+                                if ($pc['permission3'] == '1') {
+                                    echo "<i class='fas fa-check'></i>";
+                                } else {
+                                    echo "";
+                                }
+                              ?>
+                          </td>
+                          <td class="text-center">
+                              <?php
+                                if ($pc['permission4'] == '1') {
+                                    echo "<i class='fas fa-check'></i>";
+                                } else {
+                                    echo "";
+                                }
+                              ?>
+                          </td>
+                          <td class="text-center">
+                              <?php
+                                if ($pc['permission5'] == '1') {
+                                    echo "<i class='fas fa-check'></i>";
+                                } else {
+                                    echo "";
+                                }
+                              ?>
+                          </td>
+                          <td class="text-center">
+                              <?php
+                                if ($pc['permission6'] == '1') {
+                                    echo "<i class='fas fa-check'></i>";
+                                } else {
+                                    echo "";
+                                }
+                              ?>
+                          </td>
+                          <td class="text-center">
+                              <?php
+                                if ($pc['permission7'] == '1') {
+                                    echo "<i class='fas fa-check'></i>";
+                                } else {
+                                    echo "";
+                                }
+                              ?>
+                          </td>
+                          <td class="text-center">
+                              <?php
+                                if ($pc['permission8'] == '1') {
+                                    echo "<i class='fas fa-check'></i>";
+                                } else {
+                                    echo "";
+                                }
+                              ?>
+                          </td>
+                          <td class="text-center">
+                              <a href="Colaborador/DetalhePermissao/<?= $pc['id_permission']?>" class="p-1 pl-3 pr-3 text-danger" title="Alterar"><i class="fas fa-edit"></i></a>
+                          </td>
+                        </tr>
+                        </a>
+                    </tbody>
+            <?php
+                } elseif ($pc['id_colab'] == '1') {
+                    echo "";
+                } else {
+            ?>
+                <tbody>
+                    <tr>
+                      <td class="text-capitalize">
+                        <?= $pc['nome_colab']?>
+                      </td>
+                      <td class="text-center">
+                          <?php
+                            if ($pc['permission1'] == '1') {
+                                echo "<i class='fas fa-check'></i>";
+                            } else {
+                                echo "";
+                            }
+                          ?>
+                      </td>
+                      <td class="text-center">
+                          <?php
+                            if ($pc['permission2'] == '1') {
+                                echo "<i class='fas fa-check'></i>";
+                            } else {
+                                echo "";
+                            }
+                          ?>
+                      </td>
+                      <td class="text-center">
+                          <?php
+                            if ($pc['permission3'] == '1') {
+                                echo "<i class='fas fa-check'></i>";
+                            } else {
+                                echo "";
+                            }
+                          ?>
+                      </td>
+                      <td class="text-center">
+                          <?php
+                            if ($pc['permission4'] == '1') {
+                                echo "<i class='fas fa-check'></i>";
+                            } else {
+                                echo "";
+                            }
+                          ?>
+                      </td>
+                      <td class="text-center">
+                          <?php
+                            if ($pc['permission5'] == '1') {
+                                echo "<i class='fas fa-check'></i>";
+                            } else {
+                                echo "";
+                            }
+                          ?>
+                      </td>
+                      <td class="text-center">
+                          <?php
+                            if ($pc['permission6'] == '1') {
+                                echo "<i class='fas fa-check'></i>";
+                            } else {
+                                echo "";
+                            }
+                          ?>
+                      </td>
+                      <td class="text-center">
+                          <?php
+                            if ($pc['permission7'] == '1') {
+                                echo "<i class='fas fa-check'></i>";
+                            } else {
+                                echo "";
+                            }
+                          ?>
+                      </td>
+                      <td class="text-center">
+                          <?php
+                            if ($pc['permission8'] == '1') {
+                                echo "<i class='fas fa-check'></i>";
+                            } else {
+                                echo "";
+                            }
+                          ?>
+                      </td>
+                      <td class="text-center">
+                          <a href="Colaborador/DetalhePermissao/<?= $pc['id_permission']?>" class="p-1 pl-3 pr-3 text-danger" title="Alterar"><i class="fas fa-edit"></i></a>
+                      </td>
+                    </tr>
+                    </a>
+                </tbody>
+        <?php
+            }
+        }
+        ?>
+        </table>
+    </div>
 </div>

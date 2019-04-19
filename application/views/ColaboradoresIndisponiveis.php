@@ -35,11 +35,12 @@
 		                    <span class="font-weight-light">Indisponibilidade: <br /></span>
 		                    <span class="h5">
 		                    	<?php 
-		                    		if ($colab['data_inicial'] == $colab['data_final']) {
-		                    			echo date("d/m/Y", strtotime($colab['data_inicial']));
-		                    		} else {
-		                    			echo 'De '.date("d/m/Y", strtotime($colab['data_inicial'])).' até '.date("d/m/Y", strtotime($colab['data_final'])); 
-		                    		}
+		                    		echo date("d/m/Y", strtotime($colab['data_inicial']));
+		                    		#if ($colab['data_inicial'] == $colab['data_final']) {
+		                    		#	echo date("d/m/Y", strtotime($colab['data_inicial']));
+		                    		#} else {
+		                    		#	echo 'De '.date("d/m/Y", strtotime($colab['data_inicial'])).' até '.date("d/m/Y", strtotime($colab['data_final'])); 
+		                    		#}
 		                   		?>
 		                   	</span>
 		                </div>

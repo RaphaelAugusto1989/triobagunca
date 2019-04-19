@@ -44,4 +44,9 @@ class Clientes_model extends CI_Model {
 		return TRUE;
 	}
 
+	#EXCLUÍ O CLIENTE NO BANCO DE DADOS
+	public function MostraPermissao () {
+		return $this->db->get('permissao_colab')->result_array();
+	}
+
 }

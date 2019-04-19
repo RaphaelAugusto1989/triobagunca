@@ -322,13 +322,16 @@ class Colaborador extends CI_Controller {
 			$msg = "<p class='alert alert-danger text-center'>".$this->session->flashdata('Error')."</p>";
 		}
 
-	    $dados['titulo'] = "Permissões de Usuário";
 	    $dados['dadospacote'] = array("id_user"=>$this->input->post('id_user'));
+	    $this->load->model('Colaborador_model');
+	    $ListaPermissao = $this->Colaborador_model->MostraPermissao();
 	    $ListaMenus = $this->menu->PermissaoMenus();
+
+	    $dados = array('perm' => $ListaPermissao, 'titulo' => 'Permissões de Usuário');
 
         $this->load->view('header', $dados);
 	    $this->load->view('menu', $ListaMenus);
-	    $this->load->view('ColaboradorPermissaoSistema');
+	    $this->load->view('ColaboradorPermissaoSistema', $dados);
 	    $this->load->view('footer');
     }
 
@@ -377,6 +380,20 @@ class Colaborador extends CI_Controller {
 		}
     }
 
+    public function DetalhePermissao () {
+    	$idColab = $this->uri->segment(3);
+
+    	$this->load->model('Colaborador_model');
+    	$lista = $this->Colaborador_model->MostraDetalhePermissao($idColab);
+    	$dados = array('titulo' => 'Permissões', 'perm' => $lista);
+    	$ListaMenus = $this->menu->PermissaoMenus();
+
+    	$this->load->view('header', $dados);
+    	$this->load->view('menu', $ListaMenus);
+    	$this->load->view('DetalhePermissao', $dados);
+    	$this->load->view('footer');
+    }
+
     public function Indisponibilidade() {
     	$msg = null;
 		if ($this->session->flashdata('Success') !="") {
@@ -406,7 +423,7 @@ class Colaborador extends CI_Controller {
 		$NomeColab = $this->input->post('nomecolab');
 		$DataHoje = $this->input->post('datahoje');
 		$DataInicial = $this->input->post('datainicial');
-	    $DataFinal = $this->input->post('datafinal');
+	    #$DataFinal = $this->input->post('datafinal');
 	    $motivo = $this->input->post('motivo');
 
 		$SomaData = date('Y/m/d', strtotime($DataHoje. '+ 3 days'));
@@ -421,7 +438,7 @@ class Colaborador extends CI_Controller {
 	    		'nome_colab' => $NomeColab,
 	    		'data_cadastrado' => $DataHoje,
 	    		'data_inicial' => $DataInicial[$indice],
-	    		'data_final' => $DataFinal[$indice],
+	    		#'data_final' => $DataFinal[$indice],
 	    		'data_soma' => $SomaData,
 	    		'motivo_ind' => $motivo[$indice],
     		);
@@ -484,9 +501,10 @@ class Colaborador extends CI_Controller {
 		$IdInd = $this->uri->segment(3);
 		$this->load->model('Colaborador_model');
 		$Lista = $this->Colaborador_model->MostraDetalheIndisponibilidade($IdInd);
+		#$idcolab = $this->Colaborador_model->RetornaIdColaborador($id);
 		$ListaMenus = $this->menu->PermissaoMenus();
 
-		$dados = array('ind' => $Lista, 'titulo' => "Detalhe da Indisponibilidade");
+		$dados = array('ind' => $Lista, 'titulo' => "Detalhe da Indisponibilidade", 'DadosColab' => $idcolab);
 
 		#echo '<pre>'; print_r($dados); exit;
 		$this->load->view('header', $dados);

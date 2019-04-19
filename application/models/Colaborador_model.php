@@ -51,12 +51,26 @@ class Colaborador_model extends CI_Model {
         $this->db->insert("permissao_colab", $permission);
     }
 
+    #EXCLUÍ O CLIENTE NO BANCO DE DADOS
+	public function MostraPermissao () {
+		$this->db->order_by('nome_colab', 'ASC');
+		return $this->db->get('permissao_colab')->result_array();
+	}
+
+
     #MOSTRA PERMISSÕES DO COLABORADOR LOGADO
     public function Permissoes ($id) {
         $this->db->from('permissao_colab');
         $this->db->where('id_colab', $id);
 		return $this->db->get()->result();
     }
+
+    #MOSTRA DETALHES DAS PERMISSÕES DO COLABORADOR
+    public function MostraDetalhePermissao ($idColab) {
+        $this->db->where('id_colab', $idColab);
+		return $this->db->get('permissao_colab')->result_array();
+    }
+
 
 	#MOSTRA COLABORADOR NO AUTOCOMPLETE
     public function AutoCompleteColaborador ($nome) {
