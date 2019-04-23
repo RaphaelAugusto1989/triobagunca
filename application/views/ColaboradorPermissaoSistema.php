@@ -30,7 +30,7 @@
                     <input class="form-check-input" type="checkbox" id="checkbox4" name="permission3" value="1">
                     <label class="form-check-label" for="checkbox4">COLABORADORES</label>
                 </div>
-                <div class="form-check form-check-inline">
+                <!--<div class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox" id="checkbox5" name="permission4" value="1">
                     <label class="form-check-label" for="checkbox5">FINANCEIRO</label>
                 </div>
@@ -41,7 +41,7 @@
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox" id="checkbox7" name="permission6" value="1">
                     <label class="form-check-label" for="checkbox7">RELATÓRIOS</label>
-                </div>
+                </div>-->
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox" id="checkbox8" name="permission7" value="1">
                     <label class="form-check-label" for="checkbox8">MINHA ÁREA</label>
@@ -152,7 +152,7 @@
                               ?>
                           </td>
                           <td class="text-center">
-                              <a href="Colaborador/DetalhePermissao/<?= $pc['id_permission']?>" class="p-1 pl-3 pr-3 text-danger" title="Alterar"><i class="fas fa-edit"></i></a>
+                              <a href="Colaborador/DetalhePermissao/<?= $pc['id_permission']?>" class="p-1 pl-3 pr-3 text-danger" title="Alterar"><i class="fas fa-edit"></i></a> 
                           </td>
                         </tr>
                         </a>

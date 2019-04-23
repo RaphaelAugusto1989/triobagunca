@@ -8,8 +8,6 @@ class Colaborador extends CI_Controller {
 		$this->load->library('form_validation');
 	}
 
-	
-
 	public function ColaboradorCadastro() {
 		$msg = null;
 		if ($this->session->flashdata('Success') !="") {
@@ -327,7 +325,7 @@ class Colaborador extends CI_Controller {
 	    $ListaPermissao = $this->Colaborador_model->MostraPermissao();
 	    $ListaMenus = $this->menu->PermissaoMenus();
 
-	    $dados = array('perm' => $ListaPermissao, 'titulo' => 'Permissões de Usuário');
+	    $dados = array('perm' => $ListaPermissao, 'titulo' => 'Permissões de Usuário', 'msg' => $msg);
 
         $this->load->view('header', $dados);
 	    $this->load->view('menu', $ListaMenus);
@@ -336,9 +334,10 @@ class Colaborador extends CI_Controller {
     }
 
     public function InsertPermissaoColaborador (){
+    	$idColab = $this->input->post('idcolab');
         $permission = array (
         	'nome_colab' => $this->input->post('nome_colab'),
-            'id_colab' => $this->input->post('idcolab'),
+            'id_colab' => $idColab,
             'permission1' => $this->input->post('permission1'),
             'permission2' => $this->input->post('permission2'),
             'permission3' => $this->input->post('permission3'),
@@ -348,6 +347,15 @@ class Colaborador extends CI_Controller {
             'permission7' => $this->input->post('permission7'),
             'permission8' => $this->input->post('permission8'),
         );
+
+        $this->load->model('Colaborador_model');
+        $ColabId = $this->Colaborador_model->RetornaIdColabPermissao($idColab);
+
+        //echo '<pre>'; print_r($ColabId); exit();
+        if ($ColabId['id_colab'] == $idColab) {
+        	$msg = $this->session->set_flashdata('Error', 'Este Colaborador já tem Permissão no sistema! ');
+			redirect(base_url('ColaboradorPermissaoSistema'));
+        }
 
         #AUTOCOMPLETE
         if(isset($_GET['term'])) {
@@ -381,11 +389,18 @@ class Colaborador extends CI_Controller {
     }
 
     public function DetalhePermissao () {
-    	$idColab = $this->uri->segment(3);
+    	$msg = null;
+		if ($this->session->flashdata('Success') !="") {
+			$msg = $this->session->flashdata('Success');
+		} else {
+			$msg = $this->session->flashdata('Error');
+		}
+
+    	$idPermission = $this->uri->segment(3);
 
     	$this->load->model('Colaborador_model');
-    	$lista = $this->Colaborador_model->MostraDetalhePermissao($idColab);
-    	$dados = array('titulo' => 'Permissões', 'perm' => $lista);
+    	$lista = $this->Colaborador_model->MostraDetalhePermissao($idPermission);
+    	$dados = array('titulo' => 'Permissões', 'perm' => $lista, 'msg' => $msg);
     	$ListaMenus = $this->menu->PermissaoMenus();
 
     	$this->load->view('header', $dados);
@@ -393,6 +408,47 @@ class Colaborador extends CI_Controller {
     	$this->load->view('DetalhePermissao', $dados);
     	$this->load->view('footer');
     }
+
+    public function AlterarPermissao () {
+    	$idPermission = $this->input->post('idperm');
+    	$permission = array (
+            'permission1' => $this->input->post('permission1'),
+            'permission2' => $this->input->post('permission2'),
+            'permission3' => $this->input->post('permission3'),
+            'permission4' => $this->input->post('permission4'),
+            'permission5' => $this->input->post('permission5'),
+            'permission6' => $this->input->post('permission6'),
+            'permission7' => $this->input->post('permission7'),
+            'permission8' => $this->input->post('permission8'),
+        );
+
+    	$this->load->model('Colaborador_model');
+    	$lista = $this->Colaborador_model->AlteraPermissao($idPermission, $permission);
+
+    	 if (!empty($permission)) {
+			$msg = $this->session->set_flashdata('Success', 'Permissões do usuário alterada com sucesso!');
+			redirect(base_url('Colaborador/DetalhePermissao/'.$idPermission));
+		} else {
+			$msg = $this->session->set_flashdata('Error', 'Ocorreu algum problema, verifique os dados e tente novamente!');
+			redirect(base_url('DetalhePermissao/'.$idPermission));
+		}
+    }
+
+    public function ExcluirPermissao() {
+		$id = $this->input->get('id');
+		#$id = $this->uri->segment(3);
+		$this->load->model('Colaborador_model');
+		$true = $this->Colaborador_model->DeletaPermissao($id);
+
+		if ($true == true) {
+			echo "<script> alert ('PERMISSÃO EXCLUÍDA COM SUCESSO!') </script>";
+			echo "<script> location.href=('../ColaboradorPermissaoSistema')</script>";
+		}
+		else {
+			echo "<script> alert ('PROBLEMA AO EXCLUIR PERMISSÃO, TENTE NOVAMENTE!')</script>";
+			echo "<script> location.href=('../DetalhePermissao/'.$id)</script>";
+		}
+	}
 
     public function Indisponibilidade() {
     	$msg = null;
@@ -418,7 +474,6 @@ class Colaborador extends CI_Controller {
     }
 
     public function InsertIndisponibilidade() {
-    	#echo'DADOS POST: <pre>';print_r($_POST);
 		$idColab = $this->input->post('idcolab');
 		$NomeColab = $this->input->post('nomecolab');
 		$DataHoje = $this->input->post('datahoje');
@@ -426,11 +481,9 @@ class Colaborador extends CI_Controller {
 	    #$DataFinal = $this->input->post('datafinal');
 	    $motivo = $this->input->post('motivo');
 
-		$SomaData = date('Y/m/d', strtotime($DataHoje. '+ 3 days'));
+		$SomaData = date('Y/m/d', strtotime($DataHoje. '+ 15 days'));
 
 		$this->load->model('Colaborador_model');
-
-		#echo 'DATA INICIAL: <pre>';print_r($DataInicial);
 
 		foreach($DataInicial as $indice => $inicio){
 			$indisponibilidades = array (
@@ -442,7 +495,6 @@ class Colaborador extends CI_Controller {
 	    		'data_soma' => $SomaData,
 	    		'motivo_ind' => $motivo[$indice],
     		);
-			#echo'INDISPONIBILIDADE: <pre>';print_r($indisponibilidades);	
     		$this->Colaborador_model->SaveIndisponibilidade($indisponibilidades);
 		}
 
@@ -450,7 +502,7 @@ class Colaborador extends CI_Controller {
 		$inicial  = str_replace("-","",  $DataInicial[0]); 
 
 		if ($inicial <= $SomaData) {
-				$msg = $this->session->set_flashdata('Error', 'AVISO: Você cadastrou sua indisponibilidade com 3 dias ou menos da data inicial, isso ocorrerá como falta!');
+				$msg = $this->session->set_flashdata('Error', 'AVISO: Você cadastrou sua indisponibilidade com 15 dias ou menos da data inicial, isso ocorrerá como falta!');
 				redirect(base_url('ColaboradorIndisponibilidade/'.$id));
 		} 
 		

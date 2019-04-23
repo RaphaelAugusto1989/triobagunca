@@ -16,9 +16,9 @@
 
 			$TotalData = $SomaData - $DataInicial;
 
-      		if ($TotalData <= 3 && $TotalData >= 0) {
+      		if ($TotalData <= 15 && $TotalData >= 0) {
       			$Falta = 'table-danger border border-danger';
-      			$MsgFalta = 'Colaborador cadastrou indisponibilidade com 3 dias ou menos da data escolhida! <br/>';
+      			$MsgFalta = 'Colaborador cadastrou indisponibilidade com 15 dias ou menos da data escolhida! <br/>';
       		} else {
       			$Falta = 'border-primary';
       			$MsgFalta = Null;

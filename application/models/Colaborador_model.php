@@ -65,12 +65,29 @@ class Colaborador_model extends CI_Model {
 		return $this->db->get()->result();
     }
 
+    public function RetornaIdColabPermissao($idColab) {
+		return $this->db->get_where("permissao_colab", array ("id_colab" => $idColab)) -> row_array();
+	}
+
     #MOSTRA DETALHES DAS PERMISSÕES DO COLABORADOR
-    public function MostraDetalhePermissao ($idColab) {
-        $this->db->where('id_colab', $idColab);
+    public function MostraDetalhePermissao ($idPermission) {
+        $this->db->where('id_permission', $idPermission);
 		return $this->db->get('permissao_colab')->result_array();
     }
 
+    #ALTERA PERMISSÃO NO BANCO DE DADOS
+	public function AlteraPermissao ($idPermission, $permission) {
+		$this->db->where('id_permission', $idPermission);
+		$this->db->update('permissao_colab', $permission);
+		return TRUE;
+	}
+
+    #EXCLUÍ PERMISSÕES DO COLABORADOR
+	public function DeletaPermissao ($id) {
+		$this->db->where('id_permission', $id);
+		$this->db->delete('permissao_colab');
+		return TRUE;
+	}
 
 	#MOSTRA COLABORADOR NO AUTOCOMPLETE
     public function AutoCompleteColaborador ($nome) {
