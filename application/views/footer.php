@@ -92,7 +92,7 @@
 					        '<input type="text" class="form-control" name="motivo[]" value="" placeholder="Motivo da Indisponibilidade">'+
 			    		'</div>'+
 				    	'<div class="form-group col-md-1">'+
-					    	'<a class="btn btn-danger" href="javascript:void(0)" id="remInputdate">'+
+					    	'<a class="btn btn-danger" href="javascript:void(0)" onClick="delreg($linh[0])" id="remInputdate">'+
 					    		'<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>'+
 					        	'<i class="fas fa-times"  title="Remover"></i>'+
 							'</a>'+
@@ -130,6 +130,15 @@
 			        return false;
 			    });
 			});
+
+			function delreg() {
+				var nome = document.getElementById("autocompletecolab").value
+				var id = document.getElementById("idcolabevento").value
+				//var event = confirm('Tem certeza que quer excluir ' +nome+ ' deste evento?');
+				//document.getElementById('idcolabevento').value = id;
+				window.location.href="../DeletColabEvent/"+id;
+				//load("Agenda/DeletColabEvent/"+id);
+			} 
 
 			function aComplete(){
 				$(document).on("keyup", ".autocompletecolab", function(){

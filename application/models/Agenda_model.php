@@ -49,10 +49,24 @@ class Agenda_model extends CI_Model {
 		//return $this->db->get('colaborador_evento')->result_array();
 	}
 
+	#RETORNA OS IDs COLABORADORES CADASTRADO NO EVENTOS
+	public function RetornaIdColabEvento ($idsColaboradores) {
+		return $this->db->get("colaborador_evento", array ("fk_id_colaborador" => $idsColaboradores)) -> result_array();
+		//$this->db->where('fk_id_colaborador', $idsColaboradores);
+		//return $this->db->get('colaborador_evento')->result_array();
+	}
+
 	#MOSTRA OS EVENTOS DO COLABORADOR
 	public function MostraEventoColab ($idEvento) {
 		$this->db->where('id_evento', $idEvento);
 		return $this->db->get('evento')->result_array();
+	}
+
+	#EXCLUI OS COLABORADORES CADASTRADO NO EVENTOS
+	public function ExcluiColabEvento($id) {
+		$this->db->where('id_colab_evento', $id);
+		$this->db->delete('colaborador_evento');
+		return TRUE;
 	}
 
 }

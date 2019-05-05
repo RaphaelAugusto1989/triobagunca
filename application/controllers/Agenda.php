@@ -147,18 +147,52 @@ class Agenda extends CI_Controller {
 		}
 
 		//CADASTRA COLABORADOR NO EVENTO
+		$nomeColaborador = $this->input->post('nome_colab');
 		$idsColaboradores = $this->input->post('idcolab');
+		$ids = $this->Agenda_model->RetornaIdColabEvento($idsColaboradores);
+		
+		//$idsColabs  = array('idsColabsEv' => $ids);
+		//echo $idsColaboradores; exit();
+		//echo '<pre>'; print_r($idsColaboradores); exit();
+		foreach ($idsColaboradores as $key => $ic) {
+			//echo $ic. '<br>'; 
+			//echo $ids[0]['fk_id_colaborador']; exit();
+			//while ($ids[0]['fk_id_colaborador'] != $ic) {
+				if ($ids[0]['fk_id_colaborador'] != $ic) { 
 
-		foreach($this->input->post('nome_colab') as $indice => $nomeColaborador){
-			$EventoColaborador = array (
-				'fk_id_evento' => $id,
-				'fk_id_colaborador' => $idsColaboradores[$indice],
-				'nome_colaborador' => $nomeColaborador,
-			);
+					foreach($this->input->post('nome_colab') as $indice => $nomeColaborador) {
+						$EventoColaborador = array (
+							'fk_id_evento' => $id,
+							'fk_id_colaborador' => $idsColaboradores[$indice],
+							'nome_colaborador' => $nomeColaborador,
+						);
 
-			$this->load->model('Agenda_model');
-			$this->Agenda_model->SaveColabEvento($EventoColaborador);
-		}
+						//echo '<pre>'; 
+						//print_r($ids); 
+						//print_r($idsColaboradores);
+						//print_r($EventoColaborador); exit();
+
+						$this->load->model('Agenda_model');
+						$this->Agenda_model->SaveColabEvento($EventoColaborador);
+					}
+					
+				} else {
+					echo "<script> alert('COLABORADOR JÁ CADASTRADO NESTE EVENTO!') </script>";
+				} //FIM DO IF
+			//	break;
+			//} //FIM WHILE
+		} //FIM FOREACH 
+
+		//foreach($this->input->post('nome_colab') as $indice => $nomeColaborador) {
+		//	$EventoColaborador = array (
+		//		'fk_id_evento' => $id,
+		//		'fk_id_colaborador' => $idsColaboradores[$indice],
+		//		'nome_colaborador' => $nomeColaborador,
+		//	);
+		//	$this->load->model('Agenda_model');
+		//	$this->Agenda_model->SaveColabEvento($EventoColaborador);
+		//}
+
 
 		if (!empty($evento)) {
 			$msg = $this->session->set_flashdata('Success', 'Evento Alterado com Sucesso');
@@ -199,7 +233,6 @@ class Agenda extends CI_Controller {
 			$idPacote = $this->Pacotes_model->RetornaIdPacote($id);
 			$dados = array('dadospacote' => $idPacote);
 			if(!empty($dados)){
-				
 				echo json_encode(array("codErro"=>0, 
 								 	   "msg"=>"", 
 								 	   "idpct"=>$dados["dadospacote"]["id_pct"],
@@ -207,8 +240,8 @@ class Agenda extends CI_Controller {
 									   "valor"=>$dados["dadospacote"]["valor_pct"],
 									   "especificacao"=>trim($dados["dadospacote"]["especificacao_pct"])
 									   )
-							    );exit;
-			}else{
+							    ); exit;
+			} else {
 				echo json_encode(array("codErro"=>1, "msg"=>"Dados do pacote não encontrado")); exit;
 			}
 		}
@@ -230,6 +263,20 @@ class Agenda extends CI_Controller {
 		$this->load->view('menu', $ListaMenus);
 		$this->load->view('AgendamentoAltera', $Evento);
 		$this->load->view('footer');
+	}
+
+	//public function DeletColabEvent() {
+	//	$id = $this->uri->segment(3);
+		//$id = $this->input->get('id');
+		//echo $id; exit();
+	//	$this->load->model('ExcluiColabEvento');
+	// $this->Agenda_model->ExcluiColabEvento($id);
+	//}
+
+	public function DeletColabEvent() {
+		$id = $this->uri->segment(3);
+		$this->load->model('ExcluiColabEvento');
+		$true = $this->Agenda_model->ExcluiColabEvento($id);
 	}
 
 }

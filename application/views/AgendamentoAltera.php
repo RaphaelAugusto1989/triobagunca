@@ -181,10 +181,11 @@
 		 		<div id="remov" class="form-row">
 		 			<div class="form-group col-md-11">
 				        <input type="text" id="autocompletecolab" class="form-control autocompletecolab" name="nome_colab[]" placeholder="Nome do Colaborador" value="<?= $ColabEvento[$indice]->nome_colaborador?>">
-				        <input type="hidden" name="idcolab[]" id="idcolab" value="<?= $ColabEvento[$indice]->fk_id_colaborador?>">
+				        <input type="text" name="idcolab[]" id="idcolab" value="<?= $ColabEvento[$indice]->fk_id_colaborador?>">
+				        <input type="text" name="idcolabevento[]" id="idcolabevento" value="<?= $ColabEvento[$indice]->id_colab_evento?>">
 		    		</div>
 			    	<div class="form-group col-md-1">
-				    	<a class="btn btn-danger" href="javascript:void(0)" id="remInput">
+				    	<a class="btn btn-danger" href="javascript:void(0)" id="remInput" onClick="delreg('idcolabevento')">
 				    		<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
 				        	<i class="fas fa-times"  title="Remover"></i>
 						</a>
@@ -203,9 +204,9 @@
 			        <input type="hidden" name="idcolab[]" id="idcolab" value="">
 	    		</div>
 		    	<div class="form-group col-md-1">
-			    	<a class="btn btn-danger" href="javascript:void(0)" id="remInput">
+			    	<a class="btn btn-danger" href="javascript:void(0)" id="remInput" onClick="delreg()">
 			    		<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-			        	<i class="fas fa-times"  title="Remover"></i>
+			        	<i class="fas fa-times"  title="Remover"></i> 
 					</a>
 				</div>
 			</div>
