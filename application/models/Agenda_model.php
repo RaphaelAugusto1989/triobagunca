@@ -27,6 +27,7 @@ class Agenda_model extends CI_Model {
 		return TRUE;
 	}
 
+	#RETORNA O ID DOS EVENTOS
 	public function RetornaIdAgenda ($id) {
 		return $this->db->get_where("evento", array ("id_evento" => $id)) -> row_array();
 	}
@@ -47,6 +48,11 @@ class Agenda_model extends CI_Model {
 	public function MostraColabEvento ($idEvento) {
 		return $this->db->get_where("colaborador_evento", array ("fk_id_evento" => $idEvento)) -> result();
 		//return $this->db->get('colaborador_evento')->result_array();
+	}
+
+	#RETORNA OS IDs COLABORADORES CADASTRADO NO EVENTOS
+	public function RetornaIdEventoColab ($id) {
+		return $this->db->get("colaborador_evento", array ("id_colab_evento" => $id)) -> result_array();
 	}
 
 	#RETORNA OS IDs COLABORADORES CADASTRADO NO EVENTOS

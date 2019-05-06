@@ -181,11 +181,11 @@
 		 		<div id="remov" class="form-row">
 		 			<div class="form-group col-md-11">
 				        <input type="text" id="autocompletecolab" class="form-control autocompletecolab" name="nome_colab[]" placeholder="Nome do Colaborador" value="<?= $ColabEvento[$indice]->nome_colaborador?>">
-				        <input type="text" name="idcolab[]" id="idcolab" value="<?= $ColabEvento[$indice]->fk_id_colaborador?>">
-				        <input type="text" name="idcolabevento[]" id="idcolabevento" value="<?= $ColabEvento[$indice]->id_colab_evento?>">
+				        ID COLAB: <input type="text" name="idcolab[]" id="idcolab" value="<?= $ColabEvento[$indice]->fk_id_colaborador?>">
+				        ID EVENTO: <input type="text" name="idcolabevento[]" id="idcolabevento" value="<?= $ColabEvento[$indice]->id_colab_evento?>">
 		    		</div>
 			    	<div class="form-group col-md-1">
-				    	<a class="btn btn-danger" href="javascript:void(0)" id="remInput" onClick="delreg('idcolabevento')">
+				    	<a class="btn btn-danger" href="javascript:void(0)" id="remInput" onClick="delreg('<?= $ColabEvento[$indice]->id_colab_evento?>')">
 				    		<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
 				        	<i class="fas fa-times"  title="Remover"></i>
 						</a>
@@ -199,9 +199,10 @@
 		?>
 		<div id="dynamicDiv">
 	 		<div id="remov" class="form-row">
-	 			<div class="form-group col-md-11">
-			        <input type="text" id="autocompletecolab" class="form-control autocompletecolab" name="nome_colab[]" value="" placeholder="Nome do Colaborador">
+	 			<div class="form-group col-md-11">        
+					<input type="text" id="autocompletecolab" class="form-control autocompletecolab" name="nome_colab[]" value="" placeholder="Nome do Colaborador">
 			        <input type="hidden" name="idcolab[]" id="idcolab" value="">
+					<input type="hidden" name="idcolabevento[]" id="idcolabevento" value="">
 	    		</div>
 		    	<div class="form-group col-md-1">
 			    	<a class="btn btn-danger" href="javascript:void(0)" id="remInput" onClick="delreg()">

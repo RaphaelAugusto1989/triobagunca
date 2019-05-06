@@ -275,8 +275,18 @@ class Agenda extends CI_Controller {
 
 	public function DeletColabEvent() {
 		$id = $this->uri->segment(3);
-		$this->load->model('ExcluiColabEvento');
-		$true = $this->Agenda_model->ExcluiColabEvento($id);
-	}
+		$this->load->model('Agenda_model');
+		//$true = $this->Agenda_model->ExcluiColabEvento($id);
 
+		$IdEvent = $this->Agenda_model->RetornaIdEventoColab($id);
+		//echo 'Id do evento: ' .$id;
+		echo '<pre>'; print_r($IdEvent); exit;
+		
+		if ($true) {
+			redirect(base_url('Agenda/DetalheEvento/'.$id));
+		} else {
+			$msg = $this->session->set_flashdata('Error', 'Ocorreu algum problema ao excluir colaborador deste evento, verifique os dados e tente novamente!');
+			redirect(base_url('DetalheEvento/'.$id));
+		}
+	}
 }

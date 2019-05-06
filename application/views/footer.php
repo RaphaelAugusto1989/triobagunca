@@ -131,13 +131,13 @@
 			    });
 			});
 
-			function delreg() {
+			function delreg(idevent) {
 				var nome = document.getElementById("autocompletecolab").value
-				var id = document.getElementById("idcolabevento").value
+				var id = idevent
+				//var id = document.getElementById("idcolabevento").value
 				//var event = confirm('Tem certeza que quer excluir ' +nome+ ' deste evento?');
 				//document.getElementById('idcolabevento').value = id;
 				window.location.href="../DeletColabEvent/"+id;
-				//load("Agenda/DeletColabEvent/"+id);
 			} 
 
 			function aComplete(){
