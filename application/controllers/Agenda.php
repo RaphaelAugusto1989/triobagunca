@@ -135,7 +135,6 @@ class Agenda extends CI_Controller {
             $lista = $this->Colaborador_model->AutoCompleteColaborador($_GET['term']);
             $arr_lista = array();
             if (!empty($lista)) {
-            	#echo'RESULTADO: <pre>';print_r($lista);exit;
                 foreach ($lista as $nome) {
                     $resultado = array("label" => $nome->nome_colab.' '.$nome->sobrenome_colab,
                     "value" => $nome->nome_colab.' '.$nome->sobrenome_colab.' - '.$nome->funcao_colab,
@@ -149,52 +148,31 @@ class Agenda extends CI_Controller {
 		//CADASTRA COLABORADOR NO EVENTO
 		$nomeColaborador = $this->input->post('nome_colab');
 		$idsColaboradores = $this->input->post('idcolab');
-		$ids = $this->Agenda_model->RetornaIdColabEvento($idsColaboradores);
-		
-		//$idsColabs  = array('idsColabsEv' => $ids);
-		//echo $idsColaboradores; exit();
-		//echo '<pre>'; print_r($idsColaboradores); exit();
-		foreach ($idsColaboradores as $key => $ic) {
-			//echo $ic. '<br>'; 
-			//echo $ids[0]['fk_id_colaborador']; exit();
-			//while ($ids[0]['fk_id_colaborador'] != $ic) {
-				if ($ids[0]['fk_id_colaborador'] != $ic) { 
+		$ids = $this->Agenda_model->colaboradoresEvento($id);
+				
+		$jaCadastrados = array();
+		if(!empty($ids)){
+			foreach ($ids as $value) {
+				array_push($jaCadastrados, $value["fk_id_colaborador"]);
+			}
+		}
 
-					foreach($this->input->post('nome_colab') as $indice => $nomeColaborador) {
-						$EventoColaborador = array (
-							'fk_id_evento' => $id,
-							'fk_id_colaborador' => $idsColaboradores[$indice],
-							'nome_colaborador' => $nomeColaborador,
-						);
+		foreach($idsColaboradores as $indice => $c){
+			if(!in_array($c, $jaCadastrados)){
+				$nomeColaborador = $this->input->post('nome_colab')[$indice];
+				$EventoColaborador = array (
+					'fk_id_evento' => $id,
+					'fk_id_colaborador' => $c,
+					'nome_colaborador' => $nomeColaborador,
+				);
 
-						//echo '<pre>'; 
-						//print_r($ids); 
-						//print_r($idsColaboradores);
-						//print_r($EventoColaborador); exit();
-
-						$this->load->model('Agenda_model');
-						$this->Agenda_model->SaveColabEvento($EventoColaborador);
-					}
-					
-				} else {
-					echo "<script> alert('COLABORADOR JÁ CADASTRADO NESTE EVENTO!') </script>";
-				} //FIM DO IF
-			//	break;
-			//} //FIM WHILE
-		} //FIM FOREACH 
-
-		//foreach($this->input->post('nome_colab') as $indice => $nomeColaborador) {
-		//	$EventoColaborador = array (
-		//		'fk_id_evento' => $id,
-		//		'fk_id_colaborador' => $idsColaboradores[$indice],
-		//		'nome_colaborador' => $nomeColaborador,
-		//	);
-		//	$this->load->model('Agenda_model');
-		//	$this->Agenda_model->SaveColabEvento($EventoColaborador);
-		//}
+				$this->load->model('Agenda_model');
+				$this->Agenda_model->SaveColabEvento($EventoColaborador);
+			}
+		} 
 
 
-		if (!empty($evento)) {
+		if (!empty($id)) {
 			$msg = $this->session->set_flashdata('Success', 'Evento Alterado com Sucesso');
 			redirect(base_url('Agenda/DetalheEvento/'.$id));
 		} else {
@@ -229,7 +207,6 @@ class Agenda extends CI_Controller {
 		
 		if(isset($_POST['pacote'])) {
 			$id = $_POST['pacote'];
-			//$id = $this->uri->segment(3);
 			$idPacote = $this->Pacotes_model->RetornaIdPacote($id);
 			$dados = array('dadospacote' => $idPacote);
 			if(!empty($dados)){
@@ -265,28 +242,23 @@ class Agenda extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//public function DeletColabEvent() {
-	//	$id = $this->uri->segment(3);
-		//$id = $this->input->get('id');
-		//echo $id; exit();
-	//	$this->load->model('ExcluiColabEvento');
-	// $this->Agenda_model->ExcluiColabEvento($id);
-	//}
-
 	public function DeletColabEvent() {
 		$id = $this->uri->segment(3);
+
 		$this->load->model('Agenda_model');
-		//$true = $this->Agenda_model->ExcluiColabEvento($id);
 
 		$IdEvent = $this->Agenda_model->RetornaIdEventoColab($id);
-		//echo 'Id do evento: ' .$id;
-		echo '<pre>'; print_r($IdEvent); exit;
+		$true = $this->Agenda_model->ExcluiColabEvento($id);
+
+		foreach ($IdEvent as $key => $iv) {
+				$IdDoEvento = $iv['fk_id_evento'];
+		}
 		
 		if ($true) {
-			redirect(base_url('Agenda/DetalheEvento/'.$id));
+			redirect(base_url('Agenda/DetalheEvento/'.$IdDoEvento));
 		} else {
 			$msg = $this->session->set_flashdata('Error', 'Ocorreu algum problema ao excluir colaborador deste evento, verifique os dados e tente novamente!');
-			redirect(base_url('DetalheEvento/'.$id));
+			redirect(base_url('Agenda/DetalheEvento/'.$IdDoEvento));
 		}
 	}
 }

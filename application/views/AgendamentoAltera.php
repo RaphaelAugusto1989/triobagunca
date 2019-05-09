@@ -181,11 +181,11 @@
 		 		<div id="remov" class="form-row">
 		 			<div class="form-group col-md-11">
 				        <input type="text" id="autocompletecolab" class="form-control autocompletecolab" name="nome_colab[]" placeholder="Nome do Colaborador" value="<?= $ColabEvento[$indice]->nome_colaborador?>">
-				        ID COLAB: <input type="text" name="idcolab[]" id="idcolab" value="<?= $ColabEvento[$indice]->fk_id_colaborador?>">
-				        ID EVENTO: <input type="text" name="idcolabevento[]" id="idcolabevento" value="<?= $ColabEvento[$indice]->id_colab_evento?>">
+				        <input type="hidden" name="idcolab[]" id="idcolab" value="<?= $ColabEvento[$indice]->fk_id_colaborador?>">
+
 		    		</div>
 			    	<div class="form-group col-md-1">
-				    	<a class="btn btn-danger" href="javascript:void(0)" id="remInput" onClick="delreg('<?= $ColabEvento[$indice]->id_colab_evento?>')">
+				    	<a class="btn btn-danger" href="javascript:void(0)" id="remInput" onClick="delreg('<?php echo $ColabEvento[$indice]->id_colab_evento?>')">
 				    		<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
 				        	<i class="fas fa-times"  title="Remover"></i>
 						</a>
@@ -200,9 +200,8 @@
 		<div id="dynamicDiv">
 	 		<div id="remov" class="form-row">
 	 			<div class="form-group col-md-11">        
-					<input type="text" id="autocompletecolab" class="form-control autocompletecolab" name="nome_colab[]" value="" placeholder="Nome do Colaborador">
+					<input type="text" id="autocompletecolab" class="form-control autocompletecolab" name="nome_colab[]" value="" placeholder="Nome do Colaborador" autofocus>
 			        <input type="hidden" name="idcolab[]" id="idcolab" value="">
-					<input type="hidden" name="idcolabevento[]" id="idcolabevento" value="">
 	    		</div>
 		    	<div class="form-group col-md-1">
 			    	<a class="btn btn-danger" href="javascript:void(0)" id="remInput" onClick="delreg()">

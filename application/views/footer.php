@@ -112,7 +112,7 @@
 			    $(document).on('click', '#addInput', function () {
 			        $('<div id="remov" class="form-row">'+
 			        	'<div class="form-group col-md-11">'+
-		        			'<input type="text" id="autocompletecolab" class="form-control autocompletecolab" name="nome_colab[]" value="" placeholder="Nome do Colaborador"> '+
+		        			'<input type="text" id="autocompletecolab" class="form-control autocompletecolab" name="nome_colab[]" value="" placeholder="Nome do Colaborador" autofocus> '+
 		        			'<input type="hidden" name="idcolab[]" id="idcolab" value="">'+
 		        		'</div>'+
 		    			'<div class="form-group col-md-1">'+
@@ -131,12 +131,10 @@
 			    });
 			});
 
-			function delreg(idevent) {
+			function delreg(idcolabevent) {
 				var nome = document.getElementById("autocompletecolab").value
-				var id = idevent
-				//var id = document.getElementById("idcolabevento").value
-				//var event = confirm('Tem certeza que quer excluir ' +nome+ ' deste evento?');
-				//document.getElementById('idcolabevento').value = id;
+				var id = idcolabevent
+				confirm('Tem certeza que quer excluir este colaborador do evento?');
 				window.location.href="../DeletColabEvent/"+id;
 			} 
 

@@ -6,7 +6,6 @@ class Agenda_model extends CI_Model {
 	function __construct() {
 		parent::__construct();
 		$this->load->library('form_validation');
-		//$this->load->helper('url');
 	}
 
 	#MOSTRA OS EVENTOS CADASTRADOS
@@ -46,20 +45,22 @@ class Agenda_model extends CI_Model {
 
 	#MOSTRA OS COLABORADORES CADASTRADO NO EVENTOS
 	public function MostraColabEvento ($idEvento) {
+		$this->db->order_by('nome_colaborador', 'ASC');
 		return $this->db->get_where("colaborador_evento", array ("fk_id_evento" => $idEvento)) -> result();
-		//return $this->db->get('colaborador_evento')->result_array();
 	}
 
 	#RETORNA OS IDs COLABORADORES CADASTRADO NO EVENTOS
 	public function RetornaIdEventoColab ($id) {
-		return $this->db->get("colaborador_evento", array ("id_colab_evento" => $id)) -> result_array();
+		$this->db->where('id_colab_evento', $id);
+		return $this->db->get('colaborador_evento')->result_array();
 	}
 
 	#RETORNA OS IDs COLABORADORES CADASTRADO NO EVENTOS
-	public function RetornaIdColabEvento ($idsColaboradores) {
-		return $this->db->get("colaborador_evento", array ("fk_id_colaborador" => $idsColaboradores)) -> result_array();
-		//$this->db->where('fk_id_colaborador', $idsColaboradores);
-		//return $this->db->get('colaborador_evento')->result_array();
+	public function colaboradoresEvento ($event) {
+		$this->db->select("*");
+		$this->db->from("colaborador_evento");
+		$this->db->where("fk_id_evento", $event);
+		return $this->db->get()->result_array();
 	}
 
 	#MOSTRA OS EVENTOS DO COLABORADOR
