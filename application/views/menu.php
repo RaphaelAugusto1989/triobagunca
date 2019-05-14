@@ -50,7 +50,6 @@
                     <li><a href="<?php echo base_url('ColaboradorCadastro');?>">Novo Colaborador</a></li>
                     <li><a href="<?php echo base_url('ColaboradoresCadastrados');?>">Colaborador Cadastrados</a></li>
                     <li><a href="<?php echo base_url('ColaboradoresIndisponiveis');?>">Indisponibilidades dos Colaboradores</a></li>
-                    <li><a href="<?php echo base_url('EmDesenvolvimento');?>">Relatórios</a></li>
                 </ul>
             </li>
             <?php 

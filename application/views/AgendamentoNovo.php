@@ -13,12 +13,12 @@
 		?>
 		<div class="form-group">
 			<label for="inputcliente">Nome Completo:</label>
-			<input type="text" name="nome_cliente" id="autocomplete" class="form-control" placeholder="Nome do Cliente">
+			<input type="text" name="nome_cliente" id="autocomplete" class="form-control" placeholder="Nome do Cliente" required>
 		 </div>
 		 <div class="form-row">
 			 	<div class="form-group col-md-3">
 			 		<label for="data">Data do Evento:</label>
-			 		<input type="date" name="data_evento" class="form-control" id="data">
+			 		<input type="date" name="data_evento" class="form-control" id="data" required>
 			 	</div>
 			 	<div class="form-group col-md-2">
 			 		<label for="horario">Horário:</label>
@@ -26,7 +26,7 @@
 			 	</div>
 				<div class="form-group col-md-7">
 					<label for="inputemail">E-mail:</label>
-					<input type="email" name="email_cliente" id="inputemail" class="form-control" placeholder="E-mail">
+					<input type="email" name="email_cliente" id="inputemail" class="form-control" placeholder="E-mail" required>
 			 </div>
 		 </div>
 		 <div class="form-group">

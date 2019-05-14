@@ -16,36 +16,36 @@
 		<div class="form-group">
 			<label for="inputcliente">Nome Completo:</label>
 			<input type="hidden" name="id" class="form-control" value="<?= $evento['id_evento']; ?>">
-			<input type="text" name="nome_cliente" class="form-control" placeholder="Nome do Cliente" value="<?= $evento['nome_cli']; ?>">
+			<input type="text" name="nome_cliente" class="form-control" placeholder="Nome do Cliente" value="<?= $evento['nome_cli']; ?>" required>
 		 </div>
 		 <div class="form-row">
 		 	<div class="form-group col-md-4">
 		 		<label for="data">Data do Evento:</label>
-		 		<input type="date" name="data_evento" class="form-control" id="data" value="<?= $evento['data_evento']; ?>">
+		 		<input type="date" name="data_evento" class="form-control" id="data" value="<?= $evento['data_evento']; ?>" required>
 		 	</div>
 			<div class="form-group col-md-8">
 				<label for="inputemail">E-mail:</label>
-				<input type="email" name="email_cliente" id="inputemail" class="form-control" placeholder="E-mail" value="<?= $evento['email_cli']; ?>">
+				<input type="email" name="email_cliente" id="inputemail" class="form-control" placeholder="E-mail" value="<?= $evento['email_cli']; ?>" required>
 		 	</div>
 		 </div>
 		 <div class="form-group">
 	 		<label for="inputniver">Aniversáriante:</label>
-	 		<input type="text" name="aniversariante" id="inputniver" class="form-control" placeholder="Nome do Aniversáriante" value="<?= $evento['niver_cli']; ?>">
+	 		<input type="text" name="aniversariante" id="inputniver" class="form-control" placeholder="Nome do Aniversáriante" value="<?= $evento['niver_cli']; ?>" required>
 		 </div>
 		 <div class="form-row">
 		 	<div class="form-group col-md-6">
 		 		<label for="idade">Idade:</label>
-		 		<input type="number" name="idade" class="form-control" id="idade" placeholder="Só Número" value="<?= $evento['idade_niver']; ?>">
+		 		<input type="number" name="idade" class="form-control" id="idade" placeholder="Só Número" value="<?= $evento['idade_niver']; ?>" required>
 		 	</div>
 		 	<div class="form-group col-md-6">
 		 		<label for="horario">Horário da Festa:</label>
-		 		<input type="text" name="hora_evento" class="form-control hora" id="horario"  placeholder="00:00" value="<?= $evento['hora_evento']; ?>">
+		 		<input type="text" name="hora_evento" class="form-control hora" id="horario"  placeholder="00:00" value="<?= $evento['hora_evento']; ?>" required>
 		 	</div>
 		 </div>
 		 <div class="form-row">
 		 	<div class="form-group col-md-6">
 		 		<label for="idade">Nome da Mãe:</label>
-		 		<input type="text" name="nomemae" class="form-control" id="" placeholder="Nome da Mãe" value="<?= $evento['nome_mae']; ?>">
+		 		<input type="text" name="nomemae" class="form-control" id="" placeholder="Nome da Mãe" value="<?= $evento['nome_mae']; ?>" required>
 		 	</div>
 		 	<div class="form-group col-md-6">
 		 		<label for="idade">Nome do Pai:</label>
@@ -57,33 +57,33 @@
 		 <div class="form-row">
 	    	<div class="form-group col-md-2">
 				<label for="cep">CEP:</label>
-	  			<input type="text" name="cep" class="cep form-control" id="cep" placeholder="99.999-999" onblur="pesquisacep(this.value);">
+	  			<input type="text" name="cep" class="cep form-control" id="cep" placeholder="99.999-999" onblur="pesquisacep(this.value);" value="<?= $evento['cep_evento']; ?>" required>
 			</div>
 			<div class="form-group col-md-5">
 				<label for="inputAddress">Rua:</label>
-	  			<input type="text" name="rua" class="form-control" id="rua" placeholder="Rua" value="">
+	  			<input type="text" name="rua" class="form-control" id="rua" placeholder="Rua" value="<?= $evento['rua_evento']; ?>" required>
 			</div>
 			<div class="form-group col-md-1">
 				<label for="inputAddress">Nº:</label>
-	  			<input type="text" name="numero" class="form-control" id="numero" placeholder="Nº" value="">
+	  			<input type="text" name="numero" class="form-control" id="numero" placeholder="Nº" value="<?= $evento['numero_evento']; ?>">
 			</div>
 			<div class="form-group col-md-4">
 				<label for="cidade">Cidade:</label>
-	  			<input type="text" name="cidade" class="form-control" id="cidade" placeholder="Cidade" value="">
+	  			<input type="text" name="cidade" class="form-control" id="cidade" placeholder="Cidade" value="<?= $evento['cidade_evento']; ?>">
 			</div>
 		</div>
 		<div class="form-row">
 	    	<div class="form-group col-md-3">
 				<label for="inputAddress">Bairro:</label>
-	  			<input type="text" name="bairro" class="form-control" id="bairro" placeholder="Bairro" value="">
+	  			<input type="text" name="bairro" class="form-control" id="bairro" placeholder="Bairro" value="<?= $evento['bairro_evento']; ?>">
 			</div>
 			<div class="form-group col-md-2">
 				<label for="uf">Estado:</label>
-	  			<input type="text" name="estado" class="form-control" id="estado" placeholder="Estado" value="">
+	  			<input type="text" name="estado" class="form-control" id="estado" placeholder="Estado" value="<?= $evento['estado_evento']; ?>">
 			</div>
 			<div class="form-group col-md-7">
 				<label for="inputAddress">Complemento:</label>
-	  			<input type="text" name="complemento" class="form-control" id="inputestado" placeholder="Complemento">
+	  			<input type="text" name="complemento" class="form-control" id="inputestado" placeholder="Complemento" value="<?= $evento['complemento_evento']; ?>">
 			</div>
 		</div>
 

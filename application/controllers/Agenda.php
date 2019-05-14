@@ -52,9 +52,12 @@ class Agenda extends CI_Controller {
 	}
 	
 	public function NovoAgendamento()	{
+		$mes = date('m', strtotime($this->input->post('data_evento')));
+		
 		$agenda = array(
 			'nome_cli' => $this->input->post('nome_cliente'), 
 			'data_evento' => $this->input->post('data_evento'),
+			'mes_evento' => $mes,
 			'hora_evento' => $this->input->post('hora_evento'),
 			'email_cli' => $this->input->post('email_cliente'),
 			'id_pct' => $this->input->post('pct'),
@@ -80,6 +83,23 @@ class Agenda extends CI_Controller {
 		$this->load->model('Agenda_model');
 		$lista = $this->Agenda_model->MostraAgenda();
 		$dados =  array('evento' => $lista, 'titulo' => 'Eventos Cadastrados');
+		$ListaMenus = $this->menu->PermissaoMenus();
+
+		$this->load->view('header', $dados);
+		$this->load->view('menu',$ListaMenus);
+		$this->load->view('Agendamentos', $dados);
+		$this->load->view('footer');
+	}
+
+	public function AgendamentosPorMes(){
+		$Mes = $this->uri->segment(3);
+
+		//echo $Mes; exit();
+		$this->load->model('Agenda_model');
+		$lista = $this->Agenda_model->MostraAgendaPorMes($Mes);
+
+		$dados =  array('evento' => $lista, 'titulo' => 'Eventos Cadastrados');
+
 		$ListaMenus = $this->menu->PermissaoMenus();
 
 		$this->load->view('header', $dados);
@@ -116,6 +136,7 @@ class Agenda extends CI_Controller {
 			'especificacao_pct' => $this->input->post('especificacao'),
 			'hora_chegada' => $this->input->post('hora_chegada'),
 			'tempo_evento' => $this->input->post('tempo_evento'),
+			'hora_adicional' => $this->input->post('hora_adicional'),
 			'valor_pct' => $this->input->post('valor_pct'),
 			'valor_total' => $this->input->post('valor_total'),
 			'sinal_valor' => $this->input->post('sinal_valor'),
