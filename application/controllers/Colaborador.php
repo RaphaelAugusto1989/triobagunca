@@ -117,19 +117,45 @@ class Colaborador extends CI_Controller {
 		}
 	}
 
+	#public function ColaboradoresCadastrados()	{
+	#	$dados['titulo'] = 'Colaboradores Cadastros';
+	#	$this->load->model('Colaborador_model');
+	#	$lista = $this->Colaborador_model->MostraColaborador();
+	#	$Colaborador =  array('colaborador' => $lista);
+
+	#	$TotalColab = count($lista);
+	#	$Colaborador["total"] = $TotalColab;
+	#	$ListaMenus = $this->menu->PermissaoMenus();
+
+	#	$this->load->view('header', $dados);
+	#	$this->load->view('menu', $ListaMenus);
+	#	$this->load->view('ColaboradoresCadastrados', $Colaborador);
+	#	$this->load->view('footer');
+	#}
+
 	public function ColaboradoresCadastrados()	{
 		$dados['titulo'] = 'Colaboradores Cadastros';
-		$this->load->model('Colaborador_model');
-		$lista = $this->Colaborador_model->MostraColaborador();
-		$Colaborador =  array('colaborador' => $lista);
 
-		$TotalColab = count($lista);
-		$Colaborador["total"] = $TotalColab;
+		$this->load->model('Colaborador_model');
+		$ContColab = $this->Colaborador_model->MostraColaborador();
+
+		$NumReg = 8; #QTD DE REGISTROS A SER MOSTRADO POR PÁGINA
+
+		$pg = isset($_GET["pg"]) ? $_GET["pg"] : 1;
+		$Inicial = ($pg * $NumReg) - $NumReg;
+
+		$TotalReg = count($ContColab);
+
+		$lista = $this->Colaborador_model->MostraQtdRegColaborador($Inicial, $NumReg);
+
+		$Colaborador =  array('colaborador' => $lista, 'TotalReg' => $TotalReg, 'NumReg' => $NumReg, 'pg' => $pg, 'url' => 'ColaboradoresCadastrados');
+
 		$ListaMenus = $this->menu->PermissaoMenus();
 
 		$this->load->view('header', $dados);
 		$this->load->view('menu', $ListaMenus);
 		$this->load->view('ColaboradoresCadastrados', $Colaborador);
+		$this->load->view('pagination', $Colaborador);
 		$this->load->view('footer');
 	}
 

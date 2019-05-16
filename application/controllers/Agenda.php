@@ -81,13 +81,26 @@ class Agenda extends CI_Controller {
 
 	public function Agendamentos(){
 		$this->load->model('Agenda_model');
-		$lista = $this->Agenda_model->MostraAgenda();
-		$dados =  array('evento' => $lista, 'titulo' => 'Eventos Cadastrados');
+		$ContEvento = $this->Agenda_model->MostraAgenda();
+
+		$NumReg = 2; #QTD DE REGISTROS A SER MOSTRADO POR PÁGINA
+
+		$pg = isset($_GET["pg"]) ? $_GET["pg"] : 1;
+		$Inicial = ($pg * $NumReg) - $NumReg;
+
+		$TotalReg = count($ContEvento);
+
+		$lista = $this->Agenda_model->MostraQtdRegAgenda($Inicial, $NumReg);
+
+		$dados = array('evento' => $lista, 'TotalReg' => $TotalReg, 'NumReg' => $NumReg, 'pg' => $pg, 'url' => 'Agendamentos', 'titulo' => 'Eventos Cadastrados');
+
 		$ListaMenus = $this->menu->PermissaoMenus();
+
 
 		$this->load->view('header', $dados);
 		$this->load->view('menu',$ListaMenus);
 		$this->load->view('Agendamentos', $dados);
+		$this->load->view('pagination', $dados);
 		$this->load->view('footer');
 	}
 

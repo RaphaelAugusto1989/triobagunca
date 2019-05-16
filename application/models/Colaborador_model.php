@@ -14,6 +14,13 @@ class Colaborador_model extends CI_Model {
 		return $this->db->get('colaborador')->result_array();
 	}
 
+	#MOSTRA QUANTIDADE DE REGISTROS POR PÁGINA DOS COLABORADORES CADASTRADOS
+	public function MostraQtdRegColaborador ($Inicial, $NumReg) {
+		$this->db->order_by('nome_colab', 'ASC');
+		$this->db->limit($NumReg, $Inicial);
+		return $this->db->get('colaborador')->result();
+	}
+
 	#INSERE O COLABORADOR NO BANCO DE DADOS
 	public function SaveColaborador ($colaborador) {
 		$this->db->insert("colaborador", $colaborador);

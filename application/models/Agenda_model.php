@@ -14,6 +14,13 @@ class Agenda_model extends CI_Model {
 		return $this->db->get('evento')->result_array();
 	}
 
+	#MOSTRA QUANTIDADE DE REGISTROS POR PÁGINA POR EVENTOS CADASTRADOS
+	public function MostraQtdRegAgenda ($Inicial, $NumReg) {
+		$this->db->order_by('data_evento', 'ASC');
+		$this->db->limit($NumReg, $Inicial);
+		return $this->db->get('evento')->result();
+	}
+
 	#MOSTRA OS EVENTOS CADASTRADOS
 	public function MostraAgendaPorMes ($Mes) {
 		$this->db->where('mes_evento', $Mes);
