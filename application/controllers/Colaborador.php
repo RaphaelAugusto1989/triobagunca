@@ -507,6 +507,9 @@ class Colaborador extends CI_Controller {
 	    #$DataFinal = $this->input->post('datafinal');
 	    $motivo = $this->input->post('motivo');
 
+	    $Mes = date('m', strtotime($DataInicial));
+	    $Ano = date('Y', strtotime($DataInicial)); 
+
 		$SomaData = date('Y/m/d', strtotime($DataHoje. '+ 15 days'));
 
 		$this->load->model('Colaborador_model');
@@ -519,6 +522,8 @@ class Colaborador extends CI_Controller {
 	    		'data_inicial' => $DataInicial[$indice],
 	    		#'data_final' => $DataFinal[$indice],
 	    		'data_soma' => $SomaData,
+	    		'mes_ind' => $Mes,
+	    		'ano_ind' => $Ano,
 	    		'motivo_ind' => $motivo[$indice],
     		);
     		$this->Colaborador_model->SaveIndisponibilidade($indisponibilidades);
@@ -558,12 +563,25 @@ class Colaborador extends CI_Controller {
 	}
 
 	public function ColaboradoresIndisponiveis()	{
-		$dados['titulo'] = 'Colaboradores Indisponiveis';
-		
+		$MesAtual = date('m');
+		$AnoAtual = date('Y');
+
 		$this->load->model('Colaborador_model');
-		$lista = $this->Colaborador_model->MostraTodasIndisponibilidades();
+		$ContInd = $this->Colaborador_model->MostraTodasIndisponibilidades($MesAtual, $AnoAtual);
+
 		$ColabDados = $this->Colaborador_model->MostraColaborador();
-		$Colaborador =  array('colaborador' => $lista, 'dadoscolab' => $ColabDados);
+
+		$NumReg = 8; #QTD DE REGISTROS A SER MOSTRADO POR PÁGINA
+
+		$pg = isset($_GET["pg"]) ? $_GET["pg"] : 1;
+		$Inicial = ($pg * $NumReg) - $NumReg;
+
+		$TotalReg = count($ContInd);
+
+		$lista = $this->Colaborador_model->MostraQtdRegInd($MesAtual, $AnoAtual, $Inicial, $NumReg);
+
+		$dados =  array('titulo' => 'Colaboradores Indisponiveis', 'colaborador' => $lista, 'dadoscolab' => $ColabDados, 'TotalReg' => $TotalReg, 'NumReg' => $NumReg, 'pg' => $pg, 'url' => 'ColaboradoresIndisponiveis');
+
 		$ListaMenus = $this->menu->PermissaoMenus();
 
 		//$TotalColab = count($lista);
@@ -571,7 +589,8 @@ class Colaborador extends CI_Controller {
 
 		$this->load->view('header', $dados);
 		$this->load->view('menu', $ListaMenus);
-		$this->load->view('ColaboradoresIndisponiveis', $Colaborador);
+		$this->load->view('ColaboradoresIndisponiveis', $dados);
+		$this->load->view('pagination', $dados);
 		$this->load->view('footer');
 	}
 
@@ -579,12 +598,17 @@ class Colaborador extends CI_Controller {
 		$IdInd = $this->uri->segment(3);
 		$this->load->model('Colaborador_model');
 		$Lista = $this->Colaborador_model->MostraDetalheIndisponibilidade($IdInd);
-		#$idcolab = $this->Colaborador_model->RetornaIdColaborador($id);
-		$ListaMenus = $this->menu->PermissaoMenus();
 
+		foreach ($Lista as $key => $idCol) {
+			$id = $Lista[$key]['id_colab'];
+		}
+
+		$idcolab = $this->Colaborador_model->RetornaIdColaborador($id);
+
+		$ListaMenus = $this->menu->PermissaoMenus();
+		
 		$dados = array('ind' => $Lista, 'titulo' => "Detalhe da Indisponibilidade", 'DadosColab' => $idcolab);
 
-		#echo '<pre>'; print_r($dados); exit;
 		$this->load->view('header', $dados);
 		$this->load->view('menu', $ListaMenus);
 		$this->load->view('DetalheIndisponibilidade', $dados);

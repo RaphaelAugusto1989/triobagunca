@@ -80,10 +80,11 @@ class Agenda extends CI_Controller {
 	}
 
 	public function Agendamentos(){
+		$AnoAtual = date('Y');
 		$this->load->model('Agenda_model');
-		$ContEvento = $this->Agenda_model->MostraAgenda();
+		$ContEvento = $this->Agenda_model->MostraAgenda($AnoAtual);
 
-		$NumReg = 2; #QTD DE REGISTROS A SER MOSTRADO POR PÁGINA
+		$NumReg = 3; #QTD DE REGISTROS A SER MOSTRADO POR PÁGINA
 
 		$pg = isset($_GET["pg"]) ? $_GET["pg"] : 1;
 		$Inicial = ($pg * $NumReg) - $NumReg;
@@ -106,24 +107,35 @@ class Agenda extends CI_Controller {
 
 	public function AgendamentosPorMes(){
 		$Mes = $this->uri->segment(3);
+		$AnoAtual = date('Y');
 
-		//echo $Mes; exit();
 		$this->load->model('Agenda_model');
-		$lista = $this->Agenda_model->MostraAgendaPorMes($Mes);
+		$ContEvento = $this->Agenda_model->MostraAgendaPorMes($Mes, $AnoAtual);
 
-		$dados =  array('evento' => $lista, 'titulo' => 'Eventos Cadastrados');
+		$NumReg = 8; #QTD DE REGISTROS A SER MOSTRADO POR PÁGINA
+
+		$pg = isset($_GET["pg"]) ? $_GET["pg"] : 1;
+		$Inicial = ($pg * $NumReg) - $NumReg;
+
+		$TotalReg = count($ContEvento);
+
+		$lista = $this->Agenda_model->MostraQtdRegAgendaMes($Mes, $AnoAtual, $Inicial, $NumReg);
+
+		$dados = array('evento' => $lista, 'TotalReg' => $TotalReg, 'NumReg' => $NumReg, 'pg' => $pg, 'url' => 'Agendamentos', 'titulo' => 'Eventos Cadastrados');
 
 		$ListaMenus = $this->menu->PermissaoMenus();
 
 		$this->load->view('header', $dados);
 		$this->load->view('menu',$ListaMenus);
 		$this->load->view('Agendamentos', $dados);
+		$this->load->view('pagination', $dados);
 		$this->load->view('footer');
 	}
 
 	public function AlterarAgendamento () {
 		$id = $this->input->post('id');
 		$DataEvento = $this->input->post('data_evento');
+		$mes = date('m', strtotime($this->input->post('data_evento')));
 
 		//CADASTRA AS ALTERAÇÕES DO EVENTO
 		$evento = array(
@@ -131,6 +143,7 @@ class Agenda extends CI_Controller {
 			'niver_cli' => $this->input->post('aniversariante'),
 			'idade_niver' => $this->input->post('idade'),
 			'data_evento' => $DataEvento,
+			'mes_evento' => $mes,
 			'email_cli' => $this->input->post('email_cliente'),
 			'hora_evento' => $this->input->post('hora_evento'),
 			'nome_mae' => $this->input->post('nomemae'),

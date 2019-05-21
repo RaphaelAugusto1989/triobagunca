@@ -50,7 +50,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</form>
 		<?php 
 			foreach ($evento as $value => $ev) {
-				$mes = date('m', strtotime($evento[$value]->data_evento)); //PEGA O MÊS A DATA NO SERVIDOR
+				$mes = date('m', strtotime($evento[$value]->data_evento));
+				$AnoEvento = date('Y', strtotime($evento[$value]->data_evento));
+				$AnoAtual = date('Y');
 
 				if (empty($evento[$value]->mes_evento)) {
 					echo "VOCÊ NÃO TEM EVENTOS CADASTRADOS PARA ESTE MÊS!";
@@ -68,8 +70,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				} else {
 					$conf = "table-danger border border-danger";
 				}
+
+				//if ($AnoEvento == $AnoAtual) {
 		?>
-		<a href="Agenda/DetalheEvento/<?= $evento[$value]->id_evento ?>" class="d-inline">
+		<a href="DetalheEvento/<?= $evento[$value]->id_evento ?>" class="d-inline">
 			<div class="row border border-primary rounded p-2 mb-2 <?= $conf; ?> text-decoration-none">
                 <div class="col">
                     <span class="font-weight-light">Cliente: <br /></span>
@@ -88,5 +92,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
         </a>
 		<?php
-			}
+				//} else {
+				//	echo "";
+				//}//FIM IF ANO
+			} //FIM FOREACH
 		?>

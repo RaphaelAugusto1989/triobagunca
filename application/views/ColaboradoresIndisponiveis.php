@@ -8,6 +8,21 @@
 			</div>
 			<div class="col-lg-2"><button class="btn btn-secondary btn-sm btn-block" type="submit"><i class="fas fa-search"></i> Buscar</button></div>
 		</div>
+		<nav class="navbar navbar-light mb-3" style="background-color: #e3f2fd;">
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/01" role="button">Janeiro</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/02" role="button">Fevereiro</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/03" role="button">Março</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/04" role="button">Abril</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/05" role="button">Maio</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/06" role="button">Junho</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/07" role="button">Julho</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/08" role="button">Agosto</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/09" role="button">Setembro</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/10" role="button">Outubro</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/11" role="button">Novembro</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/12" role="button">Dezembro</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/Agendamentos" role="button">Todos</a>
+		</nav>
 	</form>
       	<?php foreach ($colaborador as $colab) : 
 			
@@ -87,4 +102,4 @@
         <?php } endforeach?>
         </tbody>
   	</table>
-</div>
+

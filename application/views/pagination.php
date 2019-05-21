@@ -6,7 +6,10 @@
 						$quant_pg = ceil($TotalReg/$NumReg);
 						$quant_pg++;
 						$url_ant = $url."?pg=";
-						 
+
+						if ($TotalReg <= $NumReg) {
+							echo "";
+						}  else {
 							//LINK ANTERIOR  
 							if ($pg > 1) {
 								echo '<li class="page-item">';
@@ -59,6 +62,7 @@
 								echo '<a class="page-link" href="ColaboradoresCadastrados'.$url_ant.($pg+1).'" tabindex="-1">Próximo</a>';
 							  	echo '</li>';
 							}
+						}
 					?>
 				</ul>
 			</nav>
