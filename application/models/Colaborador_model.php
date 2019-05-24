@@ -120,6 +120,23 @@ class Colaborador_model extends CI_Model {
 		return $this->db->get('colaborador_indisponivel')->result_array();
 	}
 
+	#MOSTRA INDISPONIBILIDADE DO COLABORADOR POR MÊS
+   	public function MostraTodasIndisponibilidadesPorMes ($Mes, $AnoAtual) {
+   		$this->db->where('mes_ind', $Mes);
+   		$this->db->where('ano_ind', $AnoAtual);
+   		$this->db->order_by('data_inicial', 'ASC');
+		return $this->db->get('colaborador_indisponivel')->result_array();
+	}
+
+	#MOSTRA QUANTIDADE DE REGISTROS POR MÊS POR EVENTOS CADASTRADOS
+   	public function MostraQtdRegIndPorMes ($Mes, $AnoAtual, $Inicial, $NumReg) {
+   		$this->db->where('mes_ind', $Mes);
+   		$this->db->where('ano_ind', $AnoAtual);
+   		$this->db->limit($NumReg, $Inicial);
+   		$this->db->order_by('data_inicial', 'ASC');
+		return $this->db->get('colaborador_indisponivel')->result_array();
+	}
+
     #MOSTRA INDISPONIBILIDADE DO COLABORADOR POR ID
    	public function MostraIndisponibilidade ($id) {
    		$this->db->where('id_colab', $id);

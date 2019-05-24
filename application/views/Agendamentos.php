@@ -73,7 +73,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 				//if ($AnoEvento == $AnoAtual) {
 		?>
-		<a href="DetalheEvento/<?= $evento[$value]->id_evento ?>" class="d-inline">
+		<a href="<?= base_url() ?>Agenda/DetalheEvento/<?= $evento[$value]->id_evento ?>" class="d-inline">
 			<div class="row border border-primary rounded p-2 mb-2 <?= $conf; ?> text-decoration-none">
                 <div class="col">
                     <span class="font-weight-light">Cliente: <br /></span>

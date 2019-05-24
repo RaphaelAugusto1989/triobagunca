@@ -9,19 +9,19 @@
 			<div class="col-lg-2"><button class="btn btn-secondary btn-sm btn-block" type="submit"><i class="fas fa-search"></i> Buscar</button></div>
 		</div>
 		<nav class="navbar navbar-light mb-3" style="background-color: #e3f2fd;">
-		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/01" role="button">Janeiro</a>
-		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/02" role="button">Fevereiro</a>
-		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/03" role="button">Março</a>
-		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/04" role="button">Abril</a>
-		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/05" role="button">Maio</a>
-		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/06" role="button">Junho</a>
-		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/07" role="button">Julho</a>
-		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/08" role="button">Agosto</a>
-		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/09" role="button">Setembro</a>
-		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/10" role="button">Outubro</a>
-		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/11" role="button">Novembro</a>
-		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/12" role="button">Dezembro</a>
-		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/Agendamentos" role="button">Todos</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Colaborador/ColaboradoresIndisponiveisPorMes/01" role="button">Janeiro</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Colaborador/ColaboradoresIndisponiveisPorMes/02" role="button">Fevereiro</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Colaborador/ColaboradoresIndisponiveisPorMes/03" role="button">Março</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Colaborador/ColaboradoresIndisponiveisPorMes/04" role="button">Abril</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Colaborador/ColaboradoresIndisponiveisPorMes/05" role="button">Maio</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Colaborador/ColaboradoresIndisponiveisPorMes/06" role="button">Junho</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Colaborador/ColaboradoresIndisponiveisPorMes/07" role="button">Julho</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Colaborador/ColaboradoresIndisponiveisPorMes/08" role="button">Agosto</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Colaborador/ColaboradoresIndisponiveisPorMes/09" role="button">Setembro</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Colaborador/ColaboradoresIndisponiveisPorMes/10" role="button">Outubro</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Colaborador/ColaboradoresIndisponiveisPorMes/11" role="button">Novembro</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>Colaborador/ColaboradoresIndisponiveisPorMes/12" role="button">Dezembro</a>
+		   <a class="btn btn-outline-primary" href="<?= base_url()?>ColaboradoresIndisponiveis" role="button">Todos</a>
 		</nav>
 	</form>
       	<?php foreach ($colaborador as $colab) : 
@@ -39,7 +39,7 @@
       			$MsgFalta = Null;
       		}
       		if ($this->session->userdata('IdUser') == '1') { ?>
-      			<a href="Colaborador/DetalheIndisponibilidade/<?= $colab['id_ind'] ?>" class="d-inline">
+      			<a href="<?= base_url() ?>Colaborador/DetalheIndisponibilidade/<?= $colab['id_ind'] ?>" class="d-inline">
 					<div class="row border <?= $Falta?> rounded p-2 mb-2 text-primary">
 						<div class="col-md-12 text-danger"><b><?= $MsgFalta; ?></b></div>
 		                <div class="col text-truncate">

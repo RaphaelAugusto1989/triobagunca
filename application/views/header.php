@@ -16,7 +16,9 @@
 <body>
 <nav class="navbar navbar-expand navbar-dark bg-primary">
     <a class="sidebar-toggle text-light mr-3"><i class="fa fa-bars"></i></a>
-    <a class="navbar-brand" href="#"><i class="fab fa-themeisle"></i> <img class='rounded float-left' width='65%' src='<?= base_url("assets/img/logo_sistema.png");?>'></a>
+    <a class="navbar-brand" href="#">
+        <img class='rounded float-left' width='100%' src='<?= base_url("assets/img/logo_sistema.png");?>'>
+    </a>
     <div class="navbar-collapse collapse">
             <ul class="navbar-nav ml-auto">
                 <div class="float-right">

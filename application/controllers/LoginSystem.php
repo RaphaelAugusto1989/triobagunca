@@ -20,10 +20,19 @@ class LoginSystem extends CI_Controller {
 	}
 
 	public function AutenticaLogin()	{
-		$this->load->model('UserSystem_model');
 		$login = $this->input->post('login');
 		$pass = md5($this->input->post('password'));
-		$user = $this->UserSystem_model->OpenUser($login, $pass);
+		echo $login; exit();
+    if ($login == 'admin' && $pass == 'd243ee28aa5930dea901298cdeb2cb9f') {
+      $user = array('IdUser' => '1', 'login_colab' => 'Admin', 'senha_colab', 'd243ee28aa5930dea901298cdeb2cb9f2', 'nome' => 'Administrador01', 'sexouser' => 'Masculino', 'foto' => 'user1_05022019074529.png');
+
+      echo '<pre>';
+      print_r($user); exit();
+
+    } //else {
+      //$this->load->model('UserSystem_model');
+      //$user = $this->UserSystem_model->OpenUser($login, $pass);
+    //}
 
 		if(!empty($user)){
 			  $this->session->set_userdata('IdUser', $user[0]->id_usuario);

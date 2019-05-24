@@ -80,18 +80,19 @@ class Agenda extends CI_Controller {
 	}
 
 	public function Agendamentos(){
+		$MesAtual = date('m');
 		$AnoAtual = date('Y');
 		$this->load->model('Agenda_model');
-		$ContEvento = $this->Agenda_model->MostraAgenda($AnoAtual);
+		$ContEvento = $this->Agenda_model->MostraAgenda($MesAtual, $AnoAtual);
 
-		$NumReg = 3; #QTD DE REGISTROS A SER MOSTRADO POR PÁGINA
+		$NumReg = 8; #QTD DE REGISTROS A SER MOSTRADO POR PÁGINA
 
 		$pg = isset($_GET["pg"]) ? $_GET["pg"] : 1;
 		$Inicial = ($pg * $NumReg) - $NumReg;
 
 		$TotalReg = count($ContEvento);
 
-		$lista = $this->Agenda_model->MostraQtdRegAgenda($Inicial, $NumReg);
+		$lista = $this->Agenda_model->MostraQtdRegAgenda($MesAtual, $AnoAtual, $Inicial, $NumReg);
 
 		$dados = array('evento' => $lista, 'TotalReg' => $TotalReg, 'NumReg' => $NumReg, 'pg' => $pg, 'url' => 'Agendamentos', 'titulo' => 'Eventos Cadastrados');
 
@@ -110,25 +111,25 @@ class Agenda extends CI_Controller {
 		$AnoAtual = date('Y');
 
 		$this->load->model('Agenda_model');
-		$ContEvento = $this->Agenda_model->MostraAgendaPorMes($Mes, $AnoAtual);
+		$lista = $this->Agenda_model->MostraAgendaPorMes($Mes, $AnoAtual);
 
-		$NumReg = 8; #QTD DE REGISTROS A SER MOSTRADO POR PÁGINA
+		//$NumReg = 1; #QTD DE REGISTROS A SER MOSTRADO POR PÁGINA
 
-		$pg = isset($_GET["pg"]) ? $_GET["pg"] : 1;
-		$Inicial = ($pg * $NumReg) - $NumReg;
+		//$pg = isset($_GET["pg"]) ? $_GET["pg"] : 1;
+		//$Inicial = ($pg * $NumReg) - $NumReg;
 
-		$TotalReg = count($ContEvento);
+		//$TotalReg = count($ContEvento);
 
-		$lista = $this->Agenda_model->MostraQtdRegAgendaMes($Mes, $AnoAtual, $Inicial, $NumReg);
+		//$lista = $this->Agenda_model->MostraQtdRegAgendaMes($Mes, $AnoAtual, $Inicial, $NumReg);
 
-		$dados = array('evento' => $lista, 'TotalReg' => $TotalReg, 'NumReg' => $NumReg, 'pg' => $pg, 'url' => 'Agendamentos', 'titulo' => 'Eventos Cadastrados');
+		$dados = array('evento' => $lista, 'titulo' => 'Eventos Cadastrados');
 
 		$ListaMenus = $this->menu->PermissaoMenus();
 
 		$this->load->view('header', $dados);
 		$this->load->view('menu',$ListaMenus);
 		$this->load->view('Agendamentos', $dados);
-		$this->load->view('pagination', $dados);
+		//$this->load->view('pagination', $dados);
 		$this->load->view('footer');
 	}
 

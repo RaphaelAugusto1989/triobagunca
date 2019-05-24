@@ -9,16 +9,19 @@ class Agenda_model extends CI_Model {
 	}
 
 	#MOSTRA OS EVENTOS CADASTRADOS
-	public function MostraAgenda ($AnoAtual) {
+	public function MostraAgenda ($MesAtual, $AnoAtual) {
+		$this->db->where('mes_evento', $MesAtual);
 		$this->db->where('ano_evento', $AnoAtual);
 		$this->db->order_by('data_evento', 'ASC');
 		return $this->db->get('evento')->result_array();
 	}
 
 	#MOSTRA QUANTIDADE DE REGISTROS POR PÁGINA POR EVENTOS CADASTRADOS
-	public function MostraQtdRegAgenda ($Inicial, $NumReg) {
-		$this->db->order_by('data_evento', 'ASC');
+	public function MostraQtdRegAgenda ($MesAtual, $AnoAtual, $Inicial, $NumReg) {
+		$this->db->where('mes_evento', $MesAtual);
+		$this->db->where('ano_evento', $AnoAtual);
 		$this->db->limit($NumReg, $Inicial);
+		$this->db->order_by('data_evento', 'ASC');
 		return $this->db->get('evento')->result();
 	}
 
@@ -27,7 +30,7 @@ class Agenda_model extends CI_Model {
 		$this->db->where('mes_evento', $Mes);
 		$this->db->where('ano_evento', $AnoAtual);
 		$this->db->order_by('hora_evento', 'ASC');
-		return $this->db->get('evento')->result_array();
+		return $this->db->get('evento')->result();
 	}
 
 	#MOSTRA QUANTIDADE DE REGISTROS POR PÁGINA POR EVENTOS CADASTRADOS

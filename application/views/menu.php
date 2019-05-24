@@ -1,10 +1,8 @@
-<?php
-   
-?>
-
 <div class="d-flex">
     <nav class="sidebar bg-dark">
-        <img class='ml-10' width='50%' src='<?= base_url("assets/img/logo-trio.png");?>'></a>
+        <div class="media">
+            <img class='rounded mx-auto d-block mt-2' width='55%' src='<?= base_url("assets/img/logo-trio.png");?>'></a>
+        </div>
         <ul class="list-unstyled">
             <!--<li>
                 <a href="#submenu1" data-toggle="collapse"><i class="fa fa-fw fa-address-card"></i> CLIENTES</a>
@@ -92,6 +90,19 @@
             </li>-->
             <?php 
                 } else { }
+                if (!empty($perm->permission8)) {
+            ?>
+            <li>
+                <a href="#submenu8" data-toggle="collapse"><i class="fas fa-cog"></i> SISTEMA</a>
+                <ul id="submenu8" class="list-unstyled collapse">
+                    <li><a href="<?php echo base_url('ColaboradorPermissaoSistema');?>">Permissões de Usuário</a></li>
+                    <li><a href="<?php echo base_url('AcessosAoSistema');?>">Acessos no Sistema</a></li>
+                    <li><a href="<?php echo base_url('AlteracoeSistemas');?>">Alterações no Sistema </a></li>
+                </ul>
+            </li>
+            <?php 
+                } else { }
+            } //FIM FOREACH
             ?>
             <li>
                 <a href="#submenu7" data-toggle="collapse"><i class="fas fa-user"></i> MINHA ÁREA</a>
@@ -101,18 +112,5 @@
                     <li><a class="dropdown-item" href="<?php echo base_url('MeusDados');?>">Meus Dados</a></li>
                 </ul>
             </li>
-            <?php 
-                if (!empty($perm->permission8)) {
-            ?>
-            <li>
-                <a href="#submenu8" data-toggle="collapse"><i class="fas fa-cog"></i> SISTEMA</a>
-                <ul id="submenu8" class="list-unstyled collapse">
-                    <li><a href="<?php echo base_url('ColaboradorPermissaoSistema');?>">Permissões de Usuário</a></li>
-                </ul>
-            </li>
-            <?php 
-                } else { }
-            } //FIM FOREACH
-            ?>
         </ul>
     </nav>

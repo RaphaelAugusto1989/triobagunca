@@ -18,6 +18,13 @@ class UserSystem_model extends CI_Model {
 		return $user;
 	}
 
+	#INSERE DE CADA ACESSO AO SISTEMA NO BANCO DE DADOS
+	public function InsertAcesso ($acesso) {
+		//echo '<pre>';
+		//print_r($acesso); exit();
+		$this->db->insert("acessos_sistema", $acesso);
+    }
+
 	#CADASTRA O USUÁRIO NO BANCO DE DADOS
 	#public function SaveUser ($user) {
 	#	$this->db->insert("usuario", $user);

@@ -78,6 +78,8 @@ $route['MeusDados'] = 'Colaborador/MeusDados';
 
 //MENU SISTEMA
 $route['ColaboradorPermissaoSistema'] = 'Colaborador/PermissaoColaborador';
+$route['AcessosAoSistema'] = 'Colaborador/AcessosAoSistema';
+$route['AlteracoeSistemas'] = 'Colaborador/AlteracoeSistemas';
 
 
 $route['post'] = 'pagina';

@@ -8,6 +8,57 @@ class Colaborador extends CI_Controller {
 		$this->load->library('form_validation');
 	}
 
+	public function AutenticaLogin()	{
+		date_default_timezone_set('America/Sao_Paulo');
+
+		$login = $this->input->post('login');
+		$pass = md5($this->input->post('password'));
+
+		$this->load->model('UserSystem_model');
+	    $user = $this->UserSystem_model->OpenUser($login, $pass);
+
+	    if(!empty($user)){
+			$this->session->set_userdata('IdUser', $user[0]->id_colab);
+            $this->session->set_userdata('nome', $user[0]->nome_colab);
+            $this->session->set_userdata('sexouser', $user[0]->sexo_colab);
+            $this->session->set_userdata('foto', $user[0]->foto_colab);
+
+            
+            $IcColab = $user[0]->id_colab;
+            $NomeColab = $user[0]->nome_colab.' '.$user[0]->sobrenome_colab;
+            $IpOperadora = $_SERVER["REMOTE_ADDR"];
+            $NomeOperadora = gethostbyaddr($IpOperadora);
+            $DataAcesso = date('Y-m-d');
+            $HoraAcesso = date('H:i:s');
+
+            $acesso = array (
+            	'id_colab' => $IcColab,
+            	'nome_colab' => $NomeColab,
+            	'ip_acesso' => $IpOperadora,
+            	'nome_operadora' => $NomeOperadora,
+            	'data_acesso' => $DataAcesso,
+            	'hora_acesso' => $HoraAcesso,
+            );
+
+            $this->UserSystem_model->InsertAcesso($acesso);
+
+            redirect(base_url('Home'));
+		} else {
+			$this->session->set_flashdata('msgErro', 'Usuário ou Senha Inválidos!');
+			redirect(base_url('Login'));
+		}	
+	}
+
+	public function AcessosAoSistema() {
+		$dados['titulo'] = 'Acessos Ao Sistema';
+		$ListaMenus = $this->menu->PermissaoMenus();
+
+		$this->load->view('header', $dados);
+		$this->load->view('menu', $ListaMenus);
+		$this->load->view('AcessosAoSistema', $dados);
+		$this->load->view('footer');
+	}
+
 	public function ColaboradorCadastro() {
 		$msg = null;
 		if ($this->session->flashdata('Success') !="") {
@@ -198,25 +249,6 @@ class Colaborador extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	public function AutenticaLogin()	{
-		$this->load->model('Colaborador_model');
-		$login = $this->input->post('login');
-		$pass = md5($this->input->post('password'));
-		$user = $this->Colaborador_model->OpenUser($login, $pass);
-
-		if(!empty($user)){
-			$this->session->set_userdata('IdUser', $user[0]->id_colab);
-            $this->session->set_userdata('nome', $user[0]->nome_colab);
-            $this->session->set_userdata('sexouser', $user[0]->sexo_colab);
-            $this->session->set_userdata('foto', $user[0]->foto_colab);
-
-            redirect(base_url('Home'));
-		} else {
-			$this->session->set_flashdata('msgErro', 'Usuário ou Senha Inválidos!');
-			redirect(base_url('Login'));
-		}	
-	}
-
 	public function MeusDados() {
 		$msg = null;
 		if ($this->session->flashdata('Success') !="") {
@@ -268,7 +300,7 @@ class Colaborador extends CI_Controller {
 	public function AlterarMeusDados () {
         $id = $this->input->post('id');
         $namefoto = $this->input->post('nome_foto');
-        $pass = $this->input->post('password');
+        $pass = md5($this->input->post('password'));
 
         $config['allowed_types'] = "jpg|jpeg|png";
         $config['max_size'] = 100;
@@ -322,7 +354,7 @@ class Colaborador extends CI_Controller {
 					'cel_colab' => $this->input->post('cel'),
 					'email_colab' => $this->input->post('email'),
 					'login_colab' => $this->input->post('login'),
-					'senha_colab' => $this->input->post('senha'),
+					'senha_colab' => $pass,
 				);
 			}
 
@@ -361,6 +393,7 @@ class Colaborador extends CI_Controller {
 
     public function InsertPermissaoColaborador (){
     	$idColab = $this->input->post('idcolab');
+
         $permission = array (
         	'nome_colab' => $this->input->post('nome_colab'),
             'id_colab' => $idColab,
@@ -507,9 +540,11 @@ class Colaborador extends CI_Controller {
 	    #$DataFinal = $this->input->post('datafinal');
 	    $motivo = $this->input->post('motivo');
 
-	    $Mes = date('m', strtotime($DataInicial));
-	    $Ano = date('Y', strtotime($DataInicial)); 
-
+	    foreach ($DataInicial as $key => $date) {
+			$Mes = date('m', strtotime($DataInicial[$key]));
+	    	$Ano = date('Y', strtotime($DataInicial[$key]));
+	    }
+	    
 		$SomaData = date('Y/m/d', strtotime($DataHoje. '+ 15 days'));
 
 		$this->load->model('Colaborador_model');
@@ -584,13 +619,31 @@ class Colaborador extends CI_Controller {
 
 		$ListaMenus = $this->menu->PermissaoMenus();
 
-		//$TotalColab = count($lista);
-		//$Colaborador["total"] = $TotalColab;
-
 		$this->load->view('header', $dados);
 		$this->load->view('menu', $ListaMenus);
 		$this->load->view('ColaboradoresIndisponiveis', $dados);
 		$this->load->view('pagination', $dados);
+		$this->load->view('footer');
+	}
+
+	public function ColaboradoresIndisponiveisPorMes()	{
+		$Mes = $this->uri->segment(3);
+		$MesAtual = date('m');
+		$AnoAtual = date('Y');
+
+		$this->load->model('Colaborador_model');
+		$lista = $this->Colaborador_model->MostraTodasIndisponibilidadesPorMes($Mes, $AnoAtual);
+
+		$ColabDados = $this->Colaborador_model->MostraColaborador();
+
+		$dados =  array('titulo' => 'Colaboradores Indisponiveis', 'colaborador' => $lista, 'dadoscolab' => $ColabDados);
+
+		$ListaMenus = $this->menu->PermissaoMenus();
+
+		$this->load->view('header', $dados);
+		$this->load->view('menu', $ListaMenus);
+		$this->load->view('ColaboradoresIndisponiveis', $dados);
+		//$this->load->view('pagination', $dados);
 		$this->load->view('footer');
 	}
 
