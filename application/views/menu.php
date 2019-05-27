@@ -96,7 +96,7 @@
                 <a href="#submenu8" data-toggle="collapse"><i class="fas fa-cog"></i> SISTEMA</a>
                 <ul id="submenu8" class="list-unstyled collapse">
                     <li><a href="<?php echo base_url('ColaboradorPermissaoSistema');?>">Permissões de Usuário</a></li>
-                    <li><a href="<?php echo base_url('AcessosAoSistema');?>">Acessos no Sistema</a></li>
+                    <li><a href="<?php echo base_url('AcessosAoSistema');?>">Acessos ao Sistema</a></li>
                     <li><a href="<?php echo base_url('AlteracoeSistemas');?>">Alterações no Sistema </a></li>
                 </ul>
             </li>

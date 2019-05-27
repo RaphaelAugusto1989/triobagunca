@@ -53,10 +53,32 @@ class Colaborador extends CI_Controller {
 		$dados['titulo'] = 'Acessos Ao Sistema';
 		$ListaMenus = $this->menu->PermissaoMenus();
 
+		$this->load->model('UserSystem_model');
+		$lista = $this->UserSystem_model->MostraAcessos();
+
+		$dados = array('titulo' => 'Acessos Ao Sistema', 'ColabAcesso' => $lista);
+
 		$this->load->view('header', $dados);
 		$this->load->view('menu', $ListaMenus);
 		$this->load->view('AcessosAoSistema', $dados);
 		$this->load->view('footer');
+	}
+
+	public function DetalheAcessosColaborador() {
+		$idColab = $this->uri->segment(3);
+
+		$this->load->model('UserSystem_model');
+		$lista = $this->UserSystem_model->MostraDetalhesAcessos($idColab);
+
+		$dados = array('titulo' => "Detalhe dos Acessos", 'acessos' => $lista);
+
+		$ListaMenus = $this->menu->PermissaoMenus();
+
+		$this->load->view('header', $dados);
+		$this->load->view('menu', $ListaMenus);
+		$this->load->view('DetalheAcessosColaborador', $dados);
+		$this->load->view('footer');
+
 	}
 
 	public function ColaboradorCadastro() {

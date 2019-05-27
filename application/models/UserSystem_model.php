@@ -25,6 +25,22 @@ class UserSystem_model extends CI_Model {
 		$this->db->insert("acessos_sistema", $acesso);
     }
 
+    #MOSTRA ACESSO
+    public function MostraAcessos () {
+    	$this->db->select('id_colab, nome_colab');
+    	$this->db->distinct();
+    	$this->db->order_by('nome_colab', 'ASC');
+    	return $this->db->get('acessos_sistema')->result_array();
+    }
+
+    #MOSTRA DETALHES DOS ACESSOS
+    public function MostraDetalhesAcessos ($IdColab) {
+    	$this->db->where('id_colab', $IdColab);
+    	return $this->db->get('acessos_sistema')->result_array();
+    }
+
+    
+
 	#CADASTRA O USUÁRIO NO BANCO DE DADOS
 	#public function SaveUser ($user) {
 	#	$this->db->insert("usuario", $user);
