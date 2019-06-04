@@ -175,4 +175,11 @@ class Colaborador_model extends CI_Model {
 		return $this->db->get_where("colaborador_evento", array ("fk_id_colaborador" => $idColab)) -> result();
 	}
 
+	#VERIFICA DADOS ESQUECI SENHA
+	public function EsqueciSenha ($cpf, $Email) {
+		$this->db->where('cpf_colab', $cpf);
+		$this->db->where('email_colab', $Email);
+		return $this->db->get('colaborador')->result_array();
+	}
+
 }

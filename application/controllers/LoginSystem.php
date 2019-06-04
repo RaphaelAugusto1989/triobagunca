@@ -53,45 +53,6 @@ class LoginSystem extends CI_Controller {
 		}	
 	}
 
-    public function EsqueciSenha() {
-        $msgErro = null;
-        if ($this->session->flashdata('msgErro') !="") {
-            $msgErro = $this->session->flashdata('msgErro');
-        }
-
-        $dados['titulo'] = 'Esqueci minha senha';
-        $dados['ErroLogin'] = $msgErro;
-        $this->load->view('EsqueciSenha', $dados);
-    }
-
-    public function EnviaLinkSenha() {
-        $email = $this->input->post('email');
-        $cpf = $this->input->post('cpf');
-
-        $this->load->model('UserSystem_model');
-        $lista = $this->UserSystem_model->MostraUser();
-
-       #echo $cpf;  echo $email; echo "<pre>"; print_r($lista);exit;
-        $achou = false;
-        foreach ($lista as $l) {
-           if ($email == $l['email_usuario'] && $cpf == $l['cpf_usuario']) {
-
-               $achou = true;
-               break;
-           }
-       }
-       if($achou==false){
-           $this->session->set_flashdata('msgErro', 'E-mail e/ou CPF não cadastrados, entre em contato com o responsável do sistema!');
-           redirect(base_url('EsqueciSenha'));
-
-       }else{
-
-           $this->session->set_flashdata('msgErro', 'E-mail enviado com sucesso!');
-           redirect(base_url('EsqueciSenha'));
-
-       }
-    }
-
   public function Home()	{
     $dados = array('titulo' => 'Sistema Trio Bagunça');  
 

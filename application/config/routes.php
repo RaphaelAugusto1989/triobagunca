@@ -55,7 +55,9 @@ $route['translate_uri_dashes'] = FALSE;
 $route['Login'] = 'LoginSystem/Login';
 
 $route['Home'] = 'LoginSystem/Home';
-$route['EsqueciSenha'] = 'LoginSystem/EsqueciSenha';
+
+//ENVIO DE EMAILs
+$route['EsqueciSenha'] = 'SendEmails/EsqueciSenha';
 
 //MENU EVENTOS
 $route['AgendamentoNovo'] = 'Agenda/AgendamentoNovo';
