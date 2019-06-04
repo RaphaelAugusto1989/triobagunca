@@ -22,6 +22,7 @@
 				<div class="col align-self-center col-md-4 login">
 					<p class="text-center">Área Restrita</p>
 					<?php 
+						//echo CI_VERSION;
 						if ($this->session->flashdata('msgErro') !="") {
 							echo "<p class='alert alert-danger text-center'>".$ErroLogin. "</p>";
 						}
