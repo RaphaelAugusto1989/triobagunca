@@ -30,6 +30,10 @@ class SendEmails extends CI_Controller {
 		$this->load->model('Colaborador_model');
 		$lista = $this->Colaborador_model->EsqueciSenha($cpf, $Email);
 
+		$dados = array('user' => $lista);
+
+		$msg = $this->load->view('emails/msgRecuperarSenha', $dados);
+
 		if ($lista == NULL) {
 		 	$this->session->set_flashdata('Error', 'SEUS DADOS NÃO FORAM ENCONTRADOS, VERIFIQUE E TENTE NOVAMENTE!');
 
@@ -39,7 +43,7 @@ class SendEmails extends CI_Controller {
 				$Nome = $lista[$key]['nome_colab'].' '.$lista[$key]['sobrenome_colab'];
 				$To = $lista[$key]['email_colab'];
 				$Subject = "Solicitação de troca de senha.";
-				$Message = "TESTE ENVIADO COM SUCESSO!";
+				$Message = $msg;
 				
 				//É necessário indicar que o formato do e-mail é html
 				$Headers  = 'MIME-Version: 1.0' . "\r\n";
