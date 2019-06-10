@@ -37,6 +37,13 @@ class Colaborador_model extends CI_Model {
 		return $this->db->get_where("colaborador", array ("id_colab" => $id)) -> row_array();
 	}
 
+	#ALTERA O COLABORADOR NO BANCO DE DADOS
+	public function AlteraSenha ($id, $senha) {
+		$this->db->where('id_colab', $id);
+		$this->db->update('colaborador', $senha);
+		return TRUE;
+	}
+
 	#EXCLUÍ O COLABORADOR NO BANCO DE DADOS
 	public function DeletaColaborador ($id) {
 		$this->db->where('id_colab', $id);

@@ -22,12 +22,13 @@ class LoginSystem extends CI_Controller {
 	public function AutenticaLogin()	{
 		$login = $this->input->post('login');
 		$pass = md5($this->input->post('password'));
-		echo $login; exit();
+		//echo $login; exit();
+
     if ($login == 'admin' && $pass == 'd243ee28aa5930dea901298cdeb2cb9f') {
       $user = array('IdUser' => '1', 'login_colab' => 'Admin', 'senha_colab', 'd243ee28aa5930dea901298cdeb2cb9f2', 'nome' => 'Administrador01', 'sexouser' => 'Masculino', 'foto' => 'user1_05022019074529.png');
 
-      echo '<pre>';
-      print_r($user); exit();
+      //echo '<pre>';
+      //print_r($user); exit();
 
     } //else {
       //$this->load->model('UserSystem_model');
@@ -40,12 +41,6 @@ class LoginSystem extends CI_Controller {
         $this->session->set_userdata('sexouser', $user[0]->sexo_usuario);
         $this->session->set_userdata('foto', $user[0]->foto_usuario);
 
-//            $SessaoUser = array(
-//                'IdUser'   => $user['id_usuario'],
-//                'nome'     => $user['nome_usuario'],
-//                'sexouser' => $user['sexo_usuario'],
-//                'foto'     => $user['foto_usuario']
-//            );
             redirect(base_url('Home'));
 		} else {
 			$this->session->set_flashdata('msgErro', 'Usuário ou Senha Inválidos!');
@@ -65,6 +60,30 @@ class LoginSystem extends CI_Controller {
 		$this->load->view('footer');
 	}
 
+	public function AlterarSenha() {
+		$dados = array('titulo' => 'Alterar Senha');
+		
+		$this->load->view('AlterarMinhaSenha', $dados);
+	}
+
+	public function AlterarMinhaSenha() {
+		$id = $this->input->post('id_colab');
+		$senha1 =  $this->input->post('senha1');
+		$senha2 =  $this->input->post('senha2');
+
+		if ($senha1 === $senha2) {
+			$senha = md5($senha1);
+			$this->load->model('Colaborador_model');
+			$lista = $this->Colaborador_model->AlterarSenha($id, $senha);
+		} else {
+			$this->session->set_flashdata('msg', 'Senhas não estão identicas!');
+			redirect(base_url('AlterarMinhaSenha'));
+
+		}
+
+		$dados = array('titulo' => 'Alterar Senha');
+		$this->load->view('AlterarMinhaSenha', $dados);
+	}
   
 
   public function Logout () {

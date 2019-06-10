@@ -55,6 +55,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['Login'] = 'LoginSystem/Login';
 
 $route['Home'] = 'LoginSystem/Home';
+$route['AlterarMinhaSenha'] = 'LoginSystem/AlterarSenha';
 
 //ENVIO DE EMAILs
 $route['EsqueciSenha'] = 'SendEmails/EsqueciSenha';
