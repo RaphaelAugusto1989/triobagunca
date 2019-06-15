@@ -15,17 +15,17 @@
 		<div class="form-row">
 			<div class="form-group col-md-6">
 	  			<label for="inputname">Nome:</label>
-	  			<input type="text" name="nome" id="inputname" class="form-control" placeholder="Nome">
+	  			<input type="text" name="nome" id="inputname" class="form-control" placeholder="Nome" required>
 	  		</div>
   			<div class="form-group col-md-6">
     			<label for="inputsobrename">Sobrenome:</label>
-	  			<input type="text" name="sobrenome" id="inputsobrename" class="form-control" placeholder="Sobrenome">
+	  			<input type="text" name="sobrenome" id="inputsobrename" class="form-control" placeholder="Sobrenome" required>
     		</div>
 		</div>
 		<div class="form-row">
 			<div class="form-group col-md-6">
 	  			<label for="inputcpf">CPF:</label>
-	  			<input type="text" name="cpf" id="inputcpf" class="cpf form-control">
+	  			<input type="text" name="cpf" id="inputcpf" class="cpf form-control" required>
 	  		</div>
   			<div class="form-group col-md-6">
     			<label for="inputdate">Data de Nascimento:</label>
@@ -35,7 +35,7 @@
 		<div class="form-row">
 			<div class="form-group col-md-6"">
                 <label for="selecsexo">Sexo</label>
-                <select  class="form-control" id="selectsexo" name="sexo">
+                <select  class="form-control" id="selectsexo" name="sexo" required>
                     <option value="" selected disabled>Selecione o Sexo</option>
                     <option value="FEMININO">Feminino</option>
                     <option value="MASCULINO">Masculino</option>
@@ -43,7 +43,7 @@
             </div>
 			<div class="form-group col-md-6">
 				<label for="inputcpf">Função:</label>
-      			<input type="text" name="funcao" class="form-control" id="inputfuncao">
+      			<input type="text" name="funcao" class="form-control" id="inputfuncao" required>
     		</div>
     	</div>
     	<span class="form-row border border-dark border-top-0 border-left-0 border-right-0 border-bottom-1 mb-3 ml-1 mt-3 mr-1 pb-2 font-weight-bold">ENDEREÇO: </span>
@@ -83,12 +83,12 @@
       		</div>
     		<div class="form-group col-md-6">
     			<label for="inputfone2">Celular:</label>
-      			<input type="tel" name="cel" class="form-control cel" id="inputfone2" placeholder="Celular">
+      			<input type="tel" name="cel" class="form-control cel" id="inputfone2" placeholder="Celular" required>
     		</div>
     	</div>
 		<div class="form-group">
 			<label for="inputEmail4">E-mail:</label>
-  			<input type="email" name="email" placeholder="E-mail" class="form-control" id="inputEmail4">
+  			<input type="email" name="email" placeholder="E-mail" class="form-control" id="inputEmail4" required>
 		</div>
 		<span class="form-row border border-dark border-top-0 border-left-0 border-right-0 border-bottom-1 mb-3 ml-1 mt-3 mr-1 pb-2 font-weight-bold">DADOS DO SISTEMA: </span>
 		<div class="form-row">
@@ -99,7 +99,7 @@
         		<div class="form-group col-md-6">
         			<label for="senha">Senha:</label>
           			<div class="input-group">
-	          			<input type="password" name="password" id="password" class="form-control" placeholder= "Digite uma Senha"> 
+	          			<input type="password" name="password" id="password" class="form-control" placeholder= "Digite uma Senha" required> 
 	          			<div class="input-group-append">
 	   	       				<a href="#" class="bg-white btn btn-link border border-left-0" id="showPassword" title="Mostrar Senha" style="text-decoration: none;"><i class="fas fa-eye"></i></a>
 	   	       			</div>

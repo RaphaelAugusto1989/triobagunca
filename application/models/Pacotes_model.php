@@ -13,8 +13,6 @@ class Pacotes_model extends CI_Model {
 		return $this->db->get('pacotes')->result_array();
 	}
 
-	
-
 	#INSERE O PACOTE NO BANCO DE DADOS
 	public function SavePacote ($pacote) {
 		$this->db->insert("pacotes", $pacote);

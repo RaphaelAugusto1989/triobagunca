@@ -107,18 +107,14 @@ class Pacotes extends CI_Controller {
 			$msg = "<p class='alert alert-danger text-center'>".$this->session->flashdata('Error')."</p>";
 		}
 
-		$dados['titulo'] = 'Detalhe do Pacote';
-
 		$id = $this->uri->segment(3);
 
-
 		$this->load->model('Pacotes_model');
-		$ListaMenus = $this->menu->PermissaoMenus();
 		$idPacote = $this->Pacotes_model->RetornaIdPacote($id);
-		$pacote = array('pacote' => $idPacote);
-		$pacote['msg'] = $msg;
+		$ListaMenus = $this->menu->PermissaoMenus();
 
-		//print_r($id); exit();
+		$pacote = array('pacote' => $idPacote, 'msg' => $msg, 'titulo' => 'Detalhe do Pacote');
+
 		$this->load->view('header', $dados);
 		$this->load->view('menu', $ListaMenus);
 		$this->load->view('PacoteAltera', $pacote);

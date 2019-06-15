@@ -99,7 +99,38 @@ class Colaborador extends CI_Controller {
 		$this->load->view('footer');
 	}
 	
-	public function NovoColaborador()	{
+	public function NovoColaborador() {
+		
+		$VerifyCPF = $this->input->post('cpf');
+		$VerifyEmail = $this->input->post('email');
+		$VerifyLogin = $this->input->post('login');
+
+		$this->load->model('Colaborador_model');
+		$Verification = $this->Colaborador_model->VerifyColaborador($VerifyCPF, $VerifyEmail, $VerifyLogin);
+
+			//echo '<pre>';
+			//print_r($Verification); exit();
+
+		foreach ($Verification as $key => $v) {
+			//echo '<pre>';
+			//print_r($v); exit();
+
+			if ($Verification[$key]->cpf_colab == $VerifyCPF) {
+				$this->session->set_flashdata('Error', 'CPF já cadastrado!');
+				redirect(base_url('ColaboradorCadastro'));
+			}
+
+			if ($Verification[$key]->email_colab == $VerifyEmail) {
+				$this->session->set_flashdata('Error', 'E-mail já cadastrado!');
+				redirect(base_url('ColaboradorCadastro'));
+			}
+
+			if ($Verification[$key]->login_colab == $VerifyLogin) {
+				$this->session->set_flashdata('Error', 'Login já cadastrado!');
+				redirect(base_url('ColaboradorCadastro'));
+			}
+		}
+
 		$colaborador = array(
 			'nome_colab' => $this->input->post('nome'),
 			'sobrenome_colab' => $this->input->post('sobrenome'),  
@@ -124,6 +155,49 @@ class Colaborador extends CI_Controller {
 		$this->Colaborador_model->SaveColaborador($colaborador);
 
 		if (!empty($colaborador)) {
+			
+			$Nome = $colaborador['nome_colab'].' '.$colaborador['sobrenome_colab'];
+			$To = $colaborador['email_colab'];
+			$Login = $colaborador['login_colab'];
+			$senha = $this->input->post('password');
+			$Subject = "Bem Vindo, você foi cadastrado ao sistema!";
+
+			if ($this->input->post('sexo') == 'MASCULINO')
+				$Cad = 'Cadastrado';
+			else {
+				$Cad = 'Cadastrada';
+			}
+			
+			$Message= "<html charset='utf-8'>
+						<center style='width: 100%; background-color: #F3F2F1; padding: 30px 0 30px 0;'> 
+							<div style='width: 70%; margin: 0 auto; border: 0 solid; border:1px solid #007BFF; margin:5px; text-align: left; background-color: #FFFFFF;'>
+								<div style='padding: 10px 10px 0 10px;'>
+									<img src='http://admin.triobagunca.com.br/assets/img/logo_sistema_email.png' style='width: 150px; text-align: center; margin-top: 15px;'>
+									<img src='http://admin.triobagunca.com.br/assets/img/logo-trio.png' style='width: 100px; text-align: center; float: right;'>
+								</div>
+								<p style='font-size: 22px; height: 25px; padding: 15px 0 15px 0; background-color:#007BFF; color: #ffffff; text-align: center; font-weight: bold;'>DADOS DE ACESSO</p>
+								<p style='padding: 10px; font-size: 14px;'>
+								Olá ".$Nome."! <br />
+								Parabéns, você foi ".$Cad." no sistema, agora você pode verificar os eventos que vai participar!<br />
+								<br />
+								Abaixo segue seus dados de acesso:<br />
+								<b>Login:</b> ".$Login." <b>ou</b> ".$To."<br />
+								<b>Senha:</b> ".$senha."<br />
+								<br />
+								Link de acesso: <a href='http://admin.triobagunca.com.br/' target='_blank'> http://admin.triobagunca.com.br/ </a>
+								</p>
+							</div>
+						</center>
+					</html>";
+		
+			//É necessário indicar que o formato do e-mail é html
+			$Headers  = 'MIME-Version: 1.0' . "\r\n";
+		    $Headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+		    $Headers .= 'From: '."Trio Bagunça <noreply@triobagunca.com.br>";
+		   	//$Headers .= "Bcc: $EmailPadrao\r\n";
+				
+			$Enviado = mail($To, $Subject, $Message, $Headers);
+
 			$this->session->set_flashdata('Success', 'Colaborador Cadastrado com Sucesso');
 			redirect(base_url('ColaboradorCadastro'));
 		} else {
@@ -189,22 +263,6 @@ class Colaborador extends CI_Controller {
 			redirect(base_url('Colaborador/DetalheColaborador/'.$id));
 		}
 	}
-
-	#public function ColaboradoresCadastrados()	{
-	#	$dados['titulo'] = 'Colaboradores Cadastros';
-	#	$this->load->model('Colaborador_model');
-	#	$lista = $this->Colaborador_model->MostraColaborador();
-	#	$Colaborador =  array('colaborador' => $lista);
-
-	#	$TotalColab = count($lista);
-	#	$Colaborador["total"] = $TotalColab;
-	#	$ListaMenus = $this->menu->PermissaoMenus();
-
-	#	$this->load->view('header', $dados);
-	#	$this->load->view('menu', $ListaMenus);
-	#	$this->load->view('ColaboradoresCadastrados', $Colaborador);
-	#	$this->load->view('footer');
-	#}
 
 	public function ColaboradoresCadastrados()	{
 		$dados['titulo'] = 'Colaboradores Cadastros';

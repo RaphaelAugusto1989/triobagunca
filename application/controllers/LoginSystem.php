@@ -14,6 +14,7 @@ class LoginSystem extends CI_Controller {
 		if ($this->session->flashdata('msgErro') !="") {
 			$msgErro = $this->session->flashdata('msgErro');
 		}
+
 		$dados['titulo'] = 'Área Restrita';
 		$dados['ErroLogin'] = $msgErro;
 		$this->load->view('Login', $dados);
@@ -61,30 +62,48 @@ class LoginSystem extends CI_Controller {
 	}
 
 	public function AlterarSenha() {
-		$dados = array('titulo' => 'Alterar Senha');
-		
+		$msgErro = null;
+
+		if ($this->session->flashdata('msg') !="") {
+			$msg = $this->session->flashdata('msg');
+		}
+
+		if ($this->session->flashdata('Success') !="") {
+			$msg = $this->session->flashdata('Success');
+		} else {
+			$msg = $this->session->flashdata('Error');
+		}
+
+		$dados = array('titulo' => 'Alterar Senha', 'msg' => $msg);
 		$this->load->view('AlterarMinhaSenha', $dados);
 	}
 
 	public function AlterarMinhaSenha() {
-		$id = $this->input->post('id_colab');
-		$senha1 =  $this->input->post('senha1');
-		$senha2 =  $this->input->post('senha2');
+		$id = $this->input->post('id');
+		$pass1 = md5($this->input->post('senha1'));
+		$pass2 = md5($this->input->post('senha2'));
 
-		if ($senha1 === $senha2) {
-			$senha = md5($senha1);
-			$this->load->model('Colaborador_model');
-			$lista = $this->Colaborador_model->AlterarSenha($id, $senha);
+		if ($pass1 == $pass2) {
+			$NovaSenha = array(
+				'senha_colab' => $pass1,
+			);
 		} else {
 			$this->session->set_flashdata('msg', 'Senhas não estão identicas!');
 			redirect(base_url('AlterarMinhaSenha'));
+		}
+	
+		$this->load->model('Colaborador_model');
+		$Alterado = $this->Colaborador_model->AlteraSenha($id, $NovaSenha);
 
+		if ($Alterado) {
+			$this->session->set_flashdata('Success', 'Senha Alterada com Sucesso! <br /><a href="'.base_url().'"><< Voltar a página de login!</a>');
+			redirect(base_url('AlterarMinhaSenha'));
+		} else {
+			$this->session->set_flashdata('Error', 'Ocorreu algum problema, verifique os dados e tente novamente!');
+			redirect(base_url('AlterarMinhaSenha'));
 		}
 
-		$dados = array('titulo' => 'Alterar Senha');
-		$this->load->view('AlterarMinhaSenha', $dados);
 	}
-  
 
   public function Logout () {
 		$this->session->sess_destroy('IdUser');

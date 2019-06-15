@@ -33,7 +33,7 @@
 
 						echo "<p class='text-center'> Olá <u>".$DecodeName."</u>, você fez uma solicitação de troca de senha, favor insira a nova senha e a repita para fazer a alteração!</p>";
 					?>
-					<form action="<?php echo base_url('Colaborador/AlterarSenha');?>" method="post">
+					<form action="<?php echo base_url('LoginSystem/AlterarMinhaSenha');?>" method="post">
 							<input type="hidden" name="id" value="<?= $DecodeId ?>">
 						<div class="input-group mb-2">
 		          			<input type="password" name="senha1" class="form-control form-control-lg" placeholder="Digite sua senha" required>

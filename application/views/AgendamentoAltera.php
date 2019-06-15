@@ -99,7 +99,7 @@
 		 	</div>
 		 	<div class="form-group col-md-5">
 		 		<label for="criancas">Quantidade e média de idade das crianças:</label>
-		 		<input type="number" name="qtd_criancas" class="form-control" id="criancas" value="<?= $evento['qtd_crianca_evento']; ?>">
+		 		<input type="text" name="qtd_criancas" class="form-control" id="criancas" value="<?= $evento['qtd_idade_crianca_evento']; ?>">
 		 	</div>
 		 </div>
 		 <div class="form-group">

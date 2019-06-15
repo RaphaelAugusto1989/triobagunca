@@ -53,6 +53,7 @@ class Agenda extends CI_Controller {
 	
 	public function NovoAgendamento()	{
 		$mes = date('m', strtotime($this->input->post('data_evento')));
+		$EmailEnviado = '0';
 		
 		$agenda = array(
 			'nome_cli' => $this->input->post('nome_cliente'), 
@@ -65,6 +66,7 @@ class Agenda extends CI_Controller {
 			'tempo_evento' => $this->input->post('tempo_evento'),
 			'valor_pct' => $this->input->post('valor_pct'),
 			'status_evento' => $this->input->post('status'),
+			'email_enviado' => $EmailEnviado,
 		);
 
 		$this->load->model('Agenda_model');
@@ -98,7 +100,6 @@ class Agenda extends CI_Controller {
 
 		$ListaMenus = $this->menu->PermissaoMenus();
 
-
 		$this->load->view('header', $dados);
 		$this->load->view('menu',$ListaMenus);
 		$this->load->view('Agendamentos', $dados);
@@ -113,15 +114,6 @@ class Agenda extends CI_Controller {
 		$this->load->model('Agenda_model');
 		$lista = $this->Agenda_model->MostraAgendaPorMes($Mes, $AnoAtual);
 
-		//$NumReg = 1; #QTD DE REGISTROS A SER MOSTRADO POR PÁGINA
-
-		//$pg = isset($_GET["pg"]) ? $_GET["pg"] : 1;
-		//$Inicial = ($pg * $NumReg) - $NumReg;
-
-		//$TotalReg = count($ContEvento);
-
-		//$lista = $this->Agenda_model->MostraQtdRegAgendaMes($Mes, $AnoAtual, $Inicial, $NumReg);
-
 		$dados = array('evento' => $lista, 'titulo' => 'Eventos Cadastrados');
 
 		$ListaMenus = $this->menu->PermissaoMenus();
@@ -129,7 +121,6 @@ class Agenda extends CI_Controller {
 		$this->load->view('header', $dados);
 		$this->load->view('menu',$ListaMenus);
 		$this->load->view('Agendamentos', $dados);
-		//$this->load->view('pagination', $dados);
 		$this->load->view('footer');
 	}
 
@@ -158,7 +149,7 @@ class Agenda extends CI_Controller {
 			'complemento_evento' => $this->input->post('complemento'),
 			'nome_emergencia' => $this->input->post('nome_emergencia'),
 			'numero_emergencia' => $this->input->post('numero_emergencia'),
-			'qtd_crianca_evento' => $this->input->post('qtd_criancas'),
+			'qtd_idade_crianca_evento' => $this->input->post('qtd_criancas'),
 			'id_pct' => $this->input->post('pct'),
 			'especificacao_pct' => $this->input->post('especificacao'),
 			'hora_chegada' => $this->input->post('hora_chegada'),
@@ -219,8 +210,94 @@ class Agenda extends CI_Controller {
 			}
 		} 
 
-
+		//echo '<pre>';
+		//print_r($evento); exit();
 		if (!empty($id)) {
+			$id = $this->input->post('id');
+			$idEv = $this->Agenda_model->RetornaIdAgenda($id);
+
+			if ($idEv['email_enviado'] == '0') {
+				if ($evento['status_evento'] == 'Confirmado') {
+					$id = $evento['id_pct'];
+
+					$this->load->model('Pacotes_model');
+					$idPacote = $this->Pacotes_model->RetornaIdPacote($id);
+
+					$Nome = $evento['nome_cli'];
+					$To = $evento['email_cli'];
+					$Subject = "Evento Confirmado!";
+					
+					$Message= "<html charset='utf-8'>
+								<center style='width: 100%; background-color: #F3F2F1; padding: 30px 0 30px 0;'> 
+									<div style='width: 70%; margin: 0 auto; border: 0 solid; border:1px solid #007BFF; margin:5px; text-align: left; background-color: #FFFFFF;'>
+										<div style='padding: 10px 10px 0 10px;'>
+											<img src='http://admin.triobagunca.com.br/assets/img/logo_sistema_email.png' style='width: 150px; text-align: center; margin-top: 15px;'>
+											<img src='http://admin.triobagunca.com.br/assets/img/logo-trio.png' style='width: 100px; text-align: center; float: right;'>
+										</div>
+										<p style='font-size: 22px; height: 25px; padding: 15px 0 15px 0; background-color:#007BFF; color: #ffffff; text-align: center; font-weight: bold;'>CONFIRMAÇÃO DO EVENTO</p>
+										<p style='padding: 10px; font-size: 14px;'>
+										Olá ".$Nome."! <br />
+										Seu evento foi confirmado, verifique os dados abaixo.
+										Caso tenha algum dado incorreto, entrar em contato com o responsável da contratação do evento!
+										<br />
+
+										<div style='font-size: 18px; padding: 0 10px 0 10px; color: #007BFF; text-align: left; font-weight: bold;'>
+										<span style='color: #000000; font-size: 16px;'>Nº DO EVENTO: ".$this->input->post('id')."</span><br />
+										DADOS DO CLIENTE</div>
+										<div style='padding: 0 10px 0 10px;; font-size: 14px;'>
+											<b>Aniversáriante:</b> ".$evento['niver_cli']."<br />
+											<b>Idade:</b> ".$evento['idade_niver']." anos<br />
+											<b>Data do Evento:</b> ".date('d/m/Y', strtotime($evento['data_evento']))."<br />
+											<b>Horário da Festa:</b> ".$evento['hora_evento']."<br />
+											<b>Nome da Mãe:</b> ".$evento['nome_mae']."<br />
+											<b>Nome do Pai:</b> ".$evento['nome_pai']."<br />
+										</div>
+
+										<div style='font-size: 18px; padding: 20px 10px 0 10px; color: #007BFF; text-align: left; font-weight: bold;'>ENDEREÇO DA FESTA</div>
+										<div style='padding: 0 10px 0 10px; font-size: 14px;'>
+											<b>Rua:</b> ".$evento['rua_evento']."<br />
+											<b>Nº:</b> ".$evento['numero_evento']."<br />
+											<b>Cidade:</b> ".$evento['cidade_evento']."<br />
+											<b>Bairro:</b> ".$evento['bairro_evento']."<br />
+											<b>Estado:</b> ".$evento['estado_evento']."<br />
+											<b>Complemento:</b> ".$evento['complemento_evento']."<br />
+										</div>
+
+										<div style='font-size: 18px; padding: 20px 10px 0 10px; color: #007BFF; text-align: left; font-weight: bold;'>DETALHE DA FESTA</div>
+										<div style='padding: 0 10px 10px 10px; font-size: 14px;'>
+											<b>Quantidade e média de idade das crianças:</b> ".$evento['qtd_idade_crianca_evento']."<br />
+											<b>Pacote Contratado:</b> ".$idPacote['nome_pct']."<br />
+											<b>Especificação do Pacote:</b> ".$evento['especificacao_pct']."<br />
+											<b>Hora da Chegada:</b> ".$evento['hora_chegada']."<br />
+											<b>Tempo de Permanência:</b> ".$evento['tempo_evento']."<br />
+											<b>Valor do Pacote:</b> ".$evento['valor_pct']."<br />
+											<b>Valor Total do Pacote:</b> ".$evento['valor_total']."<br />
+											<b>Sinal:</b> ".$evento['sinal_valor']."<br />
+											<b>Falta Pagar:</b> ".$evento['falta_pagar_valor']."<br />
+										</div>
+									</div>
+								</center>
+							</html>";
+				
+					//É necessário indicar que o formato do e-mail é html
+					$Headers  = 'MIME-Version: 1.0' . "\r\n";
+				    $Headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+				    $Headers .= 'From: '."Trio Bagunça <noreply@triobagunca.com.br>";
+				   	//$Headers .= "Bcc: $EmailPadrao\r\n";
+						
+					$Enviado = mail($To, $Subject, $Message, $Headers);
+
+					if ($Enviado) {
+						$id = $this->input->post('id');
+						$EmailEnviado = '1';
+						$evento = array(
+							'email_enviado' => $EmailEnviado,
+						);
+						$this->Agenda_model->AlteraAgenda($id, $evento);
+					}	
+				} //FIM IF STATUS CONFIRMADO
+			}//FIM IF VERIFICAÇÃO SE O E-MAIL FOI ENVIADO
+			
 			$msg = $this->session->set_flashdata('Success', 'Evento Alterado com Sucesso');
 			redirect(base_url('Agenda/DetalheEvento/'.$id));
 		} else {

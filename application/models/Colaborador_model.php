@@ -26,6 +26,15 @@ class Colaborador_model extends CI_Model {
 		$this->db->insert("colaborador", $colaborador);
 	}
 
+	#VERIFICA SE COLABORADOR JÁ ESTÁ CADASTRADO NO BANCO DE DADOS
+	public function VerifyColaborador ($VerifyCPF, $VerifyEmail, $VerifyLogin) {
+		$this->db->where('cpf_colab', $VerifyCPF);
+		$this->db->or_where('email_colab', $VerifyEmail);
+		$this->db->or_where('login_colab', $VerifyLogin);
+		$user = $this->db->get('colaborador')->result();
+		return $user;
+	}
+
 	#ALTERA O COLABORADOR NO BANCO DE DADOS
 	public function AlteraColaborador ($id, $colaborador) {
 		$this->db->where('id_colab', $id);
@@ -38,9 +47,9 @@ class Colaborador_model extends CI_Model {
 	}
 
 	#ALTERA O COLABORADOR NO BANCO DE DADOS
-	public function AlteraSenha ($id, $senha) {
+	public function AlteraSenha ($id, $NovaSenha) {
 		$this->db->where('id_colab', $id);
-		$this->db->update('colaborador', $senha);
+		$this->db->update('colaborador', $NovaSenha);
 		return TRUE;
 	}
 

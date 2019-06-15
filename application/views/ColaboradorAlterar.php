@@ -22,17 +22,17 @@
       	<div class="form-group col-md-6">
           <input type="hidden" name="id" value="<?= $clb['id_colab']; ?>">
           <label for="inputname">Nome:</label>
-          <input type="text" name="nome" id="inputname" class="form-control" placeholder="Nome" value="<?= $clb['nome_colab']; ?>">
+          <input type="text" name="nome" id="inputname" class="form-control" placeholder="Nome" value="<?= $clb['nome_colab']; ?>" required>
         </div>
         <div class="form-group col-md-6">
     			<label for="inputsobrename">Sobrenome:</label>
-	  			<input type="text" name="sobrenome" id="inputsobrename" class="form-control" placeholder="Sobrenome" value="<?= $clb['sobrenome_colab']; ?>">
+	  			<input type="text" name="sobrenome" id="inputsobrename" class="form-control" placeholder="Sobrenome" value="<?= $clb['sobrenome_colab']; ?>" required>
     		</div>
     </div>
     <div class="form-row">
       <div class="form-group col-md-6">
           <label for="inputcpf">CPF:</label>
-          <input type="text" name="cpf" id="inputcpf" class="cpf form-control" value="<?= $clb['cpf_colab']; ?>">
+          <input type="text" name="cpf" id="inputcpf" class="cpf form-control" value="<?= $clb['cpf_colab']; ?>" required>
         </div>
         <div class="form-group col-md-6">
           <label for="inputdate">Data de Nascimento:</label>
@@ -42,7 +42,7 @@
     <div class="form-row">
       <div class="form-group col-md-6"">
                 <label for="selecsexo">Sexo</label>
-                <select  class="form-control" id="selectsexo" name="sexo">
+                <select  class="form-control" id="selectsexo" name="sexo" required>
                     <option <?php if ($clb['sexo_colab'] == "FEMININO") { echo "selected"; } ?> value="FEMININO">Feminino</option>
                     <option <?php if ($clb['sexo_colab'] == "MASCULINO") { echo "selected"; } ?> value="MASCULINO">Masculino</option>
                 </select>
@@ -89,18 +89,18 @@
           </div>
         <div class="form-group col-md-6">
           <label for="inputfone2">Celular:</label>
-            <input type="tel" name="cel" class="form-control cel" id="inputfone2" placeholder="Celular" value="<?= $clb['cel_colab']; ?>">
+            <input type="tel" name="cel" class="form-control cel" id="inputfone2" placeholder="Celular" value="<?= $clb['cel_colab']; ?>" required>
         </div>
       </div>
     <div class="form-group">
       <label for="inputEmail4">E-mail:</label>
-        <input type="email" name="email" placeholder="E-mail" class="form-control" id="inputEmail4" value="<?= $clb['email_colab']; ?>">
+        <input type="email" name="email" placeholder="E-mail" class="form-control" id="inputEmail4" value="<?= $clb['email_colab']; ?>" required>
     </div>
     <span class="form-row border border-dark border-top-0 border-left-0 border-right-0 border-bottom-1 mb-3 ml-1 mt-3 mr-1 pb-2 font-weight-bold">DADOS DO SISTEMA: </span>
     <div class="form-row">
         <div class="form-group col-md-6">
           <label for="inputuser">Usuário:</label>
-                <input type="input" name="login" class="form-control" id="inputuser" required value="<?= $clb['login_colab']; ?>">
+                <input type="input" name="login" class="form-control" id="inputuser" required value="<?= $clb['login_colab']; ?>" required>
             </div>
             <div class="form-group col-md-6">
               <label for="senha">Senha:</label>
