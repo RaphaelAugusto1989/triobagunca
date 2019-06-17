@@ -47,9 +47,9 @@ class Colaborador_model extends CI_Model {
 	}
 
 	#ALTERA O COLABORADOR NO BANCO DE DADOS
-	public function AlteraSenha ($id, $NovaSenha) {
+	public function AlteraSenha ($id, $senha) {
 		$this->db->where('id_colab', $id);
-		$this->db->update('colaborador', $NovaSenha);
+		$this->db->update('colaborador', $senha);
 		return TRUE;
 	}
 
@@ -196,6 +196,14 @@ class Colaborador_model extends CI_Model {
 		$this->db->where('cpf_colab', $cpf);
 		$this->db->where('email_colab', $Email);
 		return $this->db->get('colaborador')->result_array();
+	}
+
+	#PESQUISA O COLABORADOR
+	public function PesquisaColaborador ($pesquisa) {
+		$this->db->from('colaborador');
+        $this->db->like('nome_colab', $pesquisa, 'both');
+        $this->db->or_where('cpf_colab', $pesquisa);
+        return $this->db->get()->result();
 	}
 
 }

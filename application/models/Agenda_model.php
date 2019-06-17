@@ -104,4 +104,11 @@ class Agenda_model extends CI_Model {
 		return TRUE;
 	}
 
+	#PESQUISA EVENTO
+	public function PesquisaEvento ($pesquisa) {
+		$this->db->from('evento');
+		$this->db->or_where('id_evento', $pesquisa);
+        $this->db->like('nome_cli', $pesquisa, 'both');
+        return $this->db->get()->result();
+	}
 }

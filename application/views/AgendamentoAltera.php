@@ -21,7 +21,7 @@
 		 <div class="form-row">
 		 	<div class="form-group col-md-4">
 		 		<label for="data">Data do Evento:</label>
-		 		<input type="date" name="data_evento" class="form-control" id="data" value="<?= $evento['data_evento']; ?>" required>
+		 		<input type="text" name="data_evento" class="form-control data" id="data" value="<?= date('d/m/Y', strtotime($evento['data_evento'])); ?>" required>
 		 	</div>
 			<div class="form-group col-md-8">
 				<label for="inputemail">E-mail:</label>

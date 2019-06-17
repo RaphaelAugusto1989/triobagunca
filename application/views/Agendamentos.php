@@ -2,36 +2,18 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <div class="container p-4">
+	<form action="<?php echo base_url('Agenda/PesquisarEvento');?>" method="post">
 		<div class="form-group row">
-			<div class="col-lg-3"></div>
-			<div class="col-lg-5"><p class="text-center">EVENTOS AGENDADOS</p></div>
-		  	<div class="col-lg-4">
-			</div>
+			<div class="col-lg-4"></div>
+			<div class="col-lg-4"><p class="text-center">EVENTOS AGENDADOS</p></div>
+				<div class="col-lg-3 text-left">
+						<input type="text" name="pesquisa" class="form-control form-control-block form-control-sm" placeholder="Cliente ou Nº do Evento">
+				</div>
+				<div class="col-lg-1">
+					<button type="submit" class="btn btn-secondary btn-sm btn-block"><i class="fas fa-search"></i></button>
+				</div>
 		</div>
-	<!--<form action="">
-		<div class="form-group row">
-			<div class="col-lg-4">
-				<label for="DataInicio">Data Inicial: </label>
-				<input type="date" name="inicio" id="DataInicio" class="form-control form-control-sm">
-			</div>
-			<div class="col-lg-4">
-				<label for="DataFinal">Data Inicial: </label>
-				<input type="date" name="fim" id="DataFinal" class="form-control form-control-sm">
-			</div>
-			<div class="col-lg-3">
-				<label for="status">Status: </label>
-				<select class="form-control form-control-sm" id="status">
-					<option selected disabled>Filtrar</option>
-					<option>Confirmados</option>
-					<option>Pendentes</option>
-					<option>Cancelados</option>
-				</select>
-			</div>
-			<div class="col-lg-1">
-				<label for="status" class="text-white">Filtrar: </label>
-				<button class="btn btn-secondary btn-sm" type="submit">Filtrar</button>
-			</div>
-		</div> -->
+	</form>
 		<nav class="navbar navbar-light mb-3" style="background-color: #e3f2fd;">
 		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/01" role="button">Janeiro</a>
 		   <a class="btn btn-outline-primary" href="<?= base_url()?>Agenda/AgendamentosPorMes/02" role="button">Fevereiro</a>
@@ -75,18 +57,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		?>
 		<a href="<?= base_url() ?>Agenda/DetalheEvento/<?= $evento[$value]->id_evento ?>" class="d-inline">
 			<div class="row border border-primary rounded p-2 mb-2 <?= $conf; ?> text-decoration-none">
-                <div class="col">
+                <div class="col-sm-2">
+                    <span class="font-weight-light">Nº do Evento: <br /></span>
+                    <span class="h5 text-capitalize">
+                    	<?= $evento[$value]->id_evento;?>
+                    </span>
+                </div>
+                <div class="col-sm-5">
                     <span class="font-weight-light">Cliente: <br /></span>
                     <span class="h5 text-capitalize">
                     	<?= $evento[$value]->nome_cli;?>
                     </span>
                 </div>
-                <div class="col">
+                <div class="col-sm-4">
                     <span class="font-weight-light">Data do Evento: <br /></span>
                     <span class="h5 text-capitalize"><?= mb_convert_encoding($data, 'UTF-8', 'ISO-8859-1'); ?> </</span>
                 </div>
-                <div class="col">
-                    <span class="font-weight-light">Hora do Evento: <br /></span>
+                <div class="col-sm-1">
+                    <span class="font-weight-light">Hora: <br /></span>
                     <span class="h5 hora"><?= $evento[$value]->hora_evento; ?></span>
                 </div>
             </div>

@@ -1,15 +1,18 @@
 <div class="container p-4">
-	<form action="">
+	<form action="<?php echo base_url('Colaborador/PesquisarColaborador');?>" method="post">
 		<div class="form-group row">
 			<div class="col-lg-4"></div>
 			<div class="col-lg-4"><p class="text-center">COLABORADORES CADASTRADOS</p></div>
-			<div class="col-lg-2 text-left">
-				<input type="text" class="form-control form-control-block form-control-sm" id="inputdefault" placeholder="Nome ou CPF">
-			</div>
-			<div class="col-lg-2"><button class="btn btn-secondary btn-sm btn-block" type="submit"><i class="fas fa-search"></i> Buscar</button></div>
+			
+				<div class="col-lg-2 text-left">
+						<input type="text" name="pesquisa" class="form-control form-control-block form-control-sm" placeholder="Nome ou CPF">
+				</div>
+				<div class="col-lg-2">
+					<button type="submit" class="btn btn-secondary btn-sm btn-block"><i class="fas fa-search"></i> Buscar</button>
+				</div>
+			
 		</div>
 	</form>
-
 		<?php
 			if ($this->session->set_flashdata('Success') !="") {
 				echo "<p class='alert alert-danger text-center'>" .$Success. "</p>";
@@ -25,11 +28,9 @@
 		<span class="text-right"><?php echo "Você tem ".$TotalReg." colaboradores cadastrados!"; ?></span>
 
       	<?php 
-      	//echo '<pre>';
-      	//print_r($colaborador); exit();
       	foreach ($colaborador as $value => $colab) : 
       		if ($this->session->userdata('IdUser') == '1') { ?>
-	      		<a href="Colaborador/DetalheColaborador/<?= $colaborador[$value]->id_colab; ?>" class="d-inline">
+	      		<a href="<?php echo base_url('Colaborador/DetalheColaborador/'); echo $colaborador[$value]->id_colab;?>"  class="d-inline">
 					<div class="row border border-primary rounded p-2 mb-2 text-primary">
 		                <div class="col text-truncate">
 		                    <span class="font-weight-light">Nome: <br /></span>
@@ -62,7 +63,7 @@
 	      			echo "";
 	      		} else {
       		?>
-      			<a href="Colaborador/DetalheColaborador/<?= $colaborador[$value]->id_colab; ?>" class="d-inline">
+      			<a href="<?php echo base_url('Colaborador/DetalheColaborador/'); echo $colaborador[$value]->id_colab;?>"class="d-inline">
 					<div class="row border border-primary rounded p-2 mb-2 text-primary">
 		                <div class="col text-truncate">
 		                    <span class="font-weight-light">Nome: <br /></span>

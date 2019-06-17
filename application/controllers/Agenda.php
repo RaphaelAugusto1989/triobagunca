@@ -57,7 +57,7 @@ class Agenda extends CI_Controller {
 		
 		$agenda = array(
 			'nome_cli' => $this->input->post('nome_cliente'), 
-			'data_evento' => $this->input->post('data_evento'),
+			'data_evento' => date('Y-m-d', strtotime($this->input->post('data_evento'))),
 			'mes_evento' => $mes,
 			'hora_evento' => $this->input->post('hora_evento'),
 			'email_cli' => $this->input->post('email_cliente'),
@@ -115,6 +115,25 @@ class Agenda extends CI_Controller {
 		$lista = $this->Agenda_model->MostraAgendaPorMes($Mes, $AnoAtual);
 
 		$dados = array('evento' => $lista, 'titulo' => 'Eventos Cadastrados');
+
+		$ListaMenus = $this->menu->PermissaoMenus();
+
+		$this->load->view('header', $dados);
+		$this->load->view('menu',$ListaMenus);
+		$this->load->view('Agendamentos', $dados);
+		$this->load->view('footer');
+	}
+
+	public function PesquisarEvento() {
+		$pesquisa = $this->input->post('pesquisa');
+
+		$this->load->model('Agenda_model');
+		$lista = $this->Agenda_model->PesquisaEvento($pesquisa);
+
+		echo '<pre>';
+		print_r($lista); exit();
+
+		$dados = array('evento' => $lista, 'titulo' => 'Eventos Encontrado');
 
 		$ListaMenus = $this->menu->PermissaoMenus();
 

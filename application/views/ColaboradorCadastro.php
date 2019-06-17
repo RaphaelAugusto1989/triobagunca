@@ -29,7 +29,7 @@
 	  		</div>
   			<div class="form-group col-md-6">
     			<label for="inputdate">Data de Nascimento:</label>
-      			<input type="date" name="nascimento" class="form-control" id="inputdate">
+      			<input type="text" name="nascimento" class="form-control data" id="inputdate" placeholder="dd/mm/aaaa">
     		</div>
 		</div>
 		<div class="form-row">

@@ -78,7 +78,6 @@ class Colaborador extends CI_Controller {
 		$this->load->view('menu', $ListaMenus);
 		$this->load->view('DetalheAcessosColaborador', $dados);
 		$this->load->view('footer');
-
 	}
 
 	public function ColaboradorCadastro() {
@@ -98,9 +97,8 @@ class Colaborador extends CI_Controller {
 		$this->load->view('ColaboradorCadastro', $dados);
 		$this->load->view('footer');
 	}
-	
+
 	public function NovoColaborador() {
-		
 		$VerifyCPF = $this->input->post('cpf');
 		$VerifyEmail = $this->input->post('email');
 		$VerifyLogin = $this->input->post('login');
@@ -108,35 +106,28 @@ class Colaborador extends CI_Controller {
 		$this->load->model('Colaborador_model');
 		$Verification = $this->Colaborador_model->VerifyColaborador($VerifyCPF, $VerifyEmail, $VerifyLogin);
 
-			//echo '<pre>';
-			//print_r($Verification); exit();
-
 		foreach ($Verification as $key => $v) {
-			//echo '<pre>';
-			//print_r($v); exit();
 
 			if ($Verification[$key]->cpf_colab == $VerifyCPF) {
 				$this->session->set_flashdata('Error', 'CPF já cadastrado!');
 				redirect(base_url('ColaboradorCadastro'));
 			}
-
 			if ($Verification[$key]->email_colab == $VerifyEmail) {
 				$this->session->set_flashdata('Error', 'E-mail já cadastrado!');
 				redirect(base_url('ColaboradorCadastro'));
 			}
-
 			if ($Verification[$key]->login_colab == $VerifyLogin) {
 				$this->session->set_flashdata('Error', 'Login já cadastrado!');
 				redirect(base_url('ColaboradorCadastro'));
 			}
 		}
-
+		
 		$colaborador = array(
 			'nome_colab' => $this->input->post('nome'),
 			'sobrenome_colab' => $this->input->post('sobrenome'),  
 			'funcao_colab' => $this->input->post('funcao'),
 			'cpf_colab' => $this->input->post('cpf'),
-			'nasc_colab' => $this->input->post('nascimento'),
+			'nasc_colab' => date('Y-m-d', strtotime($this->input->post('nascimento'))),
 			'sexo_colab' => $this->input->post('sexo'),
 			'cep_colab' => $this->input->post('cep'),
 			'rua_colab' => $this->input->post('rua'),
@@ -155,7 +146,6 @@ class Colaborador extends CI_Controller {
 		$this->Colaborador_model->SaveColaborador($colaborador);
 
 		if (!empty($colaborador)) {
-			
 			$Nome = $colaborador['nome_colab'].' '.$colaborador['sobrenome_colab'];
 			$To = $colaborador['email_colab'];
 			$Login = $colaborador['login_colab'];
@@ -197,7 +187,6 @@ class Colaborador extends CI_Controller {
 		   	//$Headers .= "Bcc: $EmailPadrao\r\n";
 				
 			$Enviado = mail($To, $Subject, $Message, $Headers);
-
 			$this->session->set_flashdata('Success', 'Colaborador Cadastrado com Sucesso');
 			redirect(base_url('ColaboradorCadastro'));
 		} else {
@@ -216,7 +205,7 @@ class Colaborador extends CI_Controller {
 				'sobrenome_colab' => $this->input->post('sobrenome'),  
 				'funcao_colab' => $this->input->post('funcao'),
 				'cpf_colab' => $this->input->post('cpf'),
-				'nasc_colab' => $this->input->post('nascimento'),
+				'nasc_colab' => date('Y-m-d', strtotime($this->input->post('nascimento'))),
 				'sexo_colab' => $this->input->post('sexo'),
 				'cep_colab' => $this->input->post('cep'),
 				'rua_colab' => $this->input->post('rua'),
@@ -235,7 +224,7 @@ class Colaborador extends CI_Controller {
 				'sobrenome_colab' => $this->input->post('sobrenome'),  
 				'funcao_colab' => $this->input->post('funcao'),
 				'cpf_colab' => $this->input->post('cpf'),
-				'nasc_colab' => $this->input->post('nascimento'),
+				'nasc_colab' => date('Y-m-d', strtotime($this->input->post('nascimento'))),
 				'sexo_colab' => $this->input->post('sexo'),
 				'cep_colab' => $this->input->post('cep'),
 				'rua_colab' => $this->input->post('rua'),
@@ -251,7 +240,6 @@ class Colaborador extends CI_Controller {
 			);
 		}
 
-	
 		$this->load->model('Colaborador_model');
 		$this->Colaborador_model->AlteraColaborador($id, $colaborador);
 
@@ -265,7 +253,7 @@ class Colaborador extends CI_Controller {
 	}
 
 	public function ColaboradoresCadastrados()	{
-		$dados['titulo'] = 'Colaboradores Cadastros';
+		$dados['titulo'] = 'Colaboradores Cadastrados';
 
 		$this->load->model('Colaborador_model');
 		$ContColab = $this->Colaborador_model->MostraColaborador();
@@ -360,7 +348,6 @@ class Colaborador extends CI_Controller {
 		
 		$lista = array();
 
-		#echo'<pre>'; print_r($ListaColab);
 		foreach ($ListaColab as $indice => $ic) {
 			#$idEvento = $ListaColab[$indice]->fk_id_evento;
 			$idEvento = $ic->fk_id_evento;
@@ -748,4 +735,23 @@ class Colaborador extends CI_Controller {
 		$this->load->view('footer');
 	}
 
+
+	public function PesquisarColaborador() {
+		$pesquisa = $this->input->post('pesquisa');
+
+		$this->load->model('Colaborador_model');
+		$Lista = $this->Colaborador_model->PesquisaColaborador($pesquisa);
+
+		$ContColab = $this->Colaborador_model->MostraColaborador();
+		$TotalReg = count($ContColab);
+
+		$dados = array('titulo' => 'Colaborador Encontrado', 'colaborador' => $Lista, 'TotalReg' => $TotalReg);
+
+		$ListaMenus = $this->menu->PermissaoMenus();
+
+		$this->load->view('header', $dados);
+		$this->load->view('menu', $ListaMenus);
+		$this->load->view('ColaboradoresCadastrados', $dados);
+		$this->load->view('footer');
+	}
 }

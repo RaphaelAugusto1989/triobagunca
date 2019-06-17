@@ -36,7 +36,7 @@
         </div>
         <div class="form-group col-md-6">
           <label for="inputdate">Data de Nascimento:</label>
-            <input type="date" name="nascimento" class="form-control" id="inputdate" value="<?= $clb['nasc_colab']; ?>">
+            <input type="text" name="nascimento" class="form-control data" id="inputdate" value="<?= date('d/m/Y', strtotime($clb['nasc_colab'])); ?>">
         </div>
     </div>
     <div class="form-row">
