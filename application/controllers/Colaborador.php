@@ -18,39 +18,71 @@ class Colaborador extends CI_Controller {
 	    $user = $this->UserSystem_model->OpenUser($login, $pass);
 
 	    if(!empty($user)){
-			$this->session->set_userdata('IdUser', $user[0]->id_colab);
-            $this->session->set_userdata('nome', $user[0]->nome_colab);
-            $this->session->set_userdata('sexouser', $user[0]->sexo_colab);
-            $this->session->set_userdata('foto', $user[0]->foto_colab);
+	    	$acesso = NULL;
+	    	$idColab = $user[0]->id_colab;
 
-            
-            $IcColab = $user[0]->id_colab;
-            $NomeColab = $user[0]->nome_colab.' '.$user[0]->sobrenome_colab;
-            $IpOperadora = $_SERVER["REMOTE_ADDR"];
-            $NomeOperadora = gethostbyaddr($IpOperadora);
-            $DataAcesso = date('Y-m-d');
-            $HoraAcesso = date('H:i:s');
 
-            $acesso = array (
-            	'id_colab' => $IcColab,
-            	'nome_colab' => $NomeColab,
-            	'ip_acesso' => $IpOperadora,
-            	'nome_operadora' => $NomeOperadora,
-            	'data_acesso' => $DataAcesso,
-            	'hora_acesso' => $HoraAcesso,
-            );
+	    	$this->load->model('Colaborador_model');
+	    	$acesso = $this->Colaborador_model->VerAcessos($idColab);
 
-            $this->UserSystem_model->InsertAcesso($acesso);
+	    	//echo '<pre>';
+	    	//print_r($acesso); exit();
 
-            redirect(base_url('Home'));
+	    	if ($acesso == NULL) {
+	    		$idColab = base64_encode($user[0]->id_colab);
+	    		$nome = base64_encode($user[0]->nome_colab);
+	    		redirect(base_url('Colaborador/AlterarSenhaPrimeiroAcesso?id='.$idColab.'&eman='.$nome));
+
+	    	} else {
+				$this->session->set_userdata('IdUser', $user[0]->id_colab);
+	            $this->session->set_userdata('nome', $user[0]->nome_colab);
+	            $this->session->set_userdata('sexouser', $user[0]->sexo_colab);
+	            $this->session->set_userdata('foto', $user[0]->foto_colab);
+	            
+	            $IcColab = $user[0]->id_colab;
+	            $NomeColab = $user[0]->nome_colab.' '.$user[0]->sobrenome_colab;
+	            $IpOperadora = $_SERVER["REMOTE_ADDR"];
+	            $NomeOperadora = gethostbyaddr($IpOperadora);
+	            $DataAcesso = date('Y-m-d');
+	            $HoraAcesso = date('H:i:s');
+
+	            $acesso = array (
+	            	'id_colab' => $IcColab,
+	            	'nome_colab' => $NomeColab,
+	            	'ip_acesso' => $IpOperadora,
+	            	'nome_operadora' => $NomeOperadora,
+	            	'data_acesso' => $DataAcesso,
+	            	'hora_acesso' => $HoraAcesso,
+	            );
+
+	            $this->UserSystem_model->InsertAcesso($acesso);
+
+	            redirect(base_url('Home'));
+        	}//FIM VERIFICA PRIMEIRO ACESSO
+
 		} else {
 			$this->session->set_flashdata('msgErro', 'Usuário ou Senha Inválidos!');
 			redirect(base_url('Login'));
 		}	
 	}
 
+	public function AlterarSenhaPrimeiroAcesso() {
+		$dados = array('titulo' => 'Meu Primeiro Acesso');
+
+		$this->load->view('AlterarSenhaPrimeiroAcesso');
+	}
+
+	public function AlteraPrimeiroAcesso() {
+		$SenhaAntiga = $this->input->post('antiga');
+		$Senha1 = $this->input->post('senha1');
+		$Senha2 = $this->input->post('senha2');
+
+		$dados = array('titulo' => 'Meu Primeiro Acesso');
+
+		$this->load->view('AlterarSenhaPrimeiroAcesso');
+	}
+
 	public function AcessosAoSistema() {
-		$dados['titulo'] = 'Acessos Ao Sistema';
 		$ListaMenus = $this->menu->PermissaoMenus();
 
 		$this->load->model('UserSystem_model');

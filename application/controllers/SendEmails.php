@@ -82,7 +82,31 @@ class SendEmails extends CI_Controller {
 			}//FIM FOREACH
 
 		}//FIM IF $LISTA
-
 	} 
+
+	public function EnviarSenhas() {
+		$this->load->model('Colaborador_model');
+		$lista = $this->Colaborador_model->MostraColaborador();
+
+		$total = count($lista);
+		echo 'Total de Colaboradores: <b>' .$total. '</b><br /><br />';
+		foreach ($lista as $key => $lt) {
+			$alter = 'ALTERADOOOOOOOOOOOO!';
+
+			$teste = array(
+					'foto_colab' => $alter,
+			);
+
+			$this->Colaborador_model->TesteColaborador($teste);
+			echo '<ol>';
+			while ($teste == TRUE) { 
+				echo '<li><b> '.$lista[$key]['nome_colab']. '</b> - <b style="color: #00c409;">Alterado com sucesso</b></li>';
+				//echo $lista[$key]['email_colab']. '<br />';
+				break;
+			}
+			echo '</ol>';
+
+		}
+	}
 
 }

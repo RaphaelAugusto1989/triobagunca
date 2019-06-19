@@ -206,4 +206,13 @@ class Colaborador_model extends CI_Model {
         return $this->db->get()->result();
 	}
 
+	public function VerAcessos($idColab) {
+		return $this->db->get_where("acessos_sistema", array ("id_colab" => $idColab)) -> row_array();
+	}
+
+	public function TesteColaborador ($teste) {
+		$this->db->update('colaborador', $teste);
+		return TRUE;
+	}
+
 }
