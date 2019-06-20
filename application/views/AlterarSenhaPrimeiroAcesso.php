@@ -15,7 +15,6 @@
 </head>
 	<body class="bg">
 		<div class="container">
-
 			<div class="row justify-content-md-center">
 				<div class="col align-self-center col-md-4 login">
 					<p class="text-center">Primeiro Acesso</p>
@@ -34,8 +33,9 @@
 
 						echo "<p class='text-center'> Olá <u>".$DecodeName."</u>, esse é seu primeiro acesso ao sistema, te aconselho a fazer a alteração da senha enviada ao seu e-mail.</p>";
 					?>
-					<form action="<?php echo base_url('LoginSystem/AlterarMinhaSenha');?>" method="post">
+					<form action="<?php echo base_url('Colaborador/AlteraPrimeiroAcesso');?>" method="post">
 							<input type="hidden" name="id" value="<?= $DecodeId ?>">
+							<input type="hidden" name="nome" value="<?= $DecodeName ?>">
 						<div class="input-group mb-2">
 		          			<input type="password" name="antiga" class="form-control form-control-lg" placeholder="Senha Antiga" required>
 						</div>

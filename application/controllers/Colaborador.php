@@ -67,17 +67,80 @@ class Colaborador extends CI_Controller {
 	}
 
 	public function AlterarSenhaPrimeiroAcesso() {
-		$dados = array('titulo' => 'Meu Primeiro Acesso');
+		$msg = null;
+		if ($this->session->flashdata('Success') !="") {
+			$msg = $this->session->flashdata('Success');
+		} else {
+			$msg = $this->session->flashdata('Error');
+		}
 
-		$this->load->view('AlterarSenhaPrimeiroAcesso');
+		$dados = array('titulo' => 'Meu Primeiro Acesso', 'msg' => $msg);
+
+		$this->load->view('AlterarSenhaPrimeiroAcesso', $dados);
 	}
 
 	public function AlteraPrimeiroAcesso() {
-		$SenhaAntiga = $this->input->post('antiga');
-		$Senha1 = $this->input->post('senha1');
-		$Senha2 = $this->input->post('senha2');
+		$id = $this->input->post('id');
+		$nome = $this->input->post('nome');
+		$SenhaAntiga = md5($this->input->post('antiga'));
+		$Senha1 = md5($this->input->post('senha1'));
+		$Senha2 = md5($this->input->post('senha2'));
 
 		$dados = array('titulo' => 'Meu Primeiro Acesso');
+
+		$this->load->model('Colaborador_model');
+		$lista = $this->Colaborador_model->RetornaIdColaborador($id);
+
+		//echo '<pre>';
+		//print_r($lista); exit();
+		$idColab = base64_encode($id);
+	    $nome = base64_encode($nome);
+
+		if ($SenhaAntiga != $lista['senha_colab']) {    		
+			$msg = $this->session->set_flashdata('Error', 'Senha antiga não confere, digite novamente!');
+			redirect(base_url('Colaborador/AlterarSenhaPrimeiroAcesso?id='.$idColab.'&eman='.$nome));
+		} elseif ($Senha1 != $Senha2) {   		
+			$msg = $this->session->set_flashdata('Error', 'Nova Senha não são idênticas, digite novamente!');
+			redirect(base_url('Colaborador/AlterarSenhaPrimeiroAcesso?id='.$idColab.'&eman='.$nome));
+		} else {
+
+			$this->session->set_userdata('IdUser', $lista['id_colab']);
+            $this->session->set_userdata('nome', $lista['nome_colab']);
+            $this->session->set_userdata('sexouser', $lista['sexo_colab']);
+            $this->session->set_userdata('foto', $lista['foto_colab']);
+
+			$senha = array(
+					'senha_colab' => $Senha1,
+			);
+
+			$this->Colaborador_model->AlteraSenha($id, $senha);
+
+				$IcColab = $lista['id_colab'];
+	            $NomeColab = $lista['nome_colab'].' '.$lista['sobrenome_colab'];
+	            $IpOperadora = $_SERVER["REMOTE_ADDR"];
+	            $NomeOperadora = gethostbyaddr($IpOperadora);
+	            $DataAcesso = date('Y-m-d');
+	            $HoraAcesso = date('H:i:s');
+
+	            $acesso = array (
+	            	'id_colab' => $IcColab,
+	            	'nome_colab' => $NomeColab,
+	            	'ip_acesso' => $IpOperadora,
+	            	'nome_operadora' => $NomeOperadora,
+	            	'data_acesso' => $DataAcesso,
+	            	'hora_acesso' => $HoraAcesso,
+	            );
+
+	            $this->load->model('UserSystem_model');
+	            $this->UserSystem_model->InsertAcesso($acesso);
+
+			if ($senha) {
+				echo '<script>alert("Senha Alterada com sucesso!")</script>';  
+				echo "<script> location.href=('".base_url('Home')."')</script>";  		
+				//$msg = $this->session->set_flashdata('Success', 'Senha Alterada com sucesso! <br /> Logue novamente com a nova senha!');
+				//redirect(base_url('Home'));
+			}
+		}
 
 		$this->load->view('AlterarSenhaPrimeiroAcesso');
 	}

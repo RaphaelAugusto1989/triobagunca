@@ -90,17 +90,69 @@ class SendEmails extends CI_Controller {
 
 		$total = count($lista);
 		echo 'Total de Colaboradores: <b>' .$total. '</b><br /><br />';
-		foreach ($lista as $key => $lt) {
-			$alter = 'ALTERADOOOOOOOOOOOO!';
 
+		foreach ($lista as $key => $lt) {
+
+		//echo $hash = $lt['senha_colab']; exit();
+
+			$Nome = $lt['nome_colab'].' '.$lt['sobrenome_colab'];
+			$To = $lt['email_colab'];
+			$Login = $lt['login_colab'];
+			$senha = 'A mesma cadastrada.';
+			$Subject = "Bem Vindo, você foi cadastrado ao sistema!";
+
+			if ($lt['sexo_colab'] == 'MASCULINO')
+				$Cad = 'Cadastrado';
+			else {
+				$Cad = 'Cadastrada';
+			}
+			
+			$Message= "<html charset='utf-8'>
+						<center style='width: 100%; background-color: #F3F2F1; padding: 30px 0 30px 0;'> 
+							<div style='width: 70%; margin: 0 auto; border: 0 solid; border:1px solid #007BFF; margin:5px; text-align: left; background-color: #FFFFFF;'>
+								<div style='padding: 10px 10px 0 10px;'>
+									<img src='http://admin.triobagunca.com.br/assets/img/logo_sistema_email.png' style='width: 150px; text-align: center; margin-top: 15px;'>
+									<img src='http://admin.triobagunca.com.br/assets/img/logo-trio.png' style='width: 100px; text-align: center; float: right;'>
+								</div>
+								<p style='font-size: 22px; height: 25px; padding: 15px 0 15px 0; background-color:#007BFF; color: #ffffff; text-align: center; font-weight: bold;'>DADOS DE ACESSO</p>
+								<p style='padding: 10px; font-size: 14px;'>
+								Olá ".$Nome."! <br />
+								Parabéns, você foi ".$Cad." no sistema, agora você pode verificar os eventos que vai participar!<br />
+								<br />
+								Abaixo segue seus dados de acesso:<br />
+								<b>Login:</b> ".$Login." <b>ou</b> ".$To."<br />
+								<b>Senha:</b> ".$senha."<br />
+								<br />
+								Link de acesso: <a href='http://admin.triobagunca.com.br/' target='_blank'> http://admin.triobagunca.com.br/ </a>
+								</p>
+							</div>
+						</center>
+					</html>";
+		
+			//É necessário indicar que o formato do e-mail é html
+			$Headers  = 'MIME-Version: 1.0' . "\r\n";
+		    $Headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+		    $Headers .= 'From: '."Trio Bagunça <noreply@triobagunca.com.br>";
+		   	//$Headers .= "Bcc: $EmailPadrao\r\n";
+				
+			$Enviado = mail($To, $Subject, $Message, $Headers);
+
+
+
+			/*
+			echo '<pre>';
+			print_r($lt); exit();
+			
+			$alter = 'ALTERADOOOOOOOOOOOO!';
 			$teste = array(
 					'foto_colab' => $alter,
 			);
-
 			$this->Colaborador_model->TesteColaborador($teste);
+			*/
+
 			echo '<ol>';
-			while ($teste == TRUE) { 
-				echo '<li><b> '.$lista[$key]['nome_colab']. '</b> - <b style="color: #00c409;">Alterado com sucesso</b></li>';
+			while ($Enviado == TRUE) { 
+				echo '<li><b> '.$lista[$key]['nome_colab']. '</b> - <b style="color: #00c409;">Enviado com sucesso</b></li>';
 				//echo $lista[$key]['email_colab']. '<br />';
 				break;
 			}
